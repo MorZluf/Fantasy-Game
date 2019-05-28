@@ -1,4 +1,6 @@
 const Matrix = require ('./matrix')
+const DataDao = require('./utils/dataDao')
+const dataDao = new DataDao() 
 class Board extends Matrix {
     constructor(numRows, numColumns) {
         super(numRows, numColumns)
@@ -6,6 +8,7 @@ class Board extends Matrix {
         this.alter(0, 0, "player_1")
         this.alter(0, 6, "player_2")
         this.outerRegionAsArray = []
+        this.adventureCards = []
     }
 
 
@@ -61,17 +64,22 @@ class Board extends Matrix {
 
     convertLeftColumn(){
         for(let i = this.matrix.length - 2; i > 0; i--){
-        this.outerRegionAsArray.push({
-            "x": i,
-            "y": 0,
-            "type":this.matrix[i][0].type 
-        })
+            this.outerRegionAsArray.push({
+                "x": i,
+                "y": 0,
+                "type":this.matrix[i][0].type 
+            })
+        }
     }
-}
 
+    async populateAdventureCards() {
+        const items = await dataDao.getItems()
+        this.adventureCards = [...items]
+    }
 
     drawAdventureCard() {
-
+        let index = Math.floor(Math.random() * this.adventureCards.length)
+        return this.adventureCards.splice(index, 1)
     }
 
     combat(player, attribute, oponent) {
@@ -91,3 +99,6 @@ class Board extends Matrix {
 
 let board = new Board (7, 7)
 console.log(board.getOuterRegionAsArray())
+board.populateAdventureCards()
+console.log(board.drawAdventureCard())
+console.log(board.drawAdventureCard())
