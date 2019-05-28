@@ -1,8 +1,7 @@
 const Matrix = require ('./matrix')
-class Board extends Matrix {
+class Game extends Matrix {
     constructor(numRows, numColumns) {
         super(numRows, numColumns)
-        this.arr = []
         this.alter(0, 0, "player_1")
         this.alter(0, 6, "player_2")
         this.outerRegionAsArray = []
@@ -14,19 +13,48 @@ class Board extends Matrix {
         return dieRoll
     }
 
-    movePlayer(player, newPosition) {
+    getPossibleMovement(player, dieRoll) {
         let position = this.findCoordinate(player)
-        let rollScore = rollDie()
+
+        let index
+        
+        for(let pos in this.outerRegionAsArray){
+            if(this.outerRegionAsArray[pos].x === position.x && 
+                this.outerRegionAsArray[pos].y === position.y){
+                    index = pos
+                    break
+            }
+        }
+        if (index < dieRoll){
+            let rest = dieRoll - index
+            return{
+                "option1": this.outerRegionAsArray[parseInt(index + dieRoll)],
+                "option2": this.outerRegionAsArray[this.outerRegionAsArray.length - rest]    
+            }
+        }
+        else if (index + dieRoll > (this.outerRegionAsArray.length - 1)){
+            let rest = this.outerRegionAsArray.length - 1 + dieRoll - index
+            return{
+                "option1": this.outerRegionAsArray[rest],
+                "option2": this.outerRegionAsArray[index - dieRoll]
+            }
+        }
+        else{
+            
+            return{
+                "option1": this.outerRegionAsArray[index + dieRoll],
+                "option2": this.outerRegionAsArray[index - dieRoll]
+            }
+        }
     }
+
 
     getOuterRegionAsArray(){
 
         this.convertUpperRow()
         this.convertRightColumn()
         this.convertBottomRow()
-        this.convertLeftColumn()
-    
-        console.log(this.outerRegionAsArray)
+        this.convertLeftColumn()    
     }
 
     convertUpperRow() {
@@ -89,5 +117,7 @@ class Board extends Matrix {
 
 }
 
-let board = new Board (7, 7)
-console.log(board.getOuterRegionAsArray())
+let game = new Game (7, 7)
+game.getOuterRegionAsArray()
+console.log(game.getPossibleMovement("player_2", 3))
+console.log(game.findCoordinate("player_2"))
