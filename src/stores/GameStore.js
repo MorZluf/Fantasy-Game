@@ -1,16 +1,19 @@
 import { observable, action } from 'mobx'
 import openSocket from 'socket.io-client'
+import { GeneralStore } from './GeneralStore';
 
 export class GameStore {
+    @observable loading = true
     @observable socket = openSocket('http://localhost:8000')
     @observable gameState = {test: ""}
     @observable player = {}
-    @observable currentPlayer = {name: "Player 1", id: ""}
-    @observable game = {outerRegionAsArray: []}
+    @observable currentPlayer = {}
+    @observable game = {}
 
     @action getInitialGame = () => {
         this.socket.on('new-game-board', newGame => {
             this.game = newGame
+            this.loading = false
         })
     }
 

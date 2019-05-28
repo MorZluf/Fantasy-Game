@@ -9,7 +9,10 @@ class Matrix {
         for (let r = 0; r < numRows; r++) {
             this.matrix.push([])
             for (let c = 0; c < numColumns; c++) {
-                this.matrix[r].push('.')
+                this.matrix[r].push({
+                    type: "Fields",
+                    players: []
+                })
             }
         }
     }

@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import '../../style/greetingsmenu.css'
+
 
 class GreetingsMenu extends Component {
     doSomething = () => {

@@ -1,13 +1,19 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
+import Tile from './Tile'
+
+import '../../style/board.css'
 
 @inject("gameStore")
 @observer
 class Board extends Component {
 
     render() {
-        return (<div>
-            {this.props.gameStore.game.outerRegionAsArray.map(a => <div>x: {a.x}, y: {a.y}</div>)}
+        return (<div className="main-board">
+            {this.props.gameStore.game.matrix.map((r, i) =>
+                 r.map((c, j) =>
+                    <Tile key={"c" + i + "-" + j} tileData={c}/>))
+            }
         </div>)
     }
 }
