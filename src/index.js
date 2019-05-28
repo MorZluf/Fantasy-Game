@@ -11,7 +11,7 @@ import { GeneralStore } from './stores/GeneralStore'
 const gameStore = new GameStore()
 const generalStore = new GeneralStore()
 const stores = {generalStore, gameStore}
-// gameStore.assignPlayer()
+gameStore.getInitialGame()
 
 ReactDOM.render(
 <Provider {...stores}>

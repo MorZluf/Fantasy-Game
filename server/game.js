@@ -1,7 +1,7 @@
 const Matrix = require ('./matrix')
 const DataDao = require('./utils/dataDao')
 const dataDao = new DataDao() 
-class Board extends Matrix {
+class Game extends Matrix {
     constructor(numRows, numColumns) {
         super(numRows, numColumns)
         this.arr = []
@@ -97,8 +97,10 @@ class Board extends Matrix {
 
 }
 
-let board = new Board (7, 7)
-console.log(board.getOuterRegionAsArray())
-board.populateAdventureCards()
-console.log(board.drawAdventureCard())
-console.log(board.drawAdventureCard())
+module.exports = Game
+
+// let game = new Game (7, 7)
+// console.log(game.getOuterRegionAsArray())
+// game.populateAdventureCards()
+// console.log(game.drawAdventureCard())
+// console.log(game.drawAdventureCard())

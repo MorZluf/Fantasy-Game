@@ -6,6 +6,13 @@ export class GameStore {
     @observable gameState = {test: ""}
     @observable player = {}
     @observable currentPlayer = {name: "Player 1", id: ""}
+    @observable game = {outerRegionAsArray: []}
+
+    @action getInitialGame = () => {
+        this.socket.on('new-game-board', newGame => {
+            this.game = newGame
+        })
+    }
 
     @action getGameState = () => {
         this.socket.on('update-game-to-client', newBoardState => {
