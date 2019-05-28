@@ -18,6 +18,8 @@ class PlayerHandler {
     getPlayerTurn() {
         let rem = this.players.length % this.currentTurn
         let index = rem ? rem - 1 : this.players.length - 1
+        console.log("Turn: " + this.currentTurn)
+        console.log("index:" + index)
         return this.players[index]
     }
 
