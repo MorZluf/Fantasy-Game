@@ -16,16 +16,20 @@ class PlayerHandler {
     }
 
     getPlayerTurn() {
-        let rem = this.players.length % this.currentTurn
+        let rem = this.currentTurn % this.players.length
         let index = rem ? rem - 1 : this.players.length - 1
-        console.log("Turn: " + this.currentTurn)
-        console.log("index:" + index)
         return this.players[index]
     }
 
     advanceTurn() {
         this.currentTurn ++
         return this.getPlayerTurn()
+    }
+
+    removePlayer(socket) {
+        let index = this.players.indexOf(p => p.id === socket.id)
+        this.players.splice(index, 1)
+        this.playerCounter --
     }
 }
 

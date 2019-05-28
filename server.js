@@ -47,6 +47,6 @@ io.on("connection", function(socket) {
     })
 
     socket.on('disconnect', function (socket) {
-        handlePlayers.remove(socket)
+        handlePlayers.removePlayer(socket)
     })
 })
