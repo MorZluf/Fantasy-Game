@@ -6,7 +6,6 @@ class MenuPopup extends Component {
         return (
             <div>a menu popup
              <button>DrawCard</button>
-             
             </div>
         )
     }

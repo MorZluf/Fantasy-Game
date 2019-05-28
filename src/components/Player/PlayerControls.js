@@ -5,7 +5,7 @@ class PlayerControls extends Component {
 
     render() {
         return (
-             <div>
+             <div className="player-controls">
                  <h5>Player Controls</h5>
                  <SinglePlayerControl text="control1"/>
                  <SinglePlayerControl text="control2"/>

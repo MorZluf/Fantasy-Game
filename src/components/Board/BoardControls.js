@@ -5,7 +5,7 @@ class BoardControls extends Component {
 
     render() {
         return (
-            <div>
+            <div className="board-controls">
                 <h5>Board Controls</h5>
                 <SingleBoardControl text="roll_a_die" />
                 <SingleBoardControl text="Pick_card" />

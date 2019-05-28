@@ -5,7 +5,7 @@ class Player extends Component {
 
     render() {
         return (
-             <div>{this.props.player}
+             <div className="player-container">{this.props.player}
              <PlayerControls />
              </div>
 

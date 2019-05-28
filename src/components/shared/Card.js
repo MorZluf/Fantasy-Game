@@ -4,8 +4,9 @@ class Card extends Component {
 
     render() {
         return (
-             <div className="player-enemy-card">
-             </div>
+            <div className="player-enemy-card">
+                fighting against {this.props.oponent}
+            </div>
         )
     }
 }

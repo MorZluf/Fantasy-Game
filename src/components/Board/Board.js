@@ -4,7 +4,7 @@ class Board extends Component {
 
     render() {
         return (
-             <div>Show the matrix of a board</div>
+             <div className="board-container">Show the matrix of a board</div>
         )
     }
 }
