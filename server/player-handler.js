@@ -7,7 +7,7 @@ class PlayerHandler {
 
     addPlayer(socket) {
         const player = {
-            name: "Player " + this.playerCounter,
+            name: "Player_" + this.playerCounter,
             id: socket.id
         }
         this.players.push(player)

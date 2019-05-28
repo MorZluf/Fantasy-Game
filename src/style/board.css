@@ -1,0 +1,7 @@
+.main-board {
+    grid-area: b;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: repeat(7, 1fr);
+    margin: 8vw;
+}

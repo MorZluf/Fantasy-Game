@@ -3,7 +3,8 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const api = require('./server/routes/api')
 const socketIo = require('socket.io')
-const PlayerHandler = require('./player-handler')
+const PlayerHandler = require('./server/player-handler')
+const Game = require('./server/game')
 
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/fantasydb', {useNewUrlParser: true})
@@ -27,6 +28,10 @@ const server = app.listen(port, function () {
     console.log(`Server running on port ${port}`)
 })
 
+let game = new Game(7, 7)
+game.populateAdventureCards()
+game.getOuterRegionAsArray()
+
 const io = socketIo(server)
 const handlePlayers = new PlayerHandler()
 rooms = ["room1"]
@@ -36,6 +41,7 @@ io.on("connection", function(socket) {
     let room = rooms[0]
     socket.join(room)
     socket.emit('player-data', handlePlayers.addPlayer(socket))
+    socket.emit('new-game-board', game)
 
     socket.on('update-game-to-server', function (newBoardState) {
         io.sockets.in(room).emit('update-game-to-client', newBoardState)

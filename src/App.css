@@ -1,5 +1,22 @@
 .App {
-background-color: rgb(168, 167, 167);
-height: 100vh;
-widows: 100vw;
+  height: 100vh;
+  width: 100vw;
+  display: grid;
+  grid-template-rows: 1fr 11fr;
+}
+
+.game-screen {
+  /* height: 100%;
+  width: 100%; */
+  display: grid;
+  grid-template-rows: 2fr 9fr;
+  grid-template-areas:
+  "m"
+  "b";
+}
+
+.main-controls {
+  grid-area: m;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
 }

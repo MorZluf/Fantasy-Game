@@ -1,12 +1,40 @@
 const Matrix = require ('./matrix')
+
+const DataDao = require('./utils/dataDao')
+const dataDao = new DataDao() 
 class Game extends Matrix {
     constructor(numRows, numColumns) {
         super(numRows, numColumns)
-        this.alter(0, 0, "player_1")
-        this.alter(0, 6, "player_2")
+        this.setInitialBoard()
         this.outerRegionAsArray = []
+        this.adventureCards = []
     }
 
+    setInitialBoard() {
+        this.addPlayerToTile("Player_1", {x: 3, y: 0})
+        this.addPlayerToTile("Player_2", {x: 3, y: 6})
+        this.changeTileType("Village", {x: 0, y: 0})
+        this.changeTileType("Village", {x: 6, y: 0})
+        this.changeTileType("Village", {x: 0, y: 6})
+        this.changeTileType("Village", {x: 6, y: 6})
+        this.fillCenter()
+    }
+
+    fillCenter() {
+        for (let r = 1; r < this.matrix.length - 1; r++) {
+            for (let c = 1; c < this.matrix[r].length - 1; c++) {
+                this.matrix[r][c].type = "Center"
+            }
+        }
+    }
+
+    addPlayerToTile(player, position) {
+        this.matrix[position.x][position.y].players.push(player)
+    }
+
+    changeTileType(type, position) {
+        this.matrix[position.x][position.y].type = type
+    }
 
     rollDie() {
         let dieRoll = Math.floor(Math.random() * Math.floor(6) + 1)
@@ -49,12 +77,14 @@ class Game extends Matrix {
     }
 
 
+
     getOuterRegionAsArray(){
 
         this.convertUpperRow()
         this.convertRightColumn()
         this.convertBottomRow()
         this.convertLeftColumn()    
+
     }
 
     convertUpperRow() {
@@ -89,17 +119,23 @@ class Game extends Matrix {
 
     convertLeftColumn(){
         for(let i = this.matrix.length - 2; i > 0; i--){
-        this.outerRegionAsArray.push({
-            "x": i,
-            "y": 0,
-            "type":this.matrix[i][0].type 
-        })
-    }
-}
 
+            this.outerRegionAsArray.push({
+                "x": i,
+                "y": 0,
+                "type":this.matrix[i][0].type 
+            })
+        }
+    }
+
+    async populateAdventureCards() {
+        const items = await dataDao.getItems()
+        this.adventureCards = [...items]
+    }
 
     drawAdventureCard() {
-
+        let index = Math.floor(Math.random() * this.adventureCards.length)
+        return this.adventureCards.splice(index, 1)
     }
 
     combat(player, attribute, oponent) {
@@ -121,3 +157,4 @@ let game = new Game (7, 7)
 game.getOuterRegionAsArray()
 console.log(game.getPossibleMovement("player_2", 3))
 console.log(game.findCoordinate("player_2"))
+
