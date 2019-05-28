@@ -4,11 +4,11 @@ import openSocket from 'socket.io-client'
 export class GameStore {
     @observable socket = openSocket('http://localhost:8000')
     @observable gameState = {test: ""}
-    @observable player = {}
+    @observable player = {name: ""}
     @observable currentPlayer = "Player 1"
 
     @action getGameState = () => {
-        this.socket.on('update-game-to-client', function(newBoardState) {
+        this.socket.on('update-game-to-client', newBoardState => {
             this.gameState = newBoardState
         })
     }
@@ -16,8 +16,8 @@ export class GameStore {
     @action sendGameState = () => this.socket.emit('update-game-to-server', this.gameState)
 
     @action assignPlayer = () => {
-        this.socket.on('player-data', function(player) {
-            this.player = player
+        this.socket.on('player-data', player => {
+            this.player.name = player.name
             console.log(this.player)
         })
     }
@@ -32,7 +32,7 @@ export class GameStore {
     }
 
     @action getCurrentTurn = () => {
-        this.socket.on('new-turn', function(newPlayer) {
+        this.socket.on('new-turn', newPlayer => {
             this.currentPlayer = newPlayer
         })
     }
