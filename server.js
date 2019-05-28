@@ -45,4 +45,8 @@ io.on("connection", function(socket) {
         let newPlayer = handlePlayers.advanceTurn()
         io.sockets.in(room).emit('new-turn', newPlayer)
     })
+
+    socket.on('disconnect', function (socket) {
+        handlePlayers.remove(socket)
+    })
 })

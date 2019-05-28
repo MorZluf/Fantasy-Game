@@ -5,10 +5,10 @@ export class GameStore {
     @observable socket = openSocket('http://localhost:8000')
     @observable gameState = {test: ""}
     @observable player = {}
-    @observable currentPlayer = "Player 1"
+    @observable currentPlayer = {name: "Player 1"}
 
     @action getGameState = () => {
-        this.socket.on('update-game-to-client', function(newBoardState) {
+        this.socket.on('update-game-to-client', newBoardState => {
             this.gameState = newBoardState
         })
     }
@@ -16,14 +16,13 @@ export class GameStore {
     @action sendGameState = () => this.socket.emit('update-game-to-server', this.gameState)
 
     @action assignPlayer = () => {
-        this.socket.on('player-data', function(player) {
+        this.socket.on('player-data', player => {
             this.player = player
-            console.log(this.player)
         })
     }
 
     @action movePlayer = amount => {
-        this.gameState.test = `Move ${this.player.name} by ${amount}`
+        this.gameState.test = `Move ${this.currentPlayer} by ${amount}`
         this.sendGameState()
     }
 
@@ -32,7 +31,7 @@ export class GameStore {
     }
 
     @action getCurrentTurn = () => {
-        this.socket.on('new-turn', function(newPlayer) {
+        this.socket.on('new-turn', newPlayer => {
             this.currentPlayer = newPlayer
         })
     }
