@@ -4,8 +4,8 @@ class SinglePlayerControl extends Component {
 
     render() {
         return (
-            <div>
-                <button> {this.props.text}</button>
+            <div >
+                <button className="player-single-control"> {this.props.text}</button>
             </div>
         )
     }

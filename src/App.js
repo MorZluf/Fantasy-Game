@@ -5,6 +5,7 @@ import { observer } from 'mobx-react'
 import Board from './components/Board/Board';
 import Player from './components/Player/Player';
 import BoardControls from './components/Board/BoardControls';
+import GreetingsMenu from './components/shared/GreetingsMenu';
 
 @observer
 class App extends Component {
@@ -13,6 +14,9 @@ class App extends Component {
     return (
       <div className="App">
         <Test />
+        <hr></hr>
+        <GreetingsMenu />
+        <hr></hr>
         <div className="GameScreen">
         <Player player="player1"/> 
         <Player player="player1"/> 

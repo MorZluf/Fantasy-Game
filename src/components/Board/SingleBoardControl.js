@@ -4,7 +4,9 @@ class SingleBoardControl extends Component {
 
     render() {
         return (
-             <div><button>{this.props.text}</button></div>
+            <div>
+                <button className="single-board-control">{this.props.text}</button>
+            </div>
         )
     }
 }
