@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const api = require('./server/routes/api')
 const socketIo = require('socket.io')
-const PlayerHandler = require('./player-handler')
+const PlayerHandler = require('./server/player-handler')
 
 const mongoose = require('mongoose')
 mongoose.connect('mongodb://localhost/fantasydb', {useNewUrlParser: true})
