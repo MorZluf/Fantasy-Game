@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const api = require('./server/routes/api')
 const socketIo = require('socket.io')
-const PlayerHandler = require('./player-handlerler')
+const PlayerHandler = require('./player-handler')
 
 // const mongoose = require('mongoose')
 // mongoose.connect('mongodb://localhost/DBNAME', {useNewUrlParser: true})
@@ -29,14 +29,13 @@ const server = app.listen(port, function () {
 
 const io = socketIo(server)
 const handlePlayers = new PlayerHandler()
-this.rooms = ["room1"]
+rooms = ["room1"]
 
 io.on("connection", function(socket) {
     console.log("New connection on socket id:" + socket.id)
     let room = rooms[0]
     socket.join(room)
     socket.emit('player-data', handlePlayers.addPlayer(socket))
-    socket.emit('starting-player', handlePlayers.getPlayerTurn())
 
     socket.on('update-game-to-server', function (newBoardState) {
         io.sockets.in(room).emit('update-game-to-client', newBoardState)

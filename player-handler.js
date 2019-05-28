@@ -2,22 +2,21 @@ class PlayerHandler {
     constructor(){
         this.players = []
         this.playerCounter = 1
-        currentTurn = 1
-    }
-
-    getStartingPlayer() {
-        return this.players[0]
+        this.currentTurn = 1
     }
 
     addPlayer(socket) {
-        const player = "Player " + playerCounter
+        const player = {
+            name: "Player " + this.playerCounter,
+            id: socket.id
+        }
         this.players.push(player)
         this.playerCounter ++
         return player
     }
 
     getPlayerTurn() {
-        let rem = this.players.length % currentTurn
+        let rem = this.players.length % this.currentTurn
         let index = rem ? rem - 1 : this.players.length - 1
         return this.players[index]
     }
