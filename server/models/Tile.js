@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 
 const TileSchema = new Schema({
     type: String,
+    text: String,
     img: String
 })
 

@@ -3,10 +3,10 @@ const Schema = mongoose.Schema
 
 const PlayerSchema = new Schema({
     name: String,
-    class: {type: Schema.Types.ObjectId, ref: 'Class'},
-    inventory: [{type: Schema.Types.ObjectId, ref: 'Item'}],
-    followers: [{type: Schema.Types.ObjectId, ref: 'Follower'}],
-    collectedEnemies: [{type: Schema.Types.ObjectId, ref: 'Enemy'}],
+    class: String, // ID
+    inventory: [], // array of ids
+    followers: [], // array of ids
+    collectedEnemies: [], // array of ids
     stats: {
         strength: Number,
         craft: Number,
