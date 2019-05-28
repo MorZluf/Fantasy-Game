@@ -5,8 +5,8 @@ const api = require('./server/routes/api')
 const socketIo = require('socket.io')
 
 
-// const mongoose = require('mongoose')
-// mongoose.connect('mongodb://localhost/DBNAME', {useNewUrlParser: true})
+const mongoose = require('mongoose')
+mongoose.connect('mongodb://localhost/fantasydb', {useNewUrlParser: true})
 
 
 const app = express()

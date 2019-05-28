@@ -7,7 +7,9 @@ const Player = require("../models/Player")
 const Item = require("../models/Item")
 
 class dataDao {
-    constructor() {}
+    constructor() { }
+
+    
 
     async clearDB() {
         console.log("dropping collections: Item, Class, Enemy, Game, Follower, Tile, Player ")
@@ -20,31 +22,44 @@ class dataDao {
         Player.collection.drop()
     }
 
-    async populate(arr) {
-        // arr.forEach(element => this.saveToDB(element)); 
-        // ^ this is an example of how does it suppouse to look like
+    async populate(arrData) {
+        for (let i = 0; i < arrData.length; i++)
+            await this.saveItemToDB(arrData[i])
 
         // this method being called in api.js
-        console.log("ToDo: populate with dummy/real data")
+        
+        console.log("populated")
     }
-
 
     // ----------------------------------------
     // GET methods
     // ----------------------------------------
-    getClasses = async () => await Class.find({})
-    getGames = async () => await Game.find({})
-    getItems = async () => await Item.find({})
-    getFollowers = async () => await Follower.find({})
-    getEnemies = async () => await Enemy.find({})
-    getPlayers = async () => await Player.find({})
-    getTiles = async () => await Tile.find({})
+    async getClasses() { return await Class.find({}) }
+    async getGames() { return await Game.find({}) }
+    async getItems() { return await Item.find({}) }
+    async getFollowers() { return await Follower.find({}) }
+    async getEnemies() { return await Enemy.find({}) }
+    async getPlayers() { return await Player.find({}) }
+    async getTiles() { return await Tile.find({}) }
+
 
     // ----------------------------------------
     // SAVE methods
     // ----------------------------------------
+    async saveItemToDB(argItem) {
+        let itemToSave = new Item({
+            title: argItem.title,
+            img: argItem.img,
+            text: argItem.text,
+            stats: argItem.stats,
+            isStatic: argItem.isStatic
+        })
+        itemToSave.save()
+        console.log(`game with ${itemToSave._id} was saved.`)
+    }
+
     async savePlayerToDB(argPlayer) {
-        let player = new Game({
+        let player = new Player({
             name: argPlayer.name,
             class: argPlayer.class,
             inventory: argPlayer.inventory,

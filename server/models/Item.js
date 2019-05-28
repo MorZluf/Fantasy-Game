@@ -10,7 +10,8 @@ const ItemSchema = new Schema({
         craft: Number,
         life: Number,
         gold: Number
-    }
+    },
+    isStatic: Boolean
 })
 
 const Item = mongoose.model("Item", ItemSchema)
