@@ -4,7 +4,7 @@ import openSocket from 'socket.io-client'
 export class GameStore {
     @observable socket = openSocket('http://localhost:8000')
     @observable gameState = {test: ""}
-    @observable player = {name: ""}
+    @observable player = ""
     @observable currentPlayer = "Player 1"
 
     @action getGameState = () => {
@@ -17,13 +17,12 @@ export class GameStore {
 
     @action assignPlayer = () => {
         this.socket.on('player-data', player => {
-            this.player.name = player.name
-            console.log(this.player)
+            this.player = player
         })
     }
 
     @action movePlayer = amount => {
-        this.gameState.test = `Move ${this.player.name} by ${amount}`
+        this.gameState.test = `Move ${this.currentPlayer} by ${amount}`
         this.sendGameState()
     }
 

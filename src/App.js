@@ -19,7 +19,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div>Player: {this.props.gameStore.player.name}</div>
+        <div>Player: {this.props.gameStore.player}</div>
         <div>Current Turn: {this.props.gameStore.currentPlayer}</div>
         <div>{this.props.gameStore.gameState.test}</div>
         <input type="number" value={this.props.generalStore.input} onChange={this.props.generalStore.handleInput}/>

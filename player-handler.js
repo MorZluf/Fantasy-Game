@@ -5,11 +5,8 @@ class PlayerHandler {
         this.currentTurn = 1
     }
 
-    addPlayer(socket) {
-        const player = {
-            name: "Player " + this.playerCounter,
-            id: socket.id
-        }
+    addPlayer() {
+        const player = "Player " + this.playerCounter
         this.players.push(player)
         this.playerCounter ++
         return player

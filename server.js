@@ -35,7 +35,7 @@ io.on("connection", function(socket) {
     console.log("New connection on socket id:" + socket.id)
     let room = rooms[0]
     socket.join(room)
-    socket.emit('player-data', handlePlayers.addPlayer(socket))
+    socket.emit('player-data', handlePlayers.addPlayer())
 
     socket.on('update-game-to-server', function (newBoardState) {
         io.sockets.in(room).emit('update-game-to-client', newBoardState)
