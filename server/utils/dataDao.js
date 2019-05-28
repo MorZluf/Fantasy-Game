@@ -9,8 +9,6 @@ const Item = require("../models/Item")
 class dataDao {
     constructor() { }
 
-    
-
     async clearDB() {
         console.log("dropping collections: Item, Class, Enemy, Game, Follower, Tile, Player ")
         Item.collection.drop()
@@ -41,7 +39,6 @@ class dataDao {
     async getEnemies() { return await Enemy.find({}) }
     async getPlayers() { return await Player.find({}) }
     async getTiles() { return await Tile.find({}) }
-
 
     // ----------------------------------------
     // SAVE methods
