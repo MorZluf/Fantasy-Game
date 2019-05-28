@@ -33,12 +33,17 @@ this.rooms = ["room1"]
 
 io.on("connection", function(socket) {
     console.log("New connection on socket id:" + socket.id)
-    handlePlayers.addPlayer(socket)
     let room = rooms[0]
     socket.join(room)
-    
+    socket.emit('player-data', handlePlayers.addPlayer(socket))
+    socket.emit('starting-player', handlePlayers.getPlayerTurn())
 
     socket.on('update-game-to-server', function (newBoardState) {
         io.sockets.in(room).emit('update-game-to-client', newBoardState)
+    })
+
+    socket.on('end-turn', function() {
+        let newPlayer = handlePlayers.advanceTurn()
+        io.sockets.in(room).emit('new-turn', newPlayer)
     })
 })
