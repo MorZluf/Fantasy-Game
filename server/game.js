@@ -1,10 +1,10 @@
 const Matrix = require ('./matrix')
+
 const DataDao = require('./utils/dataDao')
 const dataDao = new DataDao() 
 class Game extends Matrix {
     constructor(numRows, numColumns) {
         super(numRows, numColumns)
-        this.arr = []
         this.setInitialBoard()
         this.outerRegionAsArray = []
         this.adventureCards = []
@@ -41,19 +41,50 @@ class Game extends Matrix {
         return dieRoll
     }
 
-    movePlayer(player, newPosition) {
+    getPossibleMovement(player, dieRoll) {
         let position = this.findCoordinate(player)
-        let rollScore = rollDie()
+
+        let index
+        
+        for(let pos in this.outerRegionAsArray){
+            if(this.outerRegionAsArray[pos].x === position.x && 
+                this.outerRegionAsArray[pos].y === position.y){
+                    index = pos
+                    break
+            }
+        }
+        if (index < dieRoll){
+            let rest = dieRoll - index
+            return{
+                "option1": this.outerRegionAsArray[parseInt(index + dieRoll)],
+                "option2": this.outerRegionAsArray[this.outerRegionAsArray.length - rest]    
+            }
+        }
+        else if (index + dieRoll > (this.outerRegionAsArray.length - 1)){
+            let rest = this.outerRegionAsArray.length - 1 + dieRoll - index
+            return{
+                "option1": this.outerRegionAsArray[rest],
+                "option2": this.outerRegionAsArray[index - dieRoll]
+            }
+        }
+        else{
+            
+            return{
+                "option1": this.outerRegionAsArray[index + dieRoll],
+                "option2": this.outerRegionAsArray[index - dieRoll]
+            }
+        }
     }
+
+
 
     getOuterRegionAsArray(){
 
         this.convertUpperRow()
         this.convertRightColumn()
         this.convertBottomRow()
-        this.convertLeftColumn()
-    
-        // console.log(this.outerRegionAsArray)
+        this.convertLeftColumn()    
+
     }
 
     convertUpperRow() {
@@ -88,6 +119,7 @@ class Game extends Matrix {
 
     convertLeftColumn(){
         for(let i = this.matrix.length - 2; i > 0; i--){
+
             this.outerRegionAsArray.push({
                 "x": i,
                 "y": 0,
@@ -121,10 +153,8 @@ class Game extends Matrix {
 
 }
 
-module.exports = Game
+let game = new Game (7, 7)
+game.getOuterRegionAsArray()
+console.log(game.getPossibleMovement("player_2", 3))
+console.log(game.findCoordinate("player_2"))
 
-// let game = new Game (7, 7)
-// console.log(game.getOuterRegionAsArray())
-// game.populateAdventureCards()
-// console.log(game.drawAdventureCard())
-// console.log(game.drawAdventureCard())
