@@ -11,8 +11,8 @@ class Game extends Matrix {
     }
 
     setInitialBoard() {
-        this.addPlayerToTile("Player_1", {x: 3, y: 0})
-        this.addPlayerToTile("Player_2", {x: 3, y: 6})
+        this.addPlayerToTile("Player_1", {x: 0, y: 3})
+        this.addPlayerToTile("Player_2", {x: 6, y: 3})
         this.changeTileType("Village", {x: 0, y: 0})
         this.changeTileType("Village", {x: 6, y: 0})
         this.changeTileType("Village", {x: 0, y: 6})
@@ -29,11 +29,11 @@ class Game extends Matrix {
     }
 
     addPlayerToTile(player, position) {
-        this.matrix[position.x][position.y].players.push(player)
+        this.matrix[position.y][position.x].players.push(player)
     }
 
     changeTileType(type, position) {
-        this.matrix[position.x][position.y].type = type
+        this.matrix[position.y][position.x].type = type
     }
 
     rollDie() {
@@ -41,15 +41,17 @@ class Game extends Matrix {
         return dieRoll
     }
 
-    getPossibleMovement(player, dieRoll) {
-        let position = this.findCoordinate(player)
+    getPossibleMovement(player, dieRoll1) {
+        let position = this.findPlayerCoordinates(player)
 
         let index
+        let dieRoll = Number(dieRoll1)
         
         for(let pos in this.outerRegionAsArray){
             if(this.outerRegionAsArray[pos].x === position.x && 
                 this.outerRegionAsArray[pos].y === position.y){
-                    index = pos
+                    index = Number(pos)
+                    console.log(index)
                     break
             }
         }
@@ -61,7 +63,7 @@ class Game extends Matrix {
             }
         }
         else if (index + dieRoll > (this.outerRegionAsArray.length - 1)){
-            let rest = this.outerRegionAsArray.length - 1 + dieRoll - index
+            let rest = dieRoll - (this.outerRegionAsArray.length - index)
             return{
                 "option1": this.outerRegionAsArray[rest],
                 "option2": this.outerRegionAsArray[index - dieRoll]
@@ -85,13 +87,14 @@ class Game extends Matrix {
         this.convertBottomRow()
         this.convertLeftColumn()    
 
+        return this.outerRegionAsArray
     }
 
     convertUpperRow() {
-        for (let i = 0; i < this.matrix.length; i++){
+        for (let i = 0; i < this.matrix[0].length; i++){
             this.outerRegionAsArray.push({
-                "x": 0,
-                "y": i,
+                "x": i,
+                "y": 0,
                 "type": this.matrix[0][i].type
             })
         }
@@ -100,19 +103,19 @@ class Game extends Matrix {
     convertRightColumn() {
         for (let i = 1; i < this.matrix.length; i++){
             this.outerRegionAsArray.push({
-                "x": i,
-                "y": 6,
+                "x": 6,
+                "y": i,
                 "type":this.matrix[i][6].type
             })
         }
     }
 
     convertBottomRow(){
-        for(let i = this.matrix.length - 2; i >= 0; i--){
+        for(let i = this.matrix[6].length - 2; i >= 0; i--){
             this.outerRegionAsArray.push({
-                "x": 6,
-                "y": i,
-                "type":this.matrix[i][6].type 
+                "x": i,
+                "y": 6,
+                "type":this.matrix[6][i].type 
             })
         }
     }
@@ -121,8 +124,8 @@ class Game extends Matrix {
         for(let i = this.matrix.length - 2; i > 0; i--){
 
             this.outerRegionAsArray.push({
-                "x": i,
-                "y": 0,
+                "x": 0,
+                "y": i,
                 "type":this.matrix[i][0].type 
             })
         }
@@ -153,8 +156,9 @@ class Game extends Matrix {
 
 }
 
-let game = new Game (7, 7)
-game.getOuterRegionAsArray()
-console.log(game.getPossibleMovement("player_2", 3))
-console.log(game.findCoordinate("player_2"))
+module.exports = Game
 
+let game = new Game (7, 7)
+console.log(game.getOuterRegionAsArray())
+console.log(game.getPossibleMovement("Player_2", 6))
+console.log(game.findPlayerCoordinates("Player_2"))
