@@ -1,16 +1,40 @@
 const Matrix = require ('./matrix')
 const DataDao = require('./utils/dataDao')
 const dataDao = new DataDao() 
-class Board extends Matrix {
+class Game extends Matrix {
     constructor(numRows, numColumns) {
         super(numRows, numColumns)
         this.arr = []
-        this.alter(0, 0, "player_1")
-        this.alter(0, 6, "player_2")
+        this.setInitialBoard()
         this.outerRegionAsArray = []
         this.adventureCards = []
     }
 
+    setInitialBoard() {
+        this.addPlayerToTile("Player_1", {x: 3, y: 0})
+        this.addPlayerToTile("Player_2", {x: 3, y: 6})
+        this.changeTileType("Village", {x: 0, y: 0})
+        this.changeTileType("Village", {x: 6, y: 0})
+        this.changeTileType("Village", {x: 0, y: 6})
+        this.changeTileType("Village", {x: 6, y: 6})
+        this.fillCenter()
+    }
+
+    fillCenter() {
+        for (let r = 1; r < this.matrix.length - 1; r++) {
+            for (let c = 1; c < this.matrix[r].length - 1; c++) {
+                this.matrix[r][c].type = "Center"
+            }
+        }
+    }
+
+    addPlayerToTile(player, position) {
+        this.matrix[position.x][position.y].players.push(player)
+    }
+
+    changeTileType(type, position) {
+        this.matrix[position.x][position.y].type = type
+    }
 
     rollDie() {
         let dieRoll = Math.floor(Math.random() * Math.floor(6) + 1)
@@ -29,7 +53,7 @@ class Board extends Matrix {
         this.convertBottomRow()
         this.convertLeftColumn()
     
-        console.log(this.outerRegionAsArray)
+        // console.log(this.outerRegionAsArray)
     }
 
     convertUpperRow() {
@@ -97,8 +121,10 @@ class Board extends Matrix {
 
 }
 
-let board = new Board (7, 7)
-console.log(board.getOuterRegionAsArray())
-board.populateAdventureCards()
-console.log(board.drawAdventureCard())
-console.log(board.drawAdventureCard())
+module.exports = Game
+
+// let game = new Game (7, 7)
+// console.log(game.getOuterRegionAsArray())
+// game.populateAdventureCards()
+// console.log(game.drawAdventureCard())
+// console.log(game.drawAdventureCard())
