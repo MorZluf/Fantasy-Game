@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const api = require('./server/routes/api')
 const socketIo = require('socket.io')
-
+const PlayerHandler = require('./player-handler')
 
 // const mongoose = require('mongoose')
 // mongoose.connect('mongodb://localhost/DBNAME', {useNewUrlParser: true})
@@ -28,34 +28,21 @@ const server = app.listen(port, function () {
 })
 
 const io = socketIo(server)
-const rooms = []
+const handlePlayers = new PlayerHandler()
+rooms = ["room1"]
 
 io.on("connection", function(socket) {
     console.log("New connection on socket id:" + socket.id)
-    socket.emit('rooms-to-client', rooms)
+    let room = rooms[0]
+    socket.join(room)
+    socket.emit('player-data', handlePlayers.addPlayer(socket))
 
-    let room
-
-    socket.on('join-room', function (joinData) {
-        room = joinData.room
-        socket.join(room)
-        io.sockets.in(room).emit('new-join', `${joinData.name} has joined room: ${room}`)
+    socket.on('update-game-to-server', function (newBoardState) {
+        io.sockets.in(room).emit('update-game-to-client', newBoardState)
     })
 
-    socket.on('create-room', function (roomName) {
-        room = roomName
-        rooms.push(room)
-        socket.join(room)
+    socket.on('end-turn', function() {
+        let newPlayer = handlePlayers.advanceTurn()
+        io.sockets.in(room).emit('new-turn', newPlayer)
     })
-
-    socket.on('msg-to-server', function (message) {
-        io.sockets.in(room).emit('msg-from-server', message)
-    })
-
-    // socket.on('disconnect', function () {
-    //     socket.leave(room)
-    //     if (io.sockets.adapter.rooms[room] && io.sockets.adapter.rooms[room].length < 1) {
-    //         io.sockets.adapter.rooms[room] = null
-    //     }
-    // })
 })
