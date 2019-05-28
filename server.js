@@ -35,7 +35,7 @@ io.on("connection", function(socket) {
     console.log("New connection on socket id:" + socket.id)
     let room = rooms[0]
     socket.join(room)
-    socket.emit('player-data', handlePlayers.addPlayer())
+    socket.emit('player-data', handlePlayers.addPlayer(socket))
 
     socket.on('update-game-to-server', function (newBoardState) {
         io.sockets.in(room).emit('update-game-to-client', newBoardState)
@@ -44,5 +44,9 @@ io.on("connection", function(socket) {
     socket.on('end-turn', function() {
         let newPlayer = handlePlayers.advanceTurn()
         io.sockets.in(room).emit('new-turn', newPlayer)
+    })
+
+    socket.on('disconnect', function (socket) {
+        handlePlayers.remove(socket)
     })
 })

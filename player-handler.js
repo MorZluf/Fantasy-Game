@@ -5,8 +5,11 @@ class PlayerHandler {
         this.currentTurn = 1
     }
 
-    addPlayer() {
-        const player = "Player " + this.playerCounter
+    addPlayer(socket) {
+        const player = {
+            name: "Player " + this.playerCounter,
+            id: socket.id
+        }
         this.players.push(player)
         this.playerCounter ++
         return player
@@ -15,7 +18,8 @@ class PlayerHandler {
     getPlayerTurn() {
         let rem = this.players.length % this.currentTurn
         let index = rem ? rem - 1 : this.players.length - 1
-        console.log(index)
+        console.log("Turn: " + this.currentTurn)
+        console.log("index:" + index)
         return this.players[index]
     }
 
