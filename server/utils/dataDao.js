@@ -68,14 +68,13 @@ class dataDao {
 
     async saveFollowerToDB(argFollower) {
         let followerToSave = new Follower({
-            title: argFollower.name,
+            title: argFollower.title,
             img: argFollower.img,
             text: argFollower.text,
             specialAbilities: argFollower.specialAbilities,
             stats: argFollower.stats
         })
         followerToSave.save()
-        // console.log(followerToSave._id)
     }
 
     async saveEnemyToDB(arrEnemies) {
