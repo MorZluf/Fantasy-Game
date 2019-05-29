@@ -11,12 +11,15 @@ class Board extends Component {
     endTurn = () => this.props.gameStore.endTurn()
 
     render() {
-        return (<div className="main-board">
+        return (<div className="main-board-container">
+            <button onClick={this.endTurn}>End turn</button>
+            <div className="main-board">
+
             {this.props.gameStore.game.matrix.map((r, i) =>
                  r.map((c, j) =>
-                    <Tile key={"c" + i + "-" + j} coords={i + "-" + j} tileData={c}/>))
-            }
-            <button onClick={this.endTurn}>End turn</button>
+                 <Tile key={"c" + i + "-" + j} coords={i + "-" + j} tileData={c}/>))
+                }
+                </div>
         </div>)
     }
 }

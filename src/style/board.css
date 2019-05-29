@@ -4,10 +4,11 @@
     grid-template-columns: repeat(7, 1fr);
     grid-template-rows: repeat(7, 1fr);
     margin: 8vw;
+    background-color: aqua;
 }
 
 .valid-move {
-    border: 5px solid aqua;
+    opacity: 0.5;
 }
 
 .die-image {
