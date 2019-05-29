@@ -33,10 +33,12 @@ export class GameStore {
     }
 
     @action movePlayer = key => {
+        if (this.player.name !== this.currentPlayer.name) { return }
         this.socket.emit('move-player', {player: this.currentPlayer.name, coords: this.getTileCoords(key)})
     }
 
     @action endTurn = () => {
+        if (this.player.name !== this.currentPlayer.name) { return }
         this.socket.emit('end-turn')
     }
 
