@@ -31,8 +31,7 @@ export class GameStore {
         let coords = this.getCoordByPlayerName(this.currentPlayer.name)
         let x = coords.x
         let y = coords.y
-        this.curTileType = this.game.matrix[y][x].type
-        return this.curTileType
+        return this.game.matrix[y][x].type
     }
 
     @action getInitialGame = () => {
