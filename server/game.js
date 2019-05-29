@@ -180,8 +180,15 @@ class Game extends Matrix {
         this.adventureCards = [...items]
     }
 
-    drawAdventureCard() {
+
+
+    async drawAdventureCard() {
+        if(!this.adventureCards.length){
+            await this.populateAdventureCards()
+        }
         let index = Math.floor(Math.random() * this.adventureCards.length)
+        console.log("index is " + index)
+        console.log("the array's length is" + this.adventureCards.length)
         return this.adventureCards.splice(index, 1)
     }
 
@@ -202,7 +209,11 @@ class Game extends Matrix {
 
 module.exports = Game
 
-// let game = new Game (7, 7)
-// console.log(game.getOuterRegionAsArray())
-// console.log(game.getPossibleMovement("Player_2", 6))
-// console.log(game.findPlayerCoordinates("Player_2"))
+let game = new Game (7, 7)
+
+// const testing = async function() {
+//    await game.populateAdventureCards()
+//    console.log(await game.drawAdventureCard())
+// }
+
+// testing()
