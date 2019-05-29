@@ -106,7 +106,6 @@ class Game extends Matrix {
         }
     }
 
-
     getOuterRegionAsArray(){
 
         this.convertUpperRow()

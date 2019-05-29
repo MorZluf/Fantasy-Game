@@ -14,7 +14,7 @@ class GreetingsMenu extends Component {
             arrOptions.push(curOption)
         }
         return (
-            <datalist id="clientList">
+            <datalist id="room-list">
                 {arrOptions}
             </datalist>
         )
