@@ -1,0 +1,33 @@
+.tile{
+    display: grid;
+    height: 13vh;
+
+}
+
+
+.Village {
+    background: url(https://dynaimage.cdn.cnn.com/cnn/w_1200/http%3A%2F%2Fcdn.cnn.com%2Fcnnnext%2Fdam%2Fassets%2F180913130928-corippo-switzerland-stock-super-tease.jpg);
+    background-size: cover; 
+    display: grid;
+    align-content: end;
+    justify-content: center;
+    color: ivory;
+}
+
+.Fields{
+    background: url(https://images.pexels.com/photos/259280/pexels-photo-259280.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940);
+    background-size: cover; 
+    display: grid;
+    align-content: end;
+    justify-content: center;
+    color: ivory;
+}
+
+.Center{
+    background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeKQ8xSOqciH0jgZYwCOX7KmFzFJbIw0f68O5FSINtmCChlafumA);
+    background-size: cover; 
+    display: grid;
+    align-content: end;
+    justify-content: center;
+    color: ivory;
+}
