@@ -9,6 +9,7 @@ class BoardControls extends Component {
         return (
             <div className="board-controls">
                 <h5>Board Controls</h5>
+                
                 <SingleBoardControl text="roll_a_die" />
                 <SingleBoardControl text="Pick_card" />
                 <SingleBoardControl text="Buy" />

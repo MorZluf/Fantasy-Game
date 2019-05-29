@@ -6,10 +6,10 @@ export class GameStore {
     @observable loading = true
     @observable socket = openSocket('http://localhost:8000')
     // @observable gameState = {test: ""}
-    @observable player = {}
+    @observable player = {} // identifier of a client { name : PlayerName , socketId : someID }
     @observable currentPlayer = {}
     @observable game = {}
-    @observable isBattle = false
+
 
     @action getInitialGame = () => {
         this.socket.on('new-game-board', newGame => {

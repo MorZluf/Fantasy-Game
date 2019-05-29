@@ -9,6 +9,7 @@ class Game extends Matrix {
         this.outerRegionAsArray = []
         this.adventureCards = []
         this.isBattleOn = false
+        this.arrPlayersOnTile = []
     }
 
     setInitialBoard() {
@@ -45,9 +46,13 @@ class Game extends Matrix {
         this.addPlayerToTile(moveData.player, moveData.coords)
         if ( this.checkIfTwoPlayersOnSameTile(moveData) ){
             this.changeShowPopupState(true)
+            this.arrPlayersOnTile = this.getAllPlayersByATile(moveData.coords.x, moveData.coords.y)
         } 
+        else this.changeShowPopupState(false)
     }
 
+    getAllPlayersByATile(x,y){ return this.matrix[y][x].players }
+        
     changeShowPopupState(trueOrFalse) {
         this.isBattleOn = trueOrFalse
     }
