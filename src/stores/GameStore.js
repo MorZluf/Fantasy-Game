@@ -5,7 +5,7 @@ import { GeneralStore } from './GeneralStore';
 export class GameStore {
     @observable loading = true
     @observable socket = openSocket('http://localhost:8000')
-    @observable gameState = {test: ""}
+    // @observable gameState = {test: ""}
     @observable player = {}
     @observable currentPlayer = {}
     @observable game = {}
@@ -13,17 +13,18 @@ export class GameStore {
     @action getInitialGame = () => {
         this.socket.on('new-game-board', newGame => {
             this.game = newGame
+            this.currentPlayer = {name: "Player_1"}
             this.loading = false
         })
     }
 
     @action getGameState = () => {
-        this.socket.on('update-game-to-client', newBoardState => {
-            this.gameState = newBoardState
+        this.socket.on('update-game-to-client', newGameState => {
+            this.game = newGameState
         })
     }
 
-    @action sendGameState = () => this.socket.emit('update-game-to-server', this.gameState)
+    // @action sendGameState = () => this.socket.emit('update-game-to-server', this.game)
 
     @action assignPlayer = () => {
         this.socket.on('player-data', player => {
@@ -31,9 +32,8 @@ export class GameStore {
         })
     }
 
-    @action movePlayer = amount => {
-        this.gameState.test = `Move ${this.currentPlayer.name} by ${amount}`
-        this.sendGameState()
+    @action movePlayer = key => {
+        this.socket.emit('move-player', {player: this.currentPlayer.name, coords: this.getTileCoords(key)})
     }
 
     @action endTurn = () => {
@@ -45,4 +45,6 @@ export class GameStore {
             this.currentPlayer = newPlayer
         })
     }
+
+    getTileCoords = key => {return { x: key.slice(2), y: key.slice(0, 1) }}
 }
