@@ -112,7 +112,6 @@ class Game extends Matrix {
 
     setPossibleMovement(player) {
         let options = this.getPossibleMovement(player.name)
-        console.log(options)
         this.changeTileOpenStatus(options.option1.coords)
         this.changeTileOpenStatus(options.option2.coords)
     }

@@ -5,13 +5,14 @@ export class GameStore {
     @observable loading = true
     @observable socket = openSocket('http://localhost:8000')
     @observable player = {}
-    @observable currentPlayer = {}
+    @observable currentPlayer = {name: "Player_1"}
     @observable game = {}
+    @observable isCurrentPlayer = true
 
     @action getInitialGame = () => {
         this.socket.on('new-game-board', newGame => {
             this.game = newGame
-            this.currentPlayer = {name: "Player_1"}
+            // this.currentPlayer = {name: "Player_1"}
             this.loading = false
         })
     }
@@ -27,31 +28,36 @@ export class GameStore {
     @action assignPlayer = () => {
         this.socket.on('player-data', player => {
             this.player = player
+            this.setCurrentPlayerStatus()
         })
     }
 
     @action movePlayer = key => {
-        if (!this.playerIsCurrent()) { return }
+        if (this.player.name !== this.currentPlayer.name) { return }
         this.socket.emit('move-player', {player: this.currentPlayer.name, coords: this.getTileCoords(key)})
     }
 
     @action endTurn = () => {
-        if (!this.playerIsCurrent()) { return }
+        if (this.player.name !== this.currentPlayer.name) { return }
         this.socket.emit('end-turn')
     }
 
     @action getCurrentTurn = () => {
         this.socket.on('new-turn', newPlayer => {
             this.currentPlayer = newPlayer
+            this.setCurrentPlayerStatus()
         })
     }
 
-    @action playerIsCurrent = () => this.player.name === this.currentPlayer.name
-
     @action rollDie = () => {
-        if (!this.playerIsCurrent()) { return }
+        if (this.player.name !== this.currentPlayer.name) { return }
         this.socket.emit('roll-movement', this.currentPlayer)
     }
 
     getTileCoords = key => {return { x: key.slice(2), y: key.slice(0, 1) }}
+
+    setCurrentPlayerStatus = () => {
+        if (this.player.name !== this.currentPlayer.name) { this.isCurrentPlayer = false }
+        else { this.isCurrentPlayer = true }
+    }
 }
