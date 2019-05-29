@@ -18,7 +18,6 @@ class PlayerHandler {
                 currentTurn: 1
             }
         this.rooms[room].playerCounter ++
-        console.log(this.rooms[room].players[this.rooms[room].playerCounter - 2])
         return this.rooms[room].players[this.rooms[room].playerCounter - 2]
     }
 

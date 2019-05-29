@@ -1,19 +1,18 @@
 import { observable, action } from 'mobx'
 import openSocket from 'socket.io-client'
-import { GeneralStore } from './GeneralStore';
 
 export class GameStore {
     @observable loading = true
     @observable socket = openSocket('http://localhost:8000')
-    // @observable gameState = {test: ""}
     @observable player = {}
-    @observable currentPlayer = {}
+    @observable currentPlayer = {name: "Player_1"}
     @observable game = {}
+    @observable isCurrentPlayer = true
 
     @action getInitialGame = () => {
         this.socket.on('new-game-board', newGame => {
             this.game = newGame
-            this.currentPlayer = {name: "Player_1"}
+            // this.currentPlayer = {name: "Player_1"}
             this.loading = false
         })
     }
@@ -29,6 +28,7 @@ export class GameStore {
     @action assignPlayer = () => {
         this.socket.on('player-data', player => {
             this.player = player
+            this.setCurrentPlayerStatus()
         })
     }
 
@@ -45,8 +45,19 @@ export class GameStore {
     @action getCurrentTurn = () => {
         this.socket.on('new-turn', newPlayer => {
             this.currentPlayer = newPlayer
+            this.setCurrentPlayerStatus()
         })
     }
 
+    @action rollDie = () => {
+        if (this.player.name !== this.currentPlayer.name) { return }
+        this.socket.emit('roll-movement', this.currentPlayer)
+    }
+
     getTileCoords = key => {return { x: key.slice(2), y: key.slice(0, 1) }}
+
+    setCurrentPlayerStatus = () => {
+        if (this.player.name !== this.currentPlayer.name) { this.isCurrentPlayer = false }
+        else { this.isCurrentPlayer = true }
+    }
 }
