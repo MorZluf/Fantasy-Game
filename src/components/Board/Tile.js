@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
+import '../../style/tile.css'
 
 @inject("gameStore")
 @observer
@@ -10,8 +11,9 @@ class Tile extends Component {
 
     render(){
         let tile = this.props.tileData
-        return (<div onClick={this.movePlayer} className={tile.canMoveHere ? "valid-move" : null}>
-            {tile.type}
+        return (<div onClick={this.movePlayer} 
+            className={tile.canMoveHere ? `valid-move ${tile.type} tile` : `${tile.type} tile`}>
+            {tile.type} 
             {tile.players.length > 0 ? <div>{tile.players.map(p => p)}</div> : null}
         </div>)
     }
