@@ -5,6 +5,11 @@ const Follower = require("../models/Follower")
 const Tile = require("../models/Tile")
 const Player = require("../models/Player")
 const Item = require("../models/Item")
+const unirest = require('unirest')     // Data Access Object - the actual DOer.
+const constants = require('../../Config')
+const APIKey = constants.API_KEY
+
+
 
 class dataDao {
     constructor() { }
@@ -20,16 +25,18 @@ class dataDao {
         Player.collection.drop()
     }
 
-    async populate(arrItems, arrFollowers ) {
+    async populate(arrItems, arrFollowers, arrEnemies) {
         for (let i = 0; i < arrItems.length; i++)
             await this.saveItemToDB(arrItems[i])
 
         for (let i = 0; i < arrFollowers.length; i++)
             await this.saveFollowerToDB(arrFollowers[i])
 
-        
+        for (let i = 0; i < arrEnemies.length; i++)
+            await this.saveEnemyToDB(arrEnemies[i])
+
         // this method being called in api.js
-        
+
         console.log("populated")
     }
 
@@ -59,17 +66,47 @@ class dataDao {
         console.log(`game with ${itemToSave._id} was saved.`)
     }
 
-    async saveFollowerToDB(argFollower){
+    async saveFollowerToDB(argFollower) {
         let followerToSave = new Follower({
-            title: argFollower.title,
+            title: argFollower.name,
             img: argFollower.img,
             text: argFollower.text,
             specialAbilities: argFollower.specialAbilities,
             stats: argFollower.stats
         })
         followerToSave.save()
-        console.log(followerToSave._id)
+        // console.log(followerToSave._id)
     }
+
+    async saveEnemyToDB(arrEnemies) {
+        let enemyToSave = new Enemy({
+            title: arrEnemies.name,
+            img: arrEnemies.imgGold,
+            text: arrEnemies.flavor,
+            stats: {
+                strength: arrEnemies.attack,
+                craft: null,
+                life: null,
+                gold: null
+            }
+        })
+        enemyToSave.save()
+    }
+
+    async getEnemiesFromApi() {
+        let data = await unirest.get("https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/races/Dragon")
+            .header("X-RapidAPI-Host", "omgvamp-hearthstone-v1.p.rapidapi.com")
+            .header("X-RapidAPI-Key", APIKey)
+
+        return data
+    }
+
+    async handleArrEnemies() {
+        let data = await this.getEnemiesFromApi()
+        let arrEnemies = data.body.filter(enemy => enemy.flavor)
+        return arrEnemies
+    }
+
 
     async savePlayerToDB(argPlayer) {
         let player = new Player({
@@ -98,5 +135,12 @@ class dataDao {
         console.log(`game with ${game._id} was saved.`)
     }
 }
+
+let test = new dataDao()
+
+const testing = async function () {
+    await test.handleArrEnemies()
+}
+testing()
 
 module.exports = dataDao
