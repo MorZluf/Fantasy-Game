@@ -3,6 +3,10 @@
     grid-template-rows: 1fr 5fr;
 }
 
+.current-player {
+    background-color: gold;
+}
+
 .player-controls {
     display: grid;
     grid-template-columns: repeat(5, 1fr)
