@@ -143,6 +143,9 @@ class Game extends Matrix {
     async populateAdventureCards() {
         const items = await dataDao.getItems()
         this.adventureCards = [...items]
+
+        const followers = await dataDao.getFollowers()
+        this.adventureCards.push(...followers)
     }
 
 
