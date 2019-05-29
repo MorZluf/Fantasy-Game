@@ -13,6 +13,7 @@ class Game extends Matrix {
         this.arrPlayersOnTile = []
     }
 
+
     setInitialBoard() {
         this.addPlayerToTile("Player_1", { x: 0, y: 3 })
         this.addPlayerToTile("Player_2", { x: 6, y: 3 })
@@ -24,6 +25,7 @@ class Game extends Matrix {
         this.closeAllTiles()
     }
 
+    
     closeAllTiles() {
         for (let r = 0; r < this.matrix.length; r++) {
             for (let c = 0; c < this.matrix[r].length; c++) {

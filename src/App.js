@@ -5,7 +5,7 @@ import Board from './components/Board/Board';
 import Player from './components/Player/Player';
 import BoardControls from './components/Board/BoardControls';
 import GreetingsMenu from './components/shared/GreetingsMenu';
-import CombatPopup from './components/shared/popups/CombatPopup';
+import GeneralPopupMenu from './components/shared/popups/GeneralPopupMenu';
 
 @inject("gameStore")
 @observer
@@ -24,7 +24,8 @@ class App extends Component {
           <hr></hr> */}
           <GreetingsMenu />
           <hr></hr>
-          {this.props.gameStore.game.isBattleOn ? <CombatPopup /> : null }
+          <GeneralPopupMenu />
+         
           <hr></hr>
           <div className="game-screen">
             <div className="main-controls">

@@ -47,6 +47,7 @@ class CombatPopup extends Component {
                 <div>{this.props.gameStore.game.arrPlayersOnTile[1]}</div>
                 <input list="player-list" name="player" placeholder="Select player to battle" />
                 {this.getListOfPlayers()}
+                
             </div>
         )
     }

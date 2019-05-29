@@ -8,8 +8,32 @@ export class GameStore {
     @observable currentPlayer = {name: "Player_1"}
     @observable game = {}
     @observable isCurrentPlayer = true
+    @observable curTileType = ""
     @observable movementRollMade = false
 
+    
+    @action getTilePlayerSatandsOn = (x,y) => {
+        return this.game.matrix[y][x]
+    }
+
+    getCoordByPlayerName = name => {
+        for ( let i = 0 ; i < this.game.matrix.length ; i ++ )
+            for ( let j = 0 ; j < this.game.matrix[i].length ; j ++ )
+                if (  this.isExist(name, this.game.matrix[i][j].players) )
+                    return { x : i , y : j }
+    }
+
+    isExist(name, names){ 
+        return names.includes(name)
+    }
+    
+    getTileType = () => {
+        let coords = this.getCoordByPlayerName(this.currentPlayer.name)
+        let x = coords.x
+        let y = coords.y
+        this.curTileType = this.game.matrix[y][x].type
+        return this.curTileType
+    }
 
     @action getInitialGame = () => {
         this.socket.on('new-game-board', newGame => {
