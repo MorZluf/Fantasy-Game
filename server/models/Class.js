@@ -10,7 +10,7 @@ const ClassSchema= new Schema({
         craft: Number,
         life: Number,
         gold: Number,
-        alingment: String,
+        alignment: String,
         start: { 
             // starting position of a player   
             x: Number,
