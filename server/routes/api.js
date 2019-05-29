@@ -2,7 +2,7 @@ const express = require('express')
 const Item = require('../models/Item')
 const router = express.Router()
 const DataDao = require("../utils/dataDao")
-const dataDao = new DataDao()       // Data Access Object - the actual DOer.
+const dataDao = new DataDao()  
 
 let arrItems = [
     {title : "Sword", img:  "https://sabersmith.com/wp-content/uploads/2017/12/broadsword-satin.jpg", text: "When you have a sword add 1 to your strength", stats:{ strength: 1, craft: null, life: null, gold: null },isStatic: true},
@@ -43,18 +43,23 @@ router.put('/items', function( req,res) {
     res.send("db populated")
 })
 
-
-router.put('/adventureCards', function ( req, res){
-    dataDao.populate(arrItems, arrFollowers)
-    // later on we will add enemies..
-    res.send("db populated with items and followrs")
+router.put('/adventureCards', async function ( req, res){
+    let arrEnemies = await dataDao.handleArrEnemies()
+    dataDao.populate(arrItems, arrFollowers, arrEnemies)
+    res.send("db populated with items, followrs and enemies")
 })
+
 // ------------------------------------------
 // GET methods
 // ------------------------------------------
 router.get('/classes', async function (req, res) {
     const arrClasses = await dataDao.getClasses()
     res.send(arrClasses)
+})
+
+router.get('/classes/:className', async function (req, res) {
+    const classData = await dataDao.getClass(req.params.className)
+    res.send(classData)
 })
 
 router.get('/enemies', async function (req, res) {

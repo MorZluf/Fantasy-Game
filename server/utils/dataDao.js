@@ -5,9 +5,27 @@ const Follower = require("../models/Follower")
 const Tile = require("../models/Tile")
 const Player = require("../models/Player")
 const Item = require("../models/Item")
+const unirest = require('unirest')     // Data Access Object - the actual DOer.
+const constants = require('../../Config')
+const APIKey = constants.API_KEY
+
+
 
 class dataDao {
-    constructor() { }
+    constructor() {
+        this.dummyWarrior = {
+            name: "Warrior",
+            img: "http://www.talismanwiki.com/wiki/images/thumb/9/97/Warrior.png/87px-Warrior.png",
+            specialAbilities: ["best-of-two-battle-dice", "two-weapon-fighting"],
+            stats: {
+                strength: 4,
+                craft: 2,
+                life: 5,
+                gold: 1,
+                alingment: "neutral"
+            }
+        }
+    }
 
     async clearDB() {
         console.log("dropping collections: Item, Class, Enemy, Game, Follower, Tile, Player ")
@@ -20,16 +38,18 @@ class dataDao {
         Player.collection.drop()
     }
 
-    async populate(arrItems, arrFollowers ) {
+    async populate(arrItems, arrFollowers, arrEnemies) {
         for (let i = 0; i < arrItems.length; i++)
             await this.saveItemToDB(arrItems[i])
 
         for (let i = 0; i < arrFollowers.length; i++)
             await this.saveFollowerToDB(arrFollowers[i])
 
-        
+        for (let i = 0; i < arrEnemies.length; i++)
+            await this.saveEnemyToDB(arrEnemies[i])
+
         // this method being called in api.js
-        
+
         console.log("populated")
     }
 
@@ -37,6 +57,7 @@ class dataDao {
     // GET methods
     // ----------------------------------------
     async getClasses() { return await Class.find({}) }
+    async getClass(className) { return className === "Warrior" ? this.dummyWarrior : null } // async getClass(className) { return await Class.findOne({name: className})}
     async getGames() { return await Game.find({}) }
     async getItems() { return await Item.find({}) }
     async getFollowers() { return await Follower.find({}) }
@@ -59,7 +80,7 @@ class dataDao {
         console.log(`game with ${itemToSave._id} was saved.`)
     }
 
-    async saveFollowerToDB(argFollower){
+    async saveFollowerToDB(argFollower) {
         let followerToSave = new Follower({
             title: argFollower.title,
             img: argFollower.img,
@@ -68,8 +89,37 @@ class dataDao {
             stats: argFollower.stats
         })
         followerToSave.save()
-        console.log(followerToSave._id)
     }
+
+    async saveEnemyToDB(arrEnemies) {
+        let enemyToSave = new Enemy({
+            title: arrEnemies.name,
+            img: arrEnemies.imgGold,
+            text: arrEnemies.flavor,
+            stats: {
+                strength: arrEnemies.attack,
+                craft: null,
+                life: null,
+                gold: null
+            }
+        })
+        enemyToSave.save()
+    }
+
+    async getEnemiesFromApi() {
+        let data = await unirest.get("https://omgvamp-hearthstone-v1.p.rapidapi.com/cards/races/Dragon")
+            .header("X-RapidAPI-Host", "omgvamp-hearthstone-v1.p.rapidapi.com")
+            .header("X-RapidAPI-Key", APIKey)
+
+        return data
+    }
+
+    async handleArrEnemies() {
+        let data = await this.getEnemiesFromApi()
+        let arrEnemies = data.body.filter(enemy => enemy.flavor)
+        return arrEnemies
+    }
+
 
     async savePlayerToDB(argPlayer) {
         let player = new Player({
@@ -98,5 +148,12 @@ class dataDao {
         console.log(`game with ${game._id} was saved.`)
     }
 }
+
+let test = new dataDao()
+
+const testing = async function () {
+    await test.handleArrEnemies()
+}
+testing()
 
 module.exports = dataDao
