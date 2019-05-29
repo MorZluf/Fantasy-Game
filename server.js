@@ -58,6 +58,11 @@ io.on("connection", function(socket) {
         io.sockets.in(room).emit('new-turn', newPlayer)
     })
 
+    socket.on('player-vs-player', function(players) {
+        console.log(players.currentPlayer + " vs " + players.chosenPlayer)
+        
+    })
+
     socket.on('disconnect', function (socket) {
         handlePlayers.removePlayer(socket, room)
     })

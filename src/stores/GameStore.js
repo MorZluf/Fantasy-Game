@@ -40,7 +40,9 @@ export class GameStore {
             this.loading = false
         })
     }
-
+    @action fight = (chosenPlayer, currentPlayer) => {
+        this.socket.emit('player-vs-player', {chosenPlayer, currentPlayer} )
+    }
     @action getGameState = () => {
         this.socket.on('update-game-to-client', newGameState => {
             this.game = newGameState
