@@ -8,6 +8,7 @@ class Game extends Matrix {
         this.setInitialBoard()
         this.outerRegionAsArray = []
         this.adventureCards = []
+        this.isBattleOn = false
     }
 
     setInitialBoard() {
@@ -43,12 +44,12 @@ class Game extends Matrix {
         this.removePlayerFromTile(moveData.player, oldPosition)
         this.addPlayerToTile(moveData.player, moveData.coords)
         if ( this.checkIfTwoPlayersOnSameTile(moveData) ){
-            this.changeShowPopupState()
-        }
+            this.changeShowPopupState(true)
+        } 
     }
 
-    changeShowPopupState() {
-        console.log("BATTLE")    
+    changeShowPopupState(trueOrFalse) {
+        this.isBattleOn = trueOrFalse
     }
 
     checkIfTwoPlayersOnSameTile(moveData) { 
