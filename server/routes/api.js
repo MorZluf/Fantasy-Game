@@ -46,7 +46,6 @@ router.put('/items', function( req,res) {
 router.put('/adventureCards', async function ( req, res){
     let arrEnemies = await dataDao.handleArrEnemies()
     dataDao.populate(arrItems, arrFollowers, arrEnemies)
-    // later on we will add enemies..
     res.send("db populated with items, followrs and enemies")
 })
 
