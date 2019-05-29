@@ -9,6 +9,7 @@ export class GameStore {
     @observable player = {}
     @observable currentPlayer = {}
     @observable game = {}
+    @observable isBattle = false
 
     @action getInitialGame = () => {
         this.socket.on('new-game-board', newGame => {

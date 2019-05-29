@@ -38,9 +38,19 @@ class Game extends Matrix {
     }
 
     movePlayer(moveData) {  //moveData = {player: "NAME", coords: {x: "NUM", y: "NUM"}}
+        
         let oldPosition = this.findPlayerCoordinates(moveData.player)
         this.removePlayerFromTile(moveData.player, oldPosition)
         this.addPlayerToTile(moveData.player, moveData.coords)
+        if ( this.checkIfTwoPlayersOnSameTile(moveData) ){
+            this.triggerBattlePopup(moveData.coords.y, moveData.coords.x)
+        }
+    }
+    triggerBattlePopup(y,x) {
+        console.log("BATTLE")
+    }
+    checkIfTwoPlayersOnSameTile(moveData) { 
+        return this.matrix[moveData.coords.y][moveData.coords.x].players.length > 1 
     }
 
     changeTileType(type, position) {
