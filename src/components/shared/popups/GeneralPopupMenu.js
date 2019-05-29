@@ -18,6 +18,7 @@ class GeneralPopupMenu extends Component {
     renderVillageOptions = () =>
         this.props.gameStore.getTileType() === "Village" ? <button onClick={this.buyStuff}>Buy Stuff2</button> : null
 
+
     render() {
         return (
             <div className="general-popup-container">
