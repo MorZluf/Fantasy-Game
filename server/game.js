@@ -43,12 +43,14 @@ class Game extends Matrix {
         this.removePlayerFromTile(moveData.player, oldPosition)
         this.addPlayerToTile(moveData.player, moveData.coords)
         if ( this.checkIfTwoPlayersOnSameTile(moveData) ){
-            this.triggerBattlePopup(moveData.coords.y, moveData.coords.x)
+            this.changeShowPopupState()
         }
     }
-    triggerBattlePopup(y,x) {
-        console.log("BATTLE")
+
+    changeShowPopupState() {
+        console.log("BATTLE")    
     }
+
     checkIfTwoPlayersOnSameTile(moveData) { 
         return this.matrix[moveData.coords.y][moveData.coords.x].players.length > 1 
     }
