@@ -6,7 +6,6 @@ import { observer, inject } from 'mobx-react'
 class Test extends Component {
 
     componentDidMount = () => {
-        this.props.gameStore.assignPlayer()
         this.props.gameStore.getGameState()
         this.props.gameStore.getCurrentTurn()
     }
