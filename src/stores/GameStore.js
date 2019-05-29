@@ -5,7 +5,6 @@ import { GeneralStore } from './GeneralStore';
 export class GameStore {
     @observable loading = true
     @observable socket = openSocket('http://localhost:8000')
-    // @observable gameState = {test: ""}
     @observable player = {}
     @observable currentPlayer = {}
     @observable game = {}
@@ -46,6 +45,11 @@ export class GameStore {
         this.socket.on('new-turn', newPlayer => {
             this.currentPlayer = newPlayer
         })
+    }
+
+    @action rollDie = () => {
+        if (this.player.name !== this.currentPlayer.name) { return }
+        this.socket.emit('roll-die')
     }
 
     getTileCoords = key => {return { x: key.slice(2), y: key.slice(0, 1) }}

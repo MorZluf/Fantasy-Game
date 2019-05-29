@@ -8,6 +8,7 @@ class Game extends Matrix {
         this.setInitialBoard()
         this.outerRegionAsArray = []
         this.adventureCards = []
+        this.movementDie = 6
     }
 
     setInitialBoard() {
@@ -56,6 +57,7 @@ class Game extends Matrix {
 
     rollDie() {
         let dieRoll = Math.floor(Math.random() * Math.floor(6) + 1)
+        this.movementDie = dieRoll
         return dieRoll
     }
 
