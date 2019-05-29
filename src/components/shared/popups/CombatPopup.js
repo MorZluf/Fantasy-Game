@@ -1,20 +1,21 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react'
 
-@inject( "gameStore")
+@inject( "gameStore", "generalStore")
 
 @observer
 class CombatPopup extends Component {
     getListOfPlayers = () => {
         
-        let arrOptions = this.getListOfDummyListOfPlayers()  // dummy data
-        // let arrOptions = this.getListPlayersToBattle()         // list of players except myself
+        // let arrOptions = this.getListOfDummyListOfPlayers()  // dummy data
+        let arrOptions = this.getListPlayersToBattle()         // list of players except myself
         return (
             <datalist id="player-list">
                 {arrOptions}
             </datalist>
         )
     }
+
     getListPlayersToBattle = () => {
         let arrPlayersOnCurrentTile = this.props.gameStore.game.arrPlayersOnTile
         let result = []
@@ -38,6 +39,10 @@ class CombatPopup extends Component {
         return result
     }
 
+    fight = () => {
+        let chosenPlayer = this.props.generalStore.chosenPlayer
+        this.props.gameStore.fight(chosenPlayer, this.props.gameStore.currentPlayer.name)
+    }
     render() {
         return (
             <div className="combat-popup">
@@ -45,9 +50,10 @@ class CombatPopup extends Component {
                 <div>{this.props.gameStore.game.arrPlayersOnTile[0]}</div>
                 <span> VS </span>
                 <div>{this.props.gameStore.game.arrPlayersOnTile[1]}</div>
-                <input list="player-list" name="player" placeholder="Select player to battle" />
+                <input list="player-list" name="player" onChange={this.props.generalStore.handleChosePlayer} placeholder="Select player to battle" />
                 {this.getListOfPlayers()}
-                
+                <button onClick={this.fight}>FIGHT!</button>
+
             </div>
         )
     }
