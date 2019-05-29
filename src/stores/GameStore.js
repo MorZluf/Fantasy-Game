@@ -4,10 +4,12 @@ import openSocket from 'socket.io-client'
 export class GameStore {
     @observable loading = true
     @observable socket = openSocket('http://localhost:8000')
-    @observable player = {}
+    // @observable gameState = {test: ""}
+    @observable player = {} // identifier of a client { name : PlayerName , socketId : someID }
     @observable currentPlayer = {name: "Player_1"}
     @observable game = {}
     @observable isCurrentPlayer = true
+
 
     @action getInitialGame = () => {
         this.socket.on('new-game-board', newGame => {

@@ -1,7 +1,7 @@
-const Matrix = require ('./matrix')
+const Matrix = require('./matrix')
 
 const DataDao = require('./utils/dataDao')
-const dataDao = new DataDao() 
+const dataDao = new DataDao()
 class Game extends Matrix {
     constructor(numRows, numColumns) {
         super(numRows, numColumns)
@@ -9,15 +9,17 @@ class Game extends Matrix {
         this.outerRegionAsArray = []
         this.adventureCards = []
         this.movementDie = 6
+        this.isBattleOn = false
+        this.arrPlayersOnTile = []
     }
 
     setInitialBoard() {
-        this.addPlayerToTile("Player_1", {x: 0, y: 3})
-        this.addPlayerToTile("Player_2", {x: 6, y: 3})
-        this.changeTileType("Village", {x: 0, y: 0})
-        this.changeTileType("Village", {x: 6, y: 0})
-        this.changeTileType("Village", {x: 0, y: 6})
-        this.changeTileType("Village", {x: 6, y: 6})
+        this.addPlayerToTile("Player_1", { x: 0, y: 3 })
+        this.addPlayerToTile("Player_2", { x: 6, y: 3 })
+        this.changeTileType("Village", { x: 0, y: 0 })
+        this.changeTileType("Village", { x: 6, y: 0 })
+        this.changeTileType("Village", { x: 0, y: 6 })
+        this.changeTileType("Village", { x: 6, y: 6 })
         this.fillCenter()
         this.closeAllTiles()
     }
@@ -47,24 +49,40 @@ class Game extends Matrix {
         else { return false }
     }
 
-    removePlayerFromTile (player, position) {
+    removePlayerFromTile(player, position) {
         let index = this.matrix[position.y][position.x].players.findIndex(p => p === player)
         this.matrix[position.y][position.x].players.splice(index, 1)
     }
 
     movePlayer(moveData) {  //moveData = {player: "NAME", coords: {x: "NUM", y: "NUM"}}
+
         let oldPosition = this.findPlayerCoordinates(moveData.player)
         let allowed = this.addPlayerToTile(moveData.player, moveData.coords)
+
         if (allowed) {
             this.removePlayerFromTile(moveData.player, oldPosition)
             this.closeAllTiles()
+            if (this.checkIfTwoPlayersOnSameTile(moveData)) {
+                this.changeShowPopupState(true)
+                this.arrPlayersOnTile = this.getAllPlayersByATile(moveData.coords.x, moveData.coords.y)
+            }
+            else this.changeShowPopupState(false)
         }
     }
 
+    getAllPlayersByATile(x, y) { return this.matrix[y][x].players }
+
+    changeShowPopupState(trueOrFalse) {
+        this.isBattleOn = trueOrFalse
+    }
+
+    checkIfTwoPlayersOnSameTile(moveData) {
+        return this.matrix[moveData.coords.y][moveData.coords.x].players.length > 1
+    }
+    
     changeTileOpenStatus(position) {
         this.matrix[position.y][position.x].canMoveHere = !this.matrix[position.y][position.x].canMoveHere
     }
-
     changeTileType(type, position) {
         this.matrix[position.y][position.x].type = type
     }
@@ -79,19 +97,19 @@ class Game extends Matrix {
 
         let index
         this.movementDie = Number(this.rollDie())
-        
+
         for (let pos in this.outerRegionAsArray) {
-            if (this.outerRegionAsArray[pos].coords.x === position.x && 
+            if (this.outerRegionAsArray[pos].coords.x === position.x &&
                 this.outerRegionAsArray[pos].coords.y === position.y) {
-                    index = Number(pos)
-                    break
+                index = Number(pos)
+                break
             }
         }
         if (index < this.movementDie) {
             let rest = this.movementDie - index
             return {
                 option1: this.outerRegionAsArray[parseInt(index + this.movementDie)],
-                option2: this.outerRegionAsArray[this.outerRegionAsArray.length - rest]    
+                option2: this.outerRegionAsArray[this.outerRegionAsArray.length - rest]
             }
         }
         else if (index + this.movementDie > (this.outerRegionAsArray.length - 1)) {
@@ -102,7 +120,7 @@ class Game extends Matrix {
             }
         }
         else {
-            
+
             return {
                 option1: this.outerRegionAsArray[index + this.movementDie],
                 option2: this.outerRegionAsArray[index - this.movementDie]
@@ -116,18 +134,18 @@ class Game extends Matrix {
         this.changeTileOpenStatus(options.option2.coords)
     }
 
-    getOuterRegionAsArray(){
+    getOuterRegionAsArray() {
 
         this.convertUpperRow()
         this.convertRightColumn()
         this.convertBottomRow()
-        this.convertLeftColumn()    
+        this.convertLeftColumn()
 
         return this.outerRegionAsArray
     }
 
     convertUpperRow() {
-        for (let i = 0; i < this.matrix[0].length; i++){
+        for (let i = 0; i < this.matrix[0].length; i++) {
             this.outerRegionAsArray.push({
                 coords: {
                     "x": i,
@@ -139,38 +157,38 @@ class Game extends Matrix {
     }
 
     convertRightColumn() {
-        for (let i = 1; i < this.matrix.length; i++){
+        for (let i = 1; i < this.matrix.length; i++) {
             this.outerRegionAsArray.push({
                 coords: {
                     "x": 6,
                     "y": i
                 },
-                "type":this.matrix[i][6].type
+                "type": this.matrix[i][6].type
             })
         }
     }
 
-    convertBottomRow(){
-        for(let i = this.matrix[6].length - 2; i >= 0; i--){
+    convertBottomRow() {
+        for (let i = this.matrix[6].length - 2; i >= 0; i--) {
             this.outerRegionAsArray.push({
                 coords: {
                     "x": i,
                     "y": 6
                 },
-                "type":this.matrix[6][i].type 
+                "type": this.matrix[6][i].type
             })
         }
     }
 
-    convertLeftColumn(){
-        for(let i = this.matrix.length - 2; i > 0; i--){
+    convertLeftColumn() {
+        for (let i = this.matrix.length - 2; i > 0; i--) {
 
             this.outerRegionAsArray.push({
                 coords: {
                     "x": 0,
                     "y": i
                 },
-                "type":this.matrix[i][0].type 
+                "type": this.matrix[i][0].type
             })
         }
     }
@@ -186,7 +204,7 @@ class Game extends Matrix {
 
 
     async drawAdventureCard() {
-        if(!this.adventureCards.length){
+        if (!this.adventureCards.length) {
             await this.populateAdventureCards()
         }
         let index = Math.floor(Math.random() * this.adventureCards.length)
@@ -200,7 +218,7 @@ class Game extends Matrix {
         let playerScore = player.stats.attribute + rollDie()
         let oponentScore = oponent.attribute + rollDie()
         if (playerScore > oponentScore) { return "player wins" }
-        else if (playerScore < oponentScore) { return "oponent wins"}
+        else if (playerScore < oponentScore) { return "oponent wins" }
     }
 
     changePlayerAttribute(player, attribute, value) {
@@ -212,7 +230,7 @@ class Game extends Matrix {
 
 module.exports = Game
 
-let game = new Game (7, 7)
+let game = new Game(7, 7)
 
 // const testing = async function() {
 //    await game.populateAdventureCards()
