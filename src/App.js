@@ -5,6 +5,7 @@ import Board from './components/Board/Board';
 import Player from './components/Player/Player';
 import BoardControls from './components/Board/BoardControls';
 import GreetingsMenu from './components/shared/GreetingsMenu';
+import CombatPopup from './components/shared/popups/CombatPopup';
 
 @inject("gameStore")
 @observer
@@ -23,6 +24,8 @@ class App extends Component {
           <hr></hr> */}
           <GreetingsMenu />
           <hr></hr>
+          {this.props.gameStore.game.isBattleOn ? <CombatPopup /> : null }
+          <hr></hr>
           <div className="game-screen">
             <div className="main-controls">
               <Player player="Player_1"/> 
@@ -32,6 +35,7 @@ class App extends Component {
             <Board />
           </div>
         </div>}
+      
       </React.Fragment>
     )
   }
