@@ -50,10 +50,10 @@ class Matrix {
         this.matrix[row][column] = newValue
     }
 
-    findCoordinate(value) {
+    findPlayerCoordinates(player) {
         for (let i = 0; i < this.matrix.length; i++) {
             for (let j = 0; j < this.matrix[i].length; j++) {
-                if (this.matrix[i][j] === value) {
+                if (this.matrix[i][j].players.some(p => p === player)) {
                     return { x: j,
                              y: i }
                 }
