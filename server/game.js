@@ -5,16 +5,21 @@ const dataDao = new DataDao()
 class Game extends Matrix {
     constructor(numRows, numColumns) {
         super(numRows, numColumns)
-        this.setInitialBoard()
+        this.players = {}
         this.outerRegionAsArray = []
         this.adventureCards = []
         this.movementDie = 6
         this.isBattleOn = false
         this.arrPlayersOnTile = []
+        this.setInitialBoard()
     }
 
+    getPlayers() {
+        return this.players
+    }
 
     setInitialBoard() {
+        this.setPlayers(2)
         this.addPlayerToTile("Player_1", { x: 0, y: 3 })
         this.addPlayerToTile("Player_2", { x: 6, y: 3 })
         this.changeTileType("Village", { x: 0, y: 0 })
@@ -25,6 +30,25 @@ class Game extends Matrix {
         this.closeAllTiles()
     }
 
+    setPlayers(num) {
+        console.log(this.players)
+        for (let i = 1; i < num + 1; i ++) {
+            this.players["Player_" + i] = {
+                name: "charname",
+                class: "Warrior",
+                stats: {
+                    strength: 4,
+                    craft: 2,
+                    life: 5,
+                    gold: 1,
+                    alignment: "neutral"
+                },
+                inventory: [],
+                followers: [],
+                collectedEnemies: []
+            }
+        }
+    }
     
     closeAllTiles() {
         for (let r = 0; r < this.matrix.length; r++) {
