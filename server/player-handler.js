@@ -1,35 +1,42 @@
 class PlayerHandler {
     constructor(){
-        this.players = []
-        this.playerCounter = 1
-        this.currentTurn = 1
+        this.rooms = {}
     }
 
-    addPlayer(socket) {
-        const player = {
-            name: "Player_" + this.playerCounter,
-            id: socket.id
-        }
-        this.players.push(player)
-        this.playerCounter ++
-        return player
+    addPlayer(socket, room) {
+        this.rooms[room] ? 
+            this.rooms[room].players.push({
+                name: "Player_" + this.rooms[room].playerCounter,
+                id: socket.id
+            }) :
+            this.rooms[room] = {
+                players: [{
+                    name: "Player_1",
+                    id: socket.id
+                }],
+                playerCounter: 1,
+                currentTurn: 1
+            }
+        this.rooms[room].playerCounter ++
+        console.log(this.rooms[room].players[this.rooms[room].playerCounter - 2])
+        return this.rooms[room].players[this.rooms[room].playerCounter - 2]
     }
 
-    getPlayerTurn() {
-        let rem = this.currentTurn % this.players.length
-        let index = rem ? rem - 1 : this.players.length - 1
-        return this.players[index]
+    getPlayerTurn(room) {
+        let rem = this.rooms[room].currentTurn % this.rooms[room].players.length
+        let index = rem ? rem - 1 : this.rooms[room].players.length - 1
+        return this.rooms[room].players[index]
     }
 
-    advanceTurn() {
-        this.currentTurn ++
-        return this.getPlayerTurn()
+    advanceTurn(room) {
+        this.rooms[room].currentTurn ++
+        return this.getPlayerTurn(room)
     }
 
-    removePlayer(socket) {
-        let index = this.players.indexOf(p => p.id === socket.id)
-        this.players.splice(index, 1)
-        this.playerCounter --
+    removePlayer(socket, room) {
+        let index = this.rooms[room].players.indexOf(p => p.id === socket.id)
+        this.rooms[room].players.splice(index, 1)
+        this.rooms[room].playerCounter --
     }
 }
 
