@@ -10,21 +10,21 @@ class PlayerControls extends Component {
         this.state = {
             classPopUp: false,
             inventoryPopUp: false,
-            followerPopUp: false
+            followersPopUp: false
         }
     }
 
     showClassPopUp = () => this.setState({ classPopUp: true })
 
-    showinventoryPopUp = () => this.setState({ inventoryPopUp: true })
+    showInventoryPopUp = () => this.setState({ inventoryPopUp: true })
 
-    showfollowerPopUp = () => this.setState({ followerPopUp: true })
+    showFollowersPopUp = () => this.setState({ followersPopUp: true })
 
     closeClassPopUp = () => this.setState({ classPopUp: false })
 
-    closeinventoryPopUp = () => this.setState({ inventoryPopUp: false })
+    closeInventoryPopUp = () => this.setState({ inventoryPopUp: false })
 
-    closefollowerPopUp = () => this.setState({ followerPopUp: false })
+    closeFollowersPopUp = () => this.setState({ followersPopUp: false })
 
     render() {
         const player = this.props.player
@@ -35,8 +35,8 @@ class PlayerControls extends Component {
                     <h5 onClick={this.showInventoryPopUp}>Inventory</h5>
                     <h5 onClick={this.showFollowersPopUp}>Followers</h5>
                     {this.state.classPopUp ? <ClassPopUp close={this.closeClassPopUp} charClass={player.class}/> : null}
-                    {this.state.inventoryPopUp ? <InventoryPopUp  close={this.closeinventoryPopUp} inventory={player.inventory}/> : null}
-                    {this.state.followerPopUp ? <FollowerPopUp close={this.closefollowerPopUp} followers={player.followers}/> : null}
+                    {this.state.inventoryPopUp ? <InventoryPopUp close={this.closeInventoryPopUp} inventory={player.inventory}/> : null}
+                    {this.state.followersPopUp ? <FollowerPopUp close={this.closeFollowersPopUp} followers={player.followers}/> : null}
                 </div>
                 <PlayerStat text="Str" amount={player.stats.strength}/>
                 <PlayerStat text="Cft" amount={player.stats.craft}/>

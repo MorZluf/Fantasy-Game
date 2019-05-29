@@ -81,6 +81,10 @@ export class GameStore {
         this.movementRollMade = true
     }
 
+    @action getPlayerData = player => {
+        return this.game.players[player]
+    }
+
     getTileCoords = key => {return { x: key.slice(2), y: key.slice(0, 1) }}
 
     setCurrentPlayerStatus = () => {

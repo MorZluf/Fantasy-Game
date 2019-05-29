@@ -9,7 +9,7 @@ import { observer, inject } from 'mobx-react'
 class Player extends Component {
     checkCurrentPlayer = () => this.props.player === this.props.gameStore.currentPlayer.name
 
-    getPlayerData = () => this.props.gameStore.game.players[this.props.player]
+    getPlayerData = () => this.props.gameStore.getPlayerData(this.props.player)
 
     render() {
         const player = this.getPlayerData()
