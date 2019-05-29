@@ -11,7 +11,8 @@ class Matrix {
             for (let c = 0; c < numColumns; c++) {
                 this.matrix[r].push({
                     type: "Fields",
-                    players: []
+                    players: [],
+                    canMoveHere: true
                 })
             }
         }

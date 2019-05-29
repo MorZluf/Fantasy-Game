@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import './App.css';
-import Test from './components/Test'
 import { observer, inject } from 'mobx-react'
 import Board from './components/Board/Board';
 import Player from './components/Player/Player';

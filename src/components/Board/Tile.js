@@ -10,7 +10,7 @@ class Tile extends Component {
 
     render(){
         let tile = this.props.tileData
-        return (<div onClick={this.movePlayer}>
+        return (<div onClick={this.movePlayer} className={tile.canMoveHere ? "valid-move" : null}>
             {tile.type}
             {tile.players.length > 0 ? <div>{tile.players.map(p => p)}</div> : null}
         </div>)
