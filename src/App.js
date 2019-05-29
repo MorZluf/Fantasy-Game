@@ -12,7 +12,8 @@ import GreetingsMenu from './components/shared/GreetingsMenu';
 class App extends Component {
 
   componentDidMount() {
-    this.props.gameStore.getInitialGame()
+    this.props.gameStore.getGameState()
+    this.props.gameStore.getCurrentTurn()
   }
 
   render() {

@@ -43,12 +43,14 @@ io.on("connection", function(socket) {
     socket.emit('player-data', handlePlayers.addPlayer(socket))
     socket.emit('new-game-board', game)
 
-    socket.on('update-game-to-server', function (newBoardState) {
-        io.sockets.in(room).emit('update-game-to-client', newBoardState)
+    socket.on('move-player', function (moveData) {
+        game.movePlayer(moveData)
+        io.sockets.in(room).emit('update-game-to-client', game)
     })
 
     socket.on('end-turn', function() {
         let newPlayer = handlePlayers.advanceTurn()
+        console.log(newPlayer)
         io.sockets.in(room).emit('new-turn', newPlayer)
     })
 

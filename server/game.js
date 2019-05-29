@@ -32,6 +32,17 @@ class Game extends Matrix {
         this.matrix[position.y][position.x].players.push(player)
     }
 
+    removePlayerFromTile (player, position) {
+        let index = this.matrix[position.y][position.x].players.findIndex(p => p === player)
+        this.matrix[position.y][position.x].players.splice(index, 1)
+    }
+
+    movePlayer(moveData) {  //moveData = {player: "NAME", coords: {x: "NUM", y: "NUM"}}
+        let oldPosition = this.findPlayerCoordinates(moveData.player)
+        this.removePlayerFromTile(moveData.player, oldPosition)
+        this.addPlayerToTile(moveData.player, moveData.coords)
+    }
+
     changeTileType(type, position) {
         this.matrix[position.y][position.x].type = type
     }
@@ -134,8 +145,15 @@ class Game extends Matrix {
         this.adventureCards = [...items]
     }
 
-    drawAdventureCard() {
+
+
+    async drawAdventureCard() {
+        if(!this.adventureCards.length){
+            await this.populateAdventureCards()
+        }
         let index = Math.floor(Math.random() * this.adventureCards.length)
+        console.log("index is " + index)
+        console.log("the array's length is" + this.adventureCards.length)
         return this.adventureCards.splice(index, 1)
     }
 
@@ -157,6 +175,10 @@ class Game extends Matrix {
 module.exports = Game
 
 let game = new Game (7, 7)
-game.getOuterRegionAsArray()
-console.log(game.findPlayerCoordinates("Player_2"))
-console.log(game.getPossibleMovement("Player_2", 5))
+
+// const testing = async function() {
+//    await game.populateAdventureCards()
+//    console.log(await game.drawAdventureCard())
+// }
+
+// testing()

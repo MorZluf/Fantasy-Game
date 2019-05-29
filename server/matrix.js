@@ -27,7 +27,7 @@ class Matrix {
         for (let i = 0; i < this.matrix.length; i++) {
             let line = ""
             for (let j = 0; j < this.matrix[i].length; j++) {
-                line += (this.matrix[i][j] + "\t")
+                line += (this.matrix[i][j].type + "\t" + this.matrix[i][j].players + "\t")
             }
             
             console.log(line)
@@ -36,13 +36,15 @@ class Matrix {
     
     printColumn(colNum) {
         for (let i = 0; i < this.matrix.length; i++) {
-            console.log(this.matrix[i][colNum])
+            console.log(this.matrix[i][colNum].type)
+            console.log(this.matrix[i][colNum].players)
         }
     }
     
     printRow(rowNum) {
         for (let i = 0; i < this.matrix[rowNum].length; i++) {
-            console.log(this.matrix[rowNum][i])
+            console.log(this.matrix[rowNum][i].type)
+            console.log(this.matrix[rowNum][i].players)
         }
     }
     
