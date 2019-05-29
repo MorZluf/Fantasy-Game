@@ -40,7 +40,7 @@ io.on("connection", function(socket) {
     console.log("New connection on socket id:" + socket.id)
     let room = rooms[0]
     socket.join(room)
-    socket.emit('player-data', handlePlayers.addPlayer(socket))
+    socket.emit('player-data', handlePlayers.addPlayer(socket, room))
     socket.emit('new-game-board', game)
 
     socket.on('move-player', function (moveData) {
@@ -49,12 +49,12 @@ io.on("connection", function(socket) {
     })
 
     socket.on('end-turn', function() {
-        let newPlayer = handlePlayers.advanceTurn()
+        let newPlayer = handlePlayers.advanceTurn(room)
         console.log(newPlayer)
         io.sockets.in(room).emit('new-turn', newPlayer)
     })
 
     socket.on('disconnect', function (socket) {
-        handlePlayers.removePlayer(socket)
+        handlePlayers.removePlayer(socket, room)
     })
 })
