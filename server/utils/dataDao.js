@@ -20,10 +20,14 @@ class dataDao {
         Player.collection.drop()
     }
 
-    async populate(arrData) {
-        for (let i = 0; i < arrData.length; i++)
-            await this.saveItemToDB(arrData[i])
+    async populate(arrItems, arrFollowers ) {
+        for (let i = 0; i < arrItems.length; i++)
+            await this.saveItemToDB(arrItems[i])
 
+        for (let i = 0; i < arrFollowers.length; i++)
+            await this.saveFollowerToDB(arrFollowers[i])
+
+        
         // this method being called in api.js
         
         console.log("populated")
@@ -53,6 +57,18 @@ class dataDao {
         })
         itemToSave.save()
         console.log(`game with ${itemToSave._id} was saved.`)
+    }
+
+    async saveFollowerToDB(argFollower){
+        let followerToSave = new Follower({
+            title: argFollower.title,
+            img: argFollower.img,
+            text: argFollower.text,
+            specialAbilities: argFollower.specialAbilities,
+            stats: argFollower.stats
+        })
+        followerToSave.save()
+        console.log(followerToSave._id)
     }
 
     async savePlayerToDB(argPlayer) {
