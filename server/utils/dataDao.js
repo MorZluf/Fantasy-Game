@@ -12,7 +12,20 @@ const APIKey = constants.API_KEY
 
 
 class dataDao {
-    constructor() { }
+    constructor() {
+        this.dummyWarrior = {
+            name: "Warrior",
+            img: "http://www.talismanwiki.com/wiki/images/thumb/9/97/Warrior.png/87px-Warrior.png",
+            specialAbilities: ["best-of-two-battle-dice", "two-weapon-fighting"],
+            stats: {
+                strength: 4,
+                craft: 2,
+                life: 5,
+                gold: 1,
+                alingment: "neutral"
+            }
+        }
+    }
 
     async clearDB() {
         console.log("dropping collections: Item, Class, Enemy, Game, Follower, Tile, Player ")
@@ -44,6 +57,7 @@ class dataDao {
     // GET methods
     // ----------------------------------------
     async getClasses() { return await Class.find({}) }
+    async getClass(className) { return className === "Warrior" ? this.dummyWarrior : null } // async getClass(className) { return await Class.findOne({name: className})}
     async getGames() { return await Game.find({}) }
     async getItems() { return await Item.find({}) }
     async getFollowers() { return await Follower.find({}) }

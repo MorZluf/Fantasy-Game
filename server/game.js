@@ -31,7 +31,6 @@ class Game extends Matrix {
     }
 
     setPlayers(num) {
-        console.log(this.players)
         for (let i = 1; i < num + 1; i ++) {
             this.players["Player_" + i] = {
                 name: "charname",

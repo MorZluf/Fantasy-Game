@@ -7,10 +7,12 @@ import * as serviceWorker from './serviceWorker'
 
 import { GameStore } from './stores/GameStore'
 import { GeneralStore } from './stores/GeneralStore'
+import { DataStore } from './stores/DataStore';
 
 const gameStore = new GameStore()
 const generalStore = new GeneralStore()
-const stores = {generalStore, gameStore}
+const dataStore = new DataStore()
+const stores = {generalStore, gameStore, dataStore}
 gameStore.assignPlayer()
 gameStore.getInitialGame()
 

@@ -57,6 +57,11 @@ router.get('/classes', async function (req, res) {
     res.send(arrClasses)
 })
 
+router.get('/classes/:className', async function (req, res) {
+    const classData = await dataDao.getClass(req.params.className)
+    res.send(classData)
+})
+
 router.get('/enemies', async function (req, res) {
     const arrClasses = await dataDao.getEnemies()
     res.send(arrClasses)
