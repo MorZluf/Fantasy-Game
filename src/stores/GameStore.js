@@ -1,6 +1,5 @@
 import { observable, action } from 'mobx'
 import openSocket from 'socket.io-client'
-import { GeneralStore } from './GeneralStore';
 
 export class GameStore {
     @observable loading = true
@@ -32,12 +31,12 @@ export class GameStore {
     }
 
     @action movePlayer = key => {
-        if (this.player.name !== this.currentPlayer.name) { return }
+        if (!this.playerIsCurrent()) { return }
         this.socket.emit('move-player', {player: this.currentPlayer.name, coords: this.getTileCoords(key)})
     }
 
     @action endTurn = () => {
-        if (this.player.name !== this.currentPlayer.name) { return }
+        if (!this.playerIsCurrent()) { return }
         this.socket.emit('end-turn')
     }
 
@@ -47,9 +46,11 @@ export class GameStore {
         })
     }
 
+    @action playerIsCurrent = () => this.player.name === this.currentPlayer.name
+
     @action rollDie = () => {
-        if (this.player.name !== this.currentPlayer.name) { return }
-        this.socket.emit('roll-die')
+        if (!this.playerIsCurrent()) { return }
+        this.socket.emit('roll-movement', this.currentPlayer)
     }
 
     getTileCoords = key => {return { x: key.slice(2), y: key.slice(0, 1) }}

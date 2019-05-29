@@ -19,13 +19,22 @@ class Game extends Matrix {
         this.changeTileType("Village", {x: 0, y: 6})
         this.changeTileType("Village", {x: 6, y: 6})
         this.fillCenter()
+        this.closeAllTiles()
+    }
+
+    closeAllTiles() {
+        for (let r = 0; r < this.matrix.length; r++) {
+            for (let c = 0; c < this.matrix[r].length; c++) {
+                this.matrix[r][c].canMoveHere = false
+            }
+        }
     }
 
     fillCenter() {
         for (let r = 1; r < this.matrix.length - 1; r++) {
             for (let c = 1; c < this.matrix[r].length - 1; c++) {
                 this.matrix[r][c].type = "Center"
-                this.matrix[r][c].canMoveHere = false
+                // this.matrix[r][c].canMoveHere = false
             }
         }
     }
@@ -48,7 +57,12 @@ class Game extends Matrix {
         let allowed = this.addPlayerToTile(moveData.player, moveData.coords)
         if (allowed) {
             this.removePlayerFromTile(moveData.player, oldPosition)
+            this.closeAllTiles()
         }
+    }
+
+    changeTileOpenStatus(position) {
+        this.matrix[position.y][position.x].canMoveHere = !this.matrix[position.y][position.x].canMoveHere
     }
 
     changeTileType(type, position) {
@@ -57,48 +71,51 @@ class Game extends Matrix {
 
     rollDie() {
         let dieRoll = Math.floor(Math.random() * Math.floor(6) + 1)
-        this.movementDie = dieRoll
         return dieRoll
     }
 
-    getPossibleMovement(player, dieRoll1) {
+    getPossibleMovement(player) {
         let position = this.findPlayerCoordinates(player)
 
         let index
-        let dieRoll = Number(dieRoll1)
+        this.movementDie = Number(this.rollDie())
         
-        for(let pos in this.outerRegionAsArray){
-            if(this.outerRegionAsArray[pos].x === position.x && 
-                this.outerRegionAsArray[pos].y === position.y){
+        for (let pos in this.outerRegionAsArray) {
+            if (this.outerRegionAsArray[pos].coords.x === position.x && 
+                this.outerRegionAsArray[pos].coords.y === position.y) {
                     index = Number(pos)
-                    console.log(index)
                     break
             }
         }
-        if (index < dieRoll){
-            let rest = dieRoll - index
-            return{
-                "option1": this.outerRegionAsArray[parseInt(index + dieRoll)],
-                "option2": this.outerRegionAsArray[this.outerRegionAsArray.length - rest]    
+        if (index < this.movementDie) {
+            let rest = this.movementDie - index
+            return {
+                option1: this.outerRegionAsArray[parseInt(index + this.movementDie)],
+                option2: this.outerRegionAsArray[this.outerRegionAsArray.length - rest]    
             }
         }
-        else if (index + dieRoll > (this.outerRegionAsArray.length - 1)){
-            let rest = dieRoll - (this.outerRegionAsArray.length - index)
-            return{
-                "option1": this.outerRegionAsArray[rest],
-                "option2": this.outerRegionAsArray[index - dieRoll]
+        else if (index + this.movementDie > (this.outerRegionAsArray.length - 1)) {
+            let rest = this.movementDie - (this.outerRegionAsArray.length - index)
+            return {
+                option1: this.outerRegionAsArray[rest],
+                option2: this.outerRegionAsArray[index - this.movementDie]
             }
         }
-        else{
+        else {
             
-            return{
-                "option1": this.outerRegionAsArray[index + dieRoll],
-                "option2": this.outerRegionAsArray[index - dieRoll]
+            return {
+                option1: this.outerRegionAsArray[index + this.movementDie],
+                option2: this.outerRegionAsArray[index - this.movementDie]
             }
         }
     }
 
-
+    setPossibleMovement(player) {
+        let options = this.getPossibleMovement(player.name)
+        console.log(options)
+        this.changeTileOpenStatus(options.option1.coords)
+        this.changeTileOpenStatus(options.option2.coords)
+    }
 
     getOuterRegionAsArray(){
 
@@ -113,8 +130,10 @@ class Game extends Matrix {
     convertUpperRow() {
         for (let i = 0; i < this.matrix[0].length; i++){
             this.outerRegionAsArray.push({
-                "x": i,
-                "y": 0,
+                coords: {
+                    "x": i,
+                    "y": 0
+                },
                 "type": this.matrix[0][i].type
             })
         }
@@ -123,8 +142,10 @@ class Game extends Matrix {
     convertRightColumn() {
         for (let i = 1; i < this.matrix.length; i++){
             this.outerRegionAsArray.push({
-                "x": 6,
-                "y": i,
+                coords: {
+                    "x": 6,
+                    "y": i
+                },
                 "type":this.matrix[i][6].type
             })
         }
@@ -133,8 +154,10 @@ class Game extends Matrix {
     convertBottomRow(){
         for(let i = this.matrix[6].length - 2; i >= 0; i--){
             this.outerRegionAsArray.push({
-                "x": i,
-                "y": 6,
+                coords: {
+                    "x": i,
+                    "y": 6
+                },
                 "type":this.matrix[6][i].type 
             })
         }
@@ -144,8 +167,10 @@ class Game extends Matrix {
         for(let i = this.matrix.length - 2; i > 0; i--){
 
             this.outerRegionAsArray.push({
-                "x": 0,
-                "y": i,
+                coords: {
+                    "x": 0,
+                    "y": i
+                },
                 "type":this.matrix[i][0].type 
             })
         }

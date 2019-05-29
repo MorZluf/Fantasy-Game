@@ -48,8 +48,8 @@ io.on("connection", function(socket) {
         io.sockets.in(room).emit('update-game-to-client', game)
     })
 
-    socket.on('roll-die', function () {
-        game.rollDie()
+    socket.on('roll-movement', function (player) {
+        game.setPossibleMovement(player)
         io.sockets.in(room).emit('update-game-to-client', game)
     })
 

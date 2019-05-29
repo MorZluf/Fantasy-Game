@@ -8,8 +8,9 @@ class RollDie extends Component {
     rollDie = () => this.props.gameStore.rollDie()
 
     render(){
-        return (<div onClick={this.rollDie}>
-            {this.props.gameStore.game.movementDie}
+        return (<div>
+            <div onClick={this.rollDie} className="die-image">{this.props.gameStore.game.movementDie}</div>
+            {this.props.gameStore.playerIsCurrent() ? <div>Roll the die, {this.props.gameStore.player.name}</div> : null}
         </div>)
     }
 }
