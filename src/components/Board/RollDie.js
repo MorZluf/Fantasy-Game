@@ -7,12 +7,12 @@ class RollDie extends Component {
 
     rollDie = () => this.props.gameStore.rollDie()
 
-    checkCurrentPlayer = () => this.props.player === this.props.gameStore.currentPlayer.name
+    allowRoll = () => this.props.gameStore.isCurrentPlayer && !this.props.gameStore.movementRollMade
 
     render(){
         return (<div>
             <div className="die-image">{this.props.gameStore.game.movementDie}</div>
-            {this.props.gameStore.isCurrentPlayer ? 
+            {this.allowRoll() ? 
                 <div>
                     Roll the die, {this.props.gameStore.player.name}
                     <button onClick={this.rollDie}>Roll!</button>
