@@ -24,12 +24,17 @@ class Game extends Matrix {
         for (let r = 1; r < this.matrix.length - 1; r++) {
             for (let c = 1; c < this.matrix[r].length - 1; c++) {
                 this.matrix[r][c].type = "Center"
+                this.matrix[r][c].canMoveHere = false
             }
         }
     }
 
     addPlayerToTile(player, position) {
-        this.matrix[position.y][position.x].players.push(player)
+        if (this.matrix[position.y][position.x].canMoveHere) {
+            this.matrix[position.y][position.x].players.push(player)
+            return true
+        }
+        else { return false }
     }
 
     removePlayerFromTile (player, position) {
@@ -39,8 +44,10 @@ class Game extends Matrix {
 
     movePlayer(moveData) {  //moveData = {player: "NAME", coords: {x: "NUM", y: "NUM"}}
         let oldPosition = this.findPlayerCoordinates(moveData.player)
-        this.removePlayerFromTile(moveData.player, oldPosition)
-        this.addPlayerToTile(moveData.player, moveData.coords)
+        let allowed = this.addPlayerToTile(moveData.player, moveData.coords)
+        if (allowed) {
+            this.removePlayerFromTile(moveData.player, oldPosition)
+        }
     }
 
     changeTileType(type, position) {

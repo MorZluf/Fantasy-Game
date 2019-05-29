@@ -50,7 +50,6 @@ io.on("connection", function(socket) {
 
     socket.on('end-turn', function() {
         let newPlayer = handlePlayers.advanceTurn(room)
-        console.log(newPlayer)
         io.sockets.in(room).emit('new-turn', newPlayer)
     })
 
