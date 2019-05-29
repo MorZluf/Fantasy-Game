@@ -153,8 +153,8 @@ class Game extends Matrix {
 
 }
 
-let game = new Game (7, 7)
-game.getOuterRegionAsArray()
-console.log(game.getPossibleMovement("player_2", 3))
-console.log(game.findCoordinate("player_2"))
+// let game = new Game (7, 7)
+// game.getOuterRegionAsArray()
+// console.log(game.getPossibleMovement("player_2", 3))
+// console.log(game.findCoordinate("player_2"))
 
