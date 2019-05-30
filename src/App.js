@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import './App.css';
 import { observer, inject } from 'mobx-react'
-import Board from './components/Board/Board';
-import Player from './components/Player/Player';
-import BoardControls from './components/Board/BoardControls';
 import GreetingsMenu from './components/shared/GreetingsMenu';
-import GeneralPopupMenu from './components/shared/popups/GeneralPopupMenu';
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import MainGame from './components/Board/MainGame'
+import Instructions from './components/shared/popups/Instructions';
+
 
 @inject("gameStore")
 @observer
@@ -18,26 +18,21 @@ class App extends Component {
 
   render() {
     return (
-      <React.Fragment>
-        {this.props.gameStore.loading ? <div>loading</div> : <div className="App">
-          {/* <Test />
-          <hr></hr> */}
-          <GreetingsMenu />
-          <hr></hr>
-          <GeneralPopupMenu />
-         
-          <hr></hr>
-          <div className="game-screen">
-            <div className="main-controls">
-              <Player player="Player_1"/> 
-              <BoardControls />
-              <Player player="Player_2"/>
-            </div>
-            <Board />
-          </div>
-        </div>}
       
-      </React.Fragment>
+      <Router>
+        <div>
+          {this.props.gameStore.loading ? <div>loading</div> : <div className="App">
+            
+          <Route path="/" exact component={GreetingsMenu}/>
+          
+          <Route path="/board" exact component={MainGame}/>
+
+          <Route path="/instructions" exact component={Instructions}/>
+            
+
+          </div>}
+        </div>
+      </Router>
     )
   }
 }
