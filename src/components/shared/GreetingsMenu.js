@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import '../../style/greetingsmenu.css'
+import { BrowserRouter as Route, Link } from 'react-router-dom'
+
 
 
 class GreetingsMenu extends Component {
@@ -23,11 +25,14 @@ class GreetingsMenu extends Component {
     render() {
         return (
              <div className="greetings-menu">
-                <h5>Greeting menu with options.</h5>
-                <input type="text" placeholder="Enter your name..." />
-                <input list="room-list" name="room" placeholder="Select room" />
+                <input className="inpt" type="text" placeholder=" Enter your name" />
+                <input className="inpt" list="room-list" name="room" placeholder=" Select room" />
                 {this.getListOfRooms()}
-                <button onChange={this.doSomething}>Get into room</button>
+                <br/>
+                <button className="btn"><Link to="/instructions">Instructions</Link></button>
+                <button className="btn"><Link to="/board">Create New Game</Link></button>
+                <button className="btn"><Link to="/board">Join New Game</Link></button>
+                <button className="btn"><Link to="/board">Continue Current Game</Link></button>
              </div>
         )
     }

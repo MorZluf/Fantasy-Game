@@ -1,3 +1,36 @@
 .greetings-menu{
+    height: 100vh;
+    width: 100vw;
     display: grid;
+    background-color: rgb(122, 20, 20) ;
+}
+
+.btn{
+    background-color: ivory;
+    width: 15vw;
+    display: grid;
+    justify-self: center;
+    border-radius: 15px;
+    font-weight: bold;
+    margin-bottom: 3vh;
+}
+
+.btn >a{
+    text-decoration: none;
+}
+
+.inpt{
+    width: 25vw;
+    height: 3vh;
+    font-size: 20px;
+    justify-self: center;
+    border: 5px solid rgb(122, 20, 20);
+    border-bottom: 2px solid ivory;
+    background-color: rgb(122, 20, 20);
+    color: ivory;
+    margin-top: 2vh;
+}
+
+::placeholder{
+    color: ivory;
 }
