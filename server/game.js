@@ -92,7 +92,9 @@ class Game extends Matrix {
                 this.arrPlayersOnTile = this.getAllPlayersByATile(moveData.coords.x, moveData.coords.y)
             }
             else this.changeShowPopupState(false)
+            return true
         }
+        else { return false }
     }
 
     getAllPlayersByATile(x, y) { return this.matrix[y][x].players }

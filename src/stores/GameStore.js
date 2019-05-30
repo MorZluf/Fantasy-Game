@@ -10,6 +10,7 @@ export class GameStore {
     @observable isCurrentPlayer = true
     @observable curTileType = ""
     @observable movementRollMade = false
+    @observable movementMade = false
 
     
     @action getTilePlayerSatandsOn = (x,y) => {
@@ -26,12 +27,16 @@ export class GameStore {
     isExist(name, names){ 
         return names.includes(name)
     }
-    
-    getTileType = () => {
-        let coords = this.getCoordByPlayerName(this.currentPlayer.name)
+
+    getTile(coords) {
         let x = coords.x
         let y = coords.y
-        return this.game.matrix[y][x].type
+        return this.game.matrix[y][x]
+    }
+    
+    @action getTileType = () => {
+        let coords = this.getCoordByPlayerName(this.currentPlayer.name)
+        return this.getTile(coords).type
     }
 
     @action getInitialGame = () => {
@@ -60,12 +65,23 @@ export class GameStore {
 
     @action movePlayer = key => {
         if (this.player.name !== this.currentPlayer.name) { return }
-        this.socket.emit('move-player', {player: this.currentPlayer.name, coords: this.getTileCoords(key)})
+        else if (!this.movementRollMade) { return }
+        else if (!this.getTile(this.getTileCoords(key)).canMoveHere) { return }
+        else {
+            this.socket.emit('move-player', {player: this.currentPlayer.name, coords: this.getTileCoords(key)})
+            this.movementMade = true
+        }
     }
 
     @action endTurn = () => {
         if (this.player.name !== this.currentPlayer.name) { return }
-        this.socket.emit('end-turn')
+        else if (!this.movementMade) { return }
+        else {
+            this.socket.emit('end-turn')
+            this.isCurrentPlayer = false
+            this.movementRollMade = false
+            this.movementMade = false
+        }
     }
 
     @action getCurrentTurn = () => {
@@ -77,8 +93,10 @@ export class GameStore {
 
     @action rollDie = () => {
         if (this.player.name !== this.currentPlayer.name) { return }
-        this.socket.emit('roll-movement', this.currentPlayer)
-        this.movementRollMade = true
+        else {
+            this.socket.emit('roll-movement', this.currentPlayer)
+            this.movementRollMade = true
+        }
     }
 
     @action getPlayerData = player => {
@@ -92,6 +110,7 @@ export class GameStore {
         else {
             this.isCurrentPlayer = true
             this.movementRollMade = false
+            this.movementMade = false
         }
     }
 }
