@@ -11,11 +11,14 @@ class Player extends Component {
 
     getPlayerData = () => this.props.gameStore.getPlayerData(this.props.player)
 
+    endTurn = () => this.props.gameStore.endTurn()
+
     render() {
         const player = this.getPlayerData()
         return (
              <div className={this.checkCurrentPlayer() ? "current-player player-board" : "player-board"}>{player.name} ({this.props.player})
              <PlayerControls player={player}/>
+             <button onClick={this.endTurn} style={{visibility: this.checkCurrentPlayer() ? "visible" : "hidden"}}>End turn</button>
              </div>
 
         )

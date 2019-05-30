@@ -8,11 +8,8 @@ import '../../style/board.css'
 @observer
 class Board extends Component {
 
-    endTurn = () => this.props.gameStore.endTurn()
-
     render() {
         return (<div className="main-board-container">
-            <button onClick={this.endTurn}>End turn</button>
             <div className="main-board">
 
             {this.props.gameStore.game.matrix.map((r, i) =>
