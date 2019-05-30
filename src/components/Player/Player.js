@@ -13,12 +13,16 @@ class Player extends Component {
 
     endTurn = () => this.props.gameStore.endTurn()
 
+    canEndTurn = () => this.checkCurrentPlayer() && 
+        this.props.gameStore.isCurrentPlayer &&
+        this.props.gameStore.movementMade
+
     render() {
         const player = this.getPlayerData()
         return (
              <div className={this.checkCurrentPlayer() ? "current-player player-board" : "player-board"}>{player.name} ({this.props.player})
              <PlayerControls player={player}/>
-             <button onClick={this.endTurn} style={{visibility: this.checkCurrentPlayer() ? "visible" : "hidden"}}>End turn</button>
+             <button onClick={this.endTurn} style={{visibility: this.canEndTurn() ? "visible" : "hidden"}}>End turn</button>
              </div>
 
         )
