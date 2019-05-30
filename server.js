@@ -7,13 +7,13 @@ const PlayerHandler = require('./server/player-handler')
 const Game = require('./server/game')
 
 const mongoose = require('mongoose')
-mongoose.connect('mongodb://localhost/fantasydb', {useNewUrlParser: true})
+mongoose.connect('mongodb://localhost/fantasydb', { useNewUrlParser: true })
 
 
 const app = express()
 app.use(express.static(path.join(__dirname, 'build')))
 app.use(bodyParser.json())
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({ extended: false }))
 app.use(function (req, res, next) {
     res.header('Access-Control-Allow-Origin', '*')
     res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
@@ -36,7 +36,7 @@ const io = socketIo(server)
 const handlePlayers = new PlayerHandler()
 rooms = ["room1"]
 
-io.on("connection", function(socket) {
+io.on("connection", function (socket) {
     console.log("New connection on socket id:" + socket.id)
     let room = rooms[0]
     socket.join(room)
@@ -53,14 +53,35 @@ io.on("connection", function(socket) {
         io.sockets.in(room).emit('update-game-to-client', game)
     })
 
-    socket.on('end-turn', function() {
+    socket.on('end-turn', function () {
         let newPlayer = handlePlayers.advanceTurn(room)
         io.sockets.in(room).emit('new-turn', newPlayer)
     })
+    
+    socket.on('change-game-started-to-started', function (players) {
+        let playerStats = {
+            player1 : players.chosenPlayer,
+            player2 : players.currentPlayer,
+            rolledDie1 : -1,
+            rolledDie2 : -1,
+            isStarted: true
+        }
+        io.sockets.in(room).emit('update-fight-stats', playerStats)
+    })
+    socket.on('enable-show-fight-screen', function (){
+        game.enableFightScreen()
+        io.sockets.in(room).emit('show-fight-screen')
+    })
 
-    socket.on('player-vs-player', function(players) {
-        console.log(players.currentPlayer + " vs " + players.chosenPlayer)
-        
+    socket.on('player-vs-player', function (players) {
+        let playerStats = {
+            player1 : players.chosenPlayer,
+            player2 : players.currentPlayer,
+            rolledDie1 : -1,
+            rolledDie2 : -1,
+            isStarted: false
+        }
+        io.sockets.in(room).emit('initialize-player-vs-player-fightstats', playerStats)
     })
 
     socket.on('disconnect', function (socket) {

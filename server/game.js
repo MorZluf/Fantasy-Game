@@ -21,7 +21,7 @@ class Game extends Matrix {
     setInitialBoard() {
         this.setPlayers(2)
         this.addPlayerToTile("Player_1", { x: 0, y: 3 })
-        this.addPlayerToTile("Player_2", { x: 6, y: 3 })
+        this.addPlayerToTile("Player_2", { x: 0, y: 3 }) // TODO: change x:0 --> x:6  // changed for combat troubleshooting
         this.changeTileType("Village", { x: 0, y: 0 })
         this.changeTileType("Village", { x: 6, y: 0 })
         this.changeTileType("Village", { x: 0, y: 6 })
@@ -57,6 +57,10 @@ class Game extends Matrix {
         }
     }
 
+    enableFightScreen() {
+        this.isToShowFightScreen = true
+    }
+    
     fillCenter() {
         for (let r = 1; r < this.matrix.length - 1; r++) {
             for (let c = 1; c < this.matrix[r].length - 1; c++) {
@@ -115,7 +119,7 @@ class Game extends Matrix {
     }
 
     rollDie() {
-        let dieRoll = Math.floor(Math.random() * Math.floor(6) + 1)
+        let dieRoll = Math.floor(Math.random() * Math.floor(0) + 1) // TODO: changed Math.floor(6) -->  Math.floor(6) for combat troubleshooting
         return dieRoll
     }
 
