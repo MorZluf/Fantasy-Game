@@ -32,7 +32,7 @@ class GreetingsMenu extends Component {
                 <button className="btn"><Link to="/instructions">Instructions</Link></button>
                 <button className="btn"><Link to="/board">Create New Game</Link></button>
                 <button className="btn"><Link to="/board">Join New Game</Link></button>
-                <button className="btn"><Link to="/board">Continue Current Game</Link></button>
+                <button className="btn"><Link to="/board">Continue Game</Link></button>
              </div>
         )
     }
