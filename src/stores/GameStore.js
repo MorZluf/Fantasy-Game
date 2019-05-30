@@ -12,7 +12,7 @@ export class GameStore {
     @observable movementRollMade = false
     @observable movementMade = false
     @observable fightStats = {}  // = { player1: name1, player2: name2, rolledDie1 : -1, rolledDie2 : -1 , isStarted: false}
-    @observable popupType = "start_battle"
+    @observable popupType = ""
     
     @action getTilePlayerSatandsOn = (x, y) => {
         return this.game.matrix[y][x]
@@ -97,13 +97,22 @@ export class GameStore {
     }
 
     @action movePlayer = key => {
+        const tile = this.getTile(this.getTileCoords(key))
         if (this.player.name !== this.currentPlayer.name) { return }
         else if (!this.movementRollMade) { return }
-        else if (!this.getTile(this.getTileCoords(key)).canMoveHere) { return }
+        else if (!tile.canMoveHere) { return }
         else {
             this.socket.emit('move-player', {player: this.currentPlayer.name, coords: this.getTileCoords(key)})
             this.movementMade = true
+            this.determineTileActions(tile)
         }
+    }
+
+    determineTileActions = tile => {
+        if (tile.players.length > 0) { this.popupType = "combat_popup" }
+        else if (tile.type === "Village") { this.popupType = "village_options" }
+        else if (tile.type === "Fields") { this.popupType = "field_options" }
+        else { this.popupType = "" }
     }
 
     @action endTurn = () => {
@@ -114,6 +123,7 @@ export class GameStore {
             this.isCurrentPlayer = false
             this.movementRollMade = false
             this.movementMade = false
+            this.popupType = ""
         }
     }
 
