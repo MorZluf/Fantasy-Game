@@ -115,6 +115,10 @@ export class GameStore {
 
     getTileCoords = key => { return { x: key.slice(2), y: key.slice(0, 1) } }
 
+    @action getPlayerData = player => {
+        return this.game.players[player]
+    }
+
     setCurrentPlayerStatus = () => {
         if (this.player.name !== this.currentPlayer.name) { this.isCurrentPlayer = false }
         else {

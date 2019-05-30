@@ -42,8 +42,8 @@ class Game extends Matrix {
                     gold: 1,
                     alignment: "neutral"
                 },
-                inventory: [],
-                followers: [],
+                inventory: ["sword"],
+                followers: ["blacksmith"],
                 collectedEnemies: []
             }
         }
