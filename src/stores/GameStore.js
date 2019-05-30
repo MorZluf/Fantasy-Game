@@ -11,7 +11,7 @@ export class GameStore {
     @observable curTileType = ""
     @observable movementRollMade = false
     @observable fightStats = {}  // = { player1: name1, player2: name2, rolledDie1 : -1, rolledDie2 : -1 , isStarted: false}
-    @observable isToShowFightScreen = false
+    @observable popupType = "village_options"
     @action getTilePlayerSatandsOn = (x, y) => {
         return this.game.matrix[y][x]
     }
