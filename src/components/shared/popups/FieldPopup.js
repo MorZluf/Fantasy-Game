@@ -7,7 +7,8 @@ class FieldPopup extends Component {
     render() {
         return (
             <div className="field-popup">
-                <button onClick={this.drawCard}>Draw Card2</button>
+                <h4>Field-Popup</h4>
+                <button onClick={this.drawCard}>Draw Card</button>
             </div>
         )
     }

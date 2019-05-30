@@ -11,12 +11,21 @@ export class GameStore {
     @observable curTileType = ""
     @observable movementRollMade = false
     @observable fightStats = {}  // = { player1: name1, player2: name2, rolledDie1 : -1, rolledDie2 : -1 , isStarted: false}
-    @observable popupType = "village_options"
+    @observable popupType = "start_battle"
     @action getTilePlayerSatandsOn = (x, y) => {
         return this.game.matrix[y][x]
     }
 
-
+    getPlayerStatsByPlayer = name => {
+        // hard coded! 
+        return {
+            strength : 5,
+            craft : 3,
+            gold : 2,
+            life : 7
+        }
+    }
+    
     getCoordByPlayerName = name => {
         for (let i = 0; i < this.game.matrix.length; i++)
             for (let j = 0; j < this.game.matrix[i].length; j++)
@@ -75,6 +84,10 @@ export class GameStore {
             this.player = player
             this.setCurrentPlayerStatus()
         })
+    }
+
+    @action renderPopup = argPopupType => {
+        this.popupType = argPopupType
     }
 
     @action movePlayer = key => {

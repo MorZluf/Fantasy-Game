@@ -40,7 +40,7 @@ class CombatPopup extends Component {
     }
 
     renderFightScreen = () => {
-        this.props.gameStore.renderFightScreen()
+        this.props.gameStore.renderPopup("start_battle")
     }
 
     componentDidMount(){
@@ -53,11 +53,10 @@ class CombatPopup extends Component {
         this.props.gameStore.initializeFightStats()
     }
     render() {
-        console.log("ToDo: " + ["in game.js line 93", " in game.js line 19", "make disable fight screen"])
+
         return (
 
             <div className="combat-popup">
-                {this.props.gameStore.isToShowFightScreen ? <div>FIGHT SCREEN</div> : <div> FIGHT WHOM ? </div>}
                 <h4>I'm a combat popup!</h4>
                 <div>{this.props.gameStore.game.arrPlayersOnTile[0]}</div>
                 <span> VS </span>
@@ -66,7 +65,6 @@ class CombatPopup extends Component {
                 {this.getListOfPlayers()}
                 <button onClick={this.renderFightScreen}>FIGHT!</button>
 
-                
             </div>
         )
     }

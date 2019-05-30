@@ -3,17 +3,12 @@ import CombatPopup from './CombatPopup';
 import { observer, inject } from 'mobx-react'
 import VillagePopup from './VillagePopup';
 import FieldPopup from './FieldPopup';
+import BattleStartPopup from './BattleStartPopup';
 
 @inject("gameStore")
 
 @observer
 class GeneralPopupMenu extends Component {
-   
-    renderfieldOptions = () =>
-        this.props.gameStore.getTileType() === "Fields" ? <button onClick={this.drawCard}>Draw Card2</button> : null
-
-    renderVillageOptions = () =>
-        this.props.gameStore.getTileType() === "Village" ? <button onClick={this.buyStuff}>Buy Stuff2</button> : null
 
     renderPopup = () => {
         let popupToShow = ""
@@ -22,7 +17,7 @@ class GeneralPopupMenu extends Component {
                 popupToShow = <CombatPopup />;
                 break;
             case "start_battle":
-                popupToShow = "start_battle";
+                popupToShow = <BattleStartPopup />;
                 break;
             case "continue_battle":
                 popupToShow = "continue_battle";
@@ -36,11 +31,15 @@ class GeneralPopupMenu extends Component {
             case "field_options":
                 popupToShow = <FieldPopup />;
                 break;
+            case "":
+                popupToShow = null;
+                break;
         }
         return popupToShow
     }
 
     render() {
+        console.log("ToDo: " + ["in game.js line 93", " in game.js line 19"])
         return (
             <div className="general-popup-container">
                 {this.renderPopup()}
