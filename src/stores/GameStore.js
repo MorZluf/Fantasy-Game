@@ -11,23 +11,58 @@ export class GameStore {
     @observable curTileType = ""
     @observable movementRollMade = false
     @observable movementMade = false
-    @observable fightStats = {}  // = { player1: name1, player2: name2, rolledDie1 : -1, rolledDie2 : -1 , isStarted: false}
-    @observable popupType = ""
-    
+    @observable fightStats = { // = { player1: name1, player2: name2, rolledDie1 : -1, rolledDie2 : -1 , isStarted: false}
+        player1: "",
+        player2: "",
+        rolledDie1: -1,
+        rolledDie2: -1,
+        player1_stats: {
+            strength : 0,
+        },
+        player2_stats: {
+            strength : 0,
+        },
+        player1_submit: false,
+        player2_submit: false
+    }
+    @observable popupType = "start_battle"
+
     @action getTilePlayerSatandsOn = (x, y) => {
         return this.game.matrix[y][x]
     }
+    @action assingToPlayer1 = (num, player1) => {
+        this.fightStats.player1 = player1
+        this.fightStats.rolledDie1 = num
+    }
+    @action assingToPlayer2 = (num, player2) => {
+        this.fightStats.player2 = player2
+        this.fightStats.rolledDie2 = num
+    }
+
+    @action submitPlayer = player => {
+        player === this.fightStats.player1
+            ?
+            this.fightStats.player1_submit = true
+            :
+            this.fightStats.player2_submit = true
+
+        if (this.bothPlayersSubmittedDie())
+            this.popupType = "show_win_lose"
+    }
+
+    bothPlayersSubmittedDie = () => this.fightStats.player1_submit && this.fightStats.player2_submit ? true : false
+
 
     getPlayerStatsByPlayer = name => {
         // hard coded! 
         return {
-            strength : 5,
-            craft : 3,
-            gold : 2,
-            life : 7
+            strength: 5,
+            craft: 3,
+            gold: 2,
+            life: 7
         }
     }
-    
+
     getCoordByPlayerName = name => {
         for (let i = 0; i < this.game.matrix.length; i++)
             for (let j = 0; j < this.game.matrix[i].length; j++)
@@ -44,7 +79,7 @@ export class GameStore {
         let y = coords.y
         return this.game.matrix[y][x]
     }
-    
+
     @action getTileType = () => {
         let coords = this.getCoordByPlayerName(this.currentPlayer.name)
         return this.getTile(coords).type
@@ -102,7 +137,7 @@ export class GameStore {
         else if (!this.movementRollMade) { return }
         else if (!tile.canMoveHere) { return }
         else {
-            this.socket.emit('move-player', {player: this.currentPlayer.name, coords: this.getTileCoords(key)})
+            this.socket.emit('move-player', { player: this.currentPlayer.name, coords: this.getTileCoords(key) })
             this.movementMade = true
             this.determineTileActions(tile)
         }

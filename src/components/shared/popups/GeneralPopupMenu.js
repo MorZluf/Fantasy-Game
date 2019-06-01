@@ -4,7 +4,7 @@ import { observer, inject } from 'mobx-react'
 import VillagePopup from './VillagePopup';
 import FieldPopup from './FieldPopup';
 import BattleStartPopup from './BattleStartPopup';
-
+import WinLostPopup from './WinLostPopup';
 @inject("gameStore")
 
 @observer
@@ -23,7 +23,7 @@ class GeneralPopupMenu extends Component {
                 popupToShow = "continue_battle";
                 break;
             case "show_win_lose":
-                popupToShow = "show_win_lose";
+                popupToShow = <WinLostPopup />;
                 break;
             case "village_options":
                 popupToShow = <VillagePopup />;

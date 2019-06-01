@@ -72,7 +72,6 @@ io.on("connection", function (socket) {
         game.enableFightScreen()
         io.sockets.in(room).emit('show-fight-screen')
     })
-
     socket.on('player-vs-player', function (players) {
         let playerStats = {
             player1 : players.chosenPlayer,

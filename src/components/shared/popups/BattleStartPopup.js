@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react'
-import RollDie from '../../Board/RollDie';
+
+import CombatDie_Player1 from '../popups/CombatDie_Player1';
+import CombatDie_Player2 from '../popups/CombatDie_Player2';
+
 import '../../../style/popups.css';
 @inject("gameStore", "generalStore")
 
@@ -9,12 +12,12 @@ class BattleStartPopup extends Component {
 
     renderPlayer1Menu() {
         let currentPlayer = this.props.gameStore.currentPlayer.name
-
+        
         return (
             <div className="battle-player1-menu">
                 < div className="player-combat-stats" >
                     {this.renderPlayerStats(currentPlayer)}
-                    {this.renderDie()}
+                    <CombatDie_Player1 player={currentPlayer}/>
                 </div >
             </div >
         )
@@ -27,16 +30,12 @@ class BattleStartPopup extends Component {
             <div className="battle-player2-menu">
                 <div className="player-combat-stats" >
                     {this.renderPlayerStats(chosenPlayer)}
-                    {this.renderDie()}
+                    <CombatDie_Player2 player={chosenPlayer}/>
                 </div >
             </div >
         )
     }
-    renderDie = () => {
-        return (
-            <RollDie />
-        )
-    }
+
     renderPlayerStats = player => {
         let player_stats = this.props.gameStore.getPlayerStatsByPlayer(player)
 
