@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react'
-import RollDie from '../../Board/RollDie';
+import CombatDie from '../popups/CombatDie';
 import '../../../style/popups.css';
 @inject("gameStore", "generalStore")
 
@@ -34,7 +34,7 @@ class BattleStartPopup extends Component {
     }
     renderDie = () => {
         return (
-            <RollDie />
+            <CombatDie />
         )
     }
     renderPlayerStats = player => {
