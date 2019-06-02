@@ -12,7 +12,7 @@ class GeneralPopupMenu extends Component {
 
     renderPopup = () => {
         let popupToShow = ""
-        switch (this.props.gameStore.popupType) {
+        switch (this.props.gameStore.game.popupType) {
             case "combat_popup":
                 popupToShow = <CombatPopup />;
                 break;
