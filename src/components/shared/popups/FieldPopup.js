@@ -11,12 +11,12 @@ class FieldPopup extends Component {
     discardCard = () => this.props.gameStore.closePopup()
 
     toCombat = () => {
-        this.props.gameStore.closePopup()
+        // this.props.gameStore.closePopup()
         this.props.gameStore.game.popupType = "start_battle"
     }
 
     takeCard = () => {
-        console.log(`adding card to ${this.props.gameStore.currentPlayer.name}`)
+        console.log(`adding ${this.props.gameStore.drawnCard.title} to ${this.props.gameStore.currentPlayer.name}`)
         this.props.gameStore.closePopup()
     }
     
@@ -40,7 +40,10 @@ class FieldPopup extends Component {
                             null}
                         </React.Fragment>
                     </div> :
-                    <React.Fragment>{this.props.gameStore.isPlayerCurrent() ? <button onClick={this.drawCard}>Draw Card</button> : null }</React.Fragment>}
+                    <React.Fragment>{this.props.gameStore.isPlayerCurrent() ? 
+                        <button onClick={this.drawCard}>Draw Card</button> : 
+                        null }
+                    </React.Fragment>}
             </div>
         )
     }

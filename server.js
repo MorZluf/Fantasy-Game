@@ -70,7 +70,9 @@ io.on("connection", function (socket) {
 
     socket.on('end-turn', function () {
         let newPlayer = handlePlayers.advanceTurn(room)
+        game.resetPopup()
         io.sockets.in(room).emit('new-turn', newPlayer)
+        io.sockets.in(room).emit('update-game-to-client', game)
     })
     
     socket.on('change-game-started-to-started', function (players) {
