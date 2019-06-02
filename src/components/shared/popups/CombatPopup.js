@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react'
+import MsgComponent from '../MsgComponent';
 
 @inject("gameStore", "generalStore")
 
@@ -55,18 +56,38 @@ class CombatPopup extends Component {
         this.props.gameStore.fight(chosenPlayer, this.props.gameStore.currentPlayer.name)
         this.props.gameStore.initializeFightStats()
     }
+    canChoose = () => this.props.gameStore.currentPlayer.name === this.props.gameStore.player.name ? true : false
+
+    checkIfCurrentPlayerChosing = () => this.props.gameStore.currentPlayer.name === this.props.gameStore.player.name ? true : false
+
+    otherPlayersChoosingMSG = () => `${this.props.gameStore.currentPlayer.name} currently choosing who to fight against...`
+    
+
+    renderPlayerIsChoosing = () => {
+        return (
+            <div>
+                <input list="player-list" name="player" onChange={this.props.generalStore.handleChosePlayer} placeholder="Select player to battle" />
+                {this.getListOfPlayers()}
+                <button onClick={this.renderFightScreen}>FIGHT!</button>
+            </div>
+        )
+    }
+
+    renderMsgToOthers = () =>  <div><MsgComponent msg={this.otherPlayersChoosingMSG()} /></div>
+        
+    
     render() {
 
         return (
 
-            <div className="combat-popup">
-                <h4>I'm a combat popup!</h4>
-                <div>{this.props.gameStore.game.arrPlayersOnTile[0]}</div>
-                <span> VS </span>
-                <div>{this.props.gameStore.game.arrPlayersOnTile[1]}</div>
-                <input list="player-list" name="player" onChange={this.props.generalStore.handleChosePlayer} placeholder="Select player to battle" />
-                {this.getListOfPlayers()}
-                <button onClick={this.renderFightScreen}>FIGHT!</button>
+            <div className="combat-popup" >
+                {
+                    this.checkIfCurrentPlayerChosing()
+                    ?
+                    this.renderPlayerIsChoosing()
+                    :
+                    this.renderMsgToOthers()
+                }
             </div>
         )
     }

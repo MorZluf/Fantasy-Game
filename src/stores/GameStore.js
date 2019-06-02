@@ -126,6 +126,11 @@ export class GameStore {
     //     })
     // }
 
+    @action showFightScreen = () => {
+        this.socket.on('show-fight-screen-selected', fightStore => {
+            this.fightStore = fightStore
+        })
+    }
     @action changeToStarted = (chosenPlayer, currentPlayer) => {
         this.socket.emit('change-game-started-to-started', { chosenPlayer, currentPlayer })
     }
