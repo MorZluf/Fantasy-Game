@@ -11,6 +11,7 @@ class Game extends Matrix {
         this.movementDie = 6
         this.isBattleOn = false
         this.arrPlayersOnTile = []
+        this.popupType = ""
         this.setInitialBoard()
     }
 
@@ -258,6 +259,10 @@ class Game extends Matrix {
     changePlayerAttribute(player, attribute, value) {
         let attribute = attribute
         player.stats.attribute = value
+    }
+
+    changePopupType(popupType) {
+        this.popupType = popupType
     }
 
 }
