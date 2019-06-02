@@ -16,8 +16,9 @@ export class GameStore {
         currentTileType: "",
         movementRollMade: false,
         movementMade: false,
-        cardDrawn: true
+        cardDrawn: false
     }
+    @observable drawnCard = {}
     @observable fightStats = { // = { player1: name1, player2: name2, rolledDie1 : -1, rolledDie2 : -1 , isStarted: false}
         player1: "",
         player2: "",
@@ -32,6 +33,8 @@ export class GameStore {
         player1_submit: false,
         player2_submit: false
     }
+
+    @action isPlayerCurrent = () => this.player.name === this.currentPlayer.name
 
     @action getTilePlayerSatandsOn = (x, y) => {
         return this.game.matrix[y][x]
@@ -110,6 +113,7 @@ export class GameStore {
     @action getGameState = () => {
         this.socket.on('update-game-to-client', newGameState => {
             this.game = newGameState
+            this.clientState.cardDrawn = false
         })
     }
 
@@ -118,7 +122,9 @@ export class GameStore {
             this.fightStats = fightStats
         })
     }
+
     // @action sendGameState = () => this.socket.emit('update-game-to-server', this.game)
+
     @action changeToStarted = (chosenPlayer, currentPlayer) => {
         this.socket.emit('change-game-started-to-started', { chosenPlayer, currentPlayer })
     }
@@ -154,27 +160,33 @@ export class GameStore {
         else if (tile.type === "Village") { this.game.popupType = "village_options" }
         else if (tile.type === "Fields") { 
             this.game.popupType = "field_options"
-            this.clientState.cardDrawn = false
         }
         else { this.game.popupType = "" }
         this.socket.emit('change-popup-type', this.game.popupType)
     }
 
-    drawAdventureCard = () => {
-        console.log("Card Drawn")
-        this.clientState.cardDrawn = true
+    @action drawAdventureCard = () => this.socket.emit('draw-adventure-card')
+
+    @action setDrawnAdventureCard = () => {
+        this.socket.on('adventure-card-drawn', drawnCard => {
+            this.drawnCard = drawnCard
+            this.clientState.cardDrawn = true
+        })
     }
 
+    @action closePopup = () => this.socket.emit('close-popup-to-server')
+
+    // @action setEndCardDraw = () => {
+    //     this.socket.on('close-card-draw-from-server', () => {
+    //         this.clientState.cardDrawn = false
+    //     })
+    // }
+
     @action endTurn = () => {
-        if (this.player.name !== this.currentPlayer.name) { return }
-        else if (!this.clientState.movementMade) { return }
-        else if (!this.clientState.cardDrawn) { return }
-        else {
             this.socket.emit('end-turn')
             this.clientState.isCurrentPlayer = false
             this.clientState.movementRollMade = false
             this.clientState.movementMade = false
-        }
     }
 
     @action getCurrentTurn = () => {
@@ -188,7 +200,6 @@ export class GameStore {
     @action rollDie = () => {
         if (this.player.name !== this.currentPlayer.name) { return }
         else {
-            console.log(this.fightStore.dummyCheck)
             this.socket.emit('roll-movement', this.currentPlayer)
             this.clientState.movementRollMade = true
         }
