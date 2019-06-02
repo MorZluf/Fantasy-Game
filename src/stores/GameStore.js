@@ -11,12 +11,14 @@ export class GameStore {
     @observable player = {} // identifier of a client { name : PlayerName , socketId : someID }
     @observable currentPlayer = { name: "Player_1" }
     @observable game = {}
-    @observable isCurrentPlayer = true
-    @observable curTileType = ""
-    @observable movementRollMade = false
-    @observable movementMade = false
-    @observable cardDrawn = true
     @observable fightStore
+    @observable clientState = {
+        isCurrentPlayer: true,
+        currentTileType: "",
+        movementRollMade: false,
+        movementMade: false,
+        cardDrawn: true
+    }
     @observable fightStats = { // = { player1: name1, player2: name2, rolledDie1 : -1, rolledDie2 : -1 , isStarted: false}
         player1: "",
         player2: "",
@@ -154,11 +156,11 @@ export class GameStore {
     @action movePlayer = key => {
         const tile = this.getTile(this.getTileCoords(key))
         if (this.player.name !== this.currentPlayer.name) { return }
-        else if (!this.movementRollMade) { return }
+        else if (!this.clientState.movementRollMade) { return }
         else if (!tile.canMoveHere) { return }
         else {
             this.socket.emit('move-player', { player: this.currentPlayer.name, coords: this.getTileCoords(key) })
-            this.movementMade = true
+            this.clientState.movementMade = true
             this.determineTileActions(tile)
         }
     }
@@ -168,26 +170,26 @@ export class GameStore {
         else if (tile.type === "Village") { this.game.popupType = "village_options" }
         else if (tile.type === "Fields") { 
             this.game.popupType = "field_options"
-            this.cardDrawn = false
-            this.drawAdventureCard()
+            this.clientState.cardDrawn = false
         }
         else { this.game.popupType = "" }
         this.socket.emit('change-popup-type', this.game.popupType)
     }
 
     drawAdventureCard = () => {
-        this.cardDrawn = true
+        console.log("Card Drawn")
+        this.clientState.cardDrawn = true
     }
 
     @action endTurn = () => {
         if (this.player.name !== this.currentPlayer.name) { return }
-        else if (!this.movementMade) { return }
-        else if (!this.cardDrawn) { return }
+        else if (!this.clientState.movementMade) { return }
+        else if (!this.clientState.cardDrawn) { return }
         else {
             this.socket.emit('end-turn')
-            this.isCurrentPlayer = false
-            this.movementRollMade = false
-            this.movementMade = false
+            this.clientState.isCurrentPlayer = false
+            this.clientState.movementRollMade = false
+            this.clientState.movementMade = false
         }
     }
 
@@ -204,7 +206,7 @@ export class GameStore {
         else {
             console.log(this.fightStore.dummyCheck)
             this.socket.emit('roll-movement', this.currentPlayer)
-            this.movementRollMade = true
+            this.clientState.movementRollMade = true
         }
     }
 
@@ -215,11 +217,11 @@ export class GameStore {
     }
 
     setCurrentPlayerStatus = () => {
-        if (this.player.name !== this.currentPlayer.name) { this.isCurrentPlayer = false }
+        if (this.player.name !== this.currentPlayer.name) { this.clientState.isCurrentPlayer = false }
         else {
-            this.isCurrentPlayer = true
-            this.movementRollMade = false
-            this.movementMade = false
+            this.clientState.isCurrentPlayer = true
+            this.clientState.movementRollMade = false
+            this.clientState.movementMade = false
         }
     }
 }
