@@ -7,6 +7,7 @@ class FieldPopup extends Component {
     drawCard = () => {
         this.props.gameStore.drawAdventureCard()
     }
+    
     render() {
         return (
             <div className="field-popup">
