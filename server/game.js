@@ -22,7 +22,7 @@ class Game extends Matrix {
     setInitialBoard() {
         this.setPlayers(2)
         this.addPlayerToTile("Player_1", { x: 0, y: 2 })
-        this.addPlayerToTile("Player_2", { x: 4, y: 2 }) // TODO: change x:0, y:5 --> x:6 y:3  // changed for combat troubleshooting
+        this.addPlayerToTile("Player_2", { x: 0, y: 1 }) // TODO: change x:0, y:5 --> x:6 y:3  // changed for combat troubleshooting
         this.changeTileType("Village", { x: 0, y: 0 })
         this.changeTileType("Village", { x: 4, y: 0 })
         this.changeTileType("Village", { x: 0, y: 4 })
@@ -120,7 +120,7 @@ class Game extends Matrix {
     }
 
     rollDie(dieType) {   
-            let dieRoll = Math.floor(Math.random() * Math.floor(dieType) + 1) // TODO: changed Math.floor(6) -->  Math.floor(6) for combat troubleshooting
+            let dieRoll = Math.floor(Math.random() * Math.floor(dieType) + 1) 
         return dieRoll
     }
 
@@ -128,7 +128,7 @@ class Game extends Matrix {
         let position = this.findPlayerCoordinates(player)
 
         let index
-        this.movementDie = Number(this.rollDie(4))
+        this.movementDie = Number(this.rollDie(1)) // TODO: changed Math.floor(6) -->  Math.floor(6) for combat troubleshooting
 
         for (let pos in this.outerRegionAsArray) {
             if (this.outerRegionAsArray[pos].coords.x === position.x &&

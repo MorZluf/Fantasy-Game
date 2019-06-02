@@ -59,9 +59,10 @@ class BattleStartPopup extends Component {
     render() {
         return (
             <div className="start-battle">
-                {this.renderPlayer1Menu()}
+                {/* {this.renderPlayer1Menu()}
                 {this.renderVS()}
-                {this.renderPlayer2Menu()}
+                {this.renderPlayer2Menu()} */}
+                {console.log(this.props.gameStore.fightStore)}
             </div >
         )
     }

@@ -19,7 +19,6 @@ class CombatPopup extends Component {
     getListPlayersToBattle = () => {
         let arrPlayersOnCurrentTile = this.props.gameStore.game.arrPlayersOnTile
         let result = []
-
         for (let i = 0; i < arrPlayersOnCurrentTile.length; i++) {
             if (arrPlayersOnCurrentTile[i] === this.props.gameStore.currentPlayer.name) continue
 
@@ -40,10 +39,14 @@ class CombatPopup extends Component {
     }
 
     renderFightScreen = () => {
-        this.props.gameStore.renderPopup("start_battle")
+        let curPlayer = this.props.gameStore.currentPlayer
+        let opponent = this.props.generalStore.chosenPlayer
+        this.props.gameStore.initFightPlayers(curPlayer, opponent)
+        // this.props.gameStore.renderFightScreen("start_battle")  // vova ToDo : check if needed.. cuz i do it in renderChosePlayerToFight
     }
 
-    componentDidMount(){
+
+    componentDidMount() {
 
     }
 
@@ -64,7 +67,6 @@ class CombatPopup extends Component {
                 <input list="player-list" name="player" onChange={this.props.generalStore.handleChosePlayer} placeholder="Select player to battle" />
                 {this.getListOfPlayers()}
                 <button onClick={this.renderFightScreen}>FIGHT!</button>
-
             </div>
         )
     }

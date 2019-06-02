@@ -16,6 +16,7 @@ export class GameStore {
     @observable movementRollMade = false
     @observable movementMade = false
     @observable cardDrawn = true
+    @observable fightStore
     @observable fightStats = { // = { player1: name1, player2: name2, rolledDie1 : -1, rolledDie2 : -1 , isStarted: false}
         player1: "",
         player2: "",
@@ -29,6 +30,13 @@ export class GameStore {
         },
         player1_submit: false,
         player2_submit: false
+    }
+
+    @action initFightPlayers = (player, opponent) => {
+        this.fightStore.player = player
+        this.fightStore.opponent = opponent
+        
+        this.socket.emit('initialize-player-vs-player-fightstats', this.fightStore)
     }
 
     @action getTilePlayerSatandsOn = (x, y) => {
@@ -111,19 +119,22 @@ export class GameStore {
         })
     }
 
-    @action initializeFightStats = () => {
-        this.socket.on('initialize-player-vs-player-fightstats', fightStats => {
-            this.fightStats = fightStats
-        })
-    }
-    // @action sendGameState = () => this.socket.emit('update-game-to-server', this.game)
+    // vova ToDo : Check if can be removed..
+    // @action initializeFightStats = () => {
+    //     this.socket.on('initialize-player-vs-player-fightstats', fightStats => {
+    //         this.fightStats = fightStats
+    //     })
+    // }
+
     @action changeToStarted = (chosenPlayer, currentPlayer) => {
         this.socket.emit('change-game-started-to-started', { chosenPlayer, currentPlayer })
     }
 
+    // old
     @action renderFightScreen = () => {
         this.socket.emit('enable-show-fight-screen')
     }
+
     @action assignPlayer = () => {
         this.socket.on('player-data', player => {
             this.player = player

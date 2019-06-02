@@ -89,6 +89,11 @@ io.on("connection", function (socket) {
         io.sockets.in(room).emit('initialize-player-vs-player-fightstats', playerStats)
     })
 
+    // vova ToDo : check if i can send it without fightStore
+    socket.on('initialize-player-vs-player-fightstats', function(fightStore){
+        io.sockets.in(room).emit('show-fight-screen-selected', fightStore)
+    })
+
     socket.on('disconnect', function (socket) {
         handlePlayers.removePlayer(socket, room)
     })
