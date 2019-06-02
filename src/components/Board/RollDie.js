@@ -7,7 +7,7 @@ class RollDie extends Component {
 
     rollDie = () => this.props.gameStore.rollDie()
 
-    allowRoll = () => this.props.gameStore.isCurrentPlayer && !this.props.gameStore.movementRollMade
+    allowRoll = () => this.props.gameStore.clientState.isCurrentPlayer && !this.props.gameStore.clientState.movementRollMade
 
     render(){
         return (<div>

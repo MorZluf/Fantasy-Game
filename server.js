@@ -53,9 +53,15 @@ io.on("connection", function (socket) {
         io.sockets.in(room).emit('update-game-to-client', game)
     })
 
+    socket.on('change-popup-type', function(popupType) {
+        game.changePopupType(popupType)
+        io.sockets.in(room).emit('update-game-to-client', game)
+    })
+
     socket.on('end-turn', function () {
         let newPlayer = handlePlayers.advanceTurn(room)
         io.sockets.in(room).emit('new-turn', newPlayer)
+        io.sockets.in(room).emit('update-game-to-client', game)
     })
     
     socket.on('change-game-started-to-started', function (players) {

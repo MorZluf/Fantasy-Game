@@ -2,15 +2,22 @@ import { observable, action } from 'mobx'
 import openSocket from 'socket.io-client'
 
 export class GameStore {
+    constructor(fightStore) {
+        this.fightStore = fightStore
+    }
+
     @observable loading = true
     @observable socket = openSocket('http://localhost:8000')
     @observable player = {} // identifier of a client { name : PlayerName , socketId : someID }
     @observable currentPlayer = { name: "Player_1" }
     @observable game = {}
-    @observable isCurrentPlayer = true
-    @observable curTileType = ""
-    @observable movementRollMade = false
-    @observable movementMade = false
+    @observable clientState = {
+        isCurrentPlayer: true,
+        currentTileType: "",
+        movementRollMade: false,
+        movementMade: false,
+        cardDrawn: true
+    }
     @observable fightStats = { // = { player1: name1, player2: name2, rolledDie1 : -1, rolledDie2 : -1 , isStarted: false}
         player1: "",
         player2: "",
@@ -25,7 +32,6 @@ export class GameStore {
         player1_submit: false,
         player2_submit: false
     }
-    @observable popupType = "start_battle"
 
     @action getTilePlayerSatandsOn = (x, y) => {
         return this.game.matrix[y][x]
@@ -47,7 +53,7 @@ export class GameStore {
             this.fightStats.player2_submit = true
 
         if (this.bothPlayersSubmittedDie())
-            this.popupType = "show_win_lose"
+            this.game.popupType = "show_win_lose"
     }
 
     bothPlayersSubmittedDie = () => this.fightStats.player1_submit && this.fightStats.player2_submit ? true : false
@@ -128,42 +134,52 @@ export class GameStore {
     }
 
     @action renderPopup = argPopupType => {
-        this.popupType = argPopupType
+        this.game.popupType = argPopupType
     }
 
     @action movePlayer = key => {
         const tile = this.getTile(this.getTileCoords(key))
         if (this.player.name !== this.currentPlayer.name) { return }
-        else if (!this.movementRollMade) { return }
+        else if (!this.clientState.movementRollMade) { return }
         else if (!tile.canMoveHere) { return }
         else {
             this.socket.emit('move-player', { player: this.currentPlayer.name, coords: this.getTileCoords(key) })
-            this.movementMade = true
+            this.clientState.movementMade = true
             this.determineTileActions(tile)
         }
     }
 
     determineTileActions = tile => {
-        if (tile.players.length > 0) { this.popupType = "combat_popup" }
-        else if (tile.type === "Village") { this.popupType = "village_options" }
-        else if (tile.type === "Fields") { this.popupType = "field_options" }
-        else { this.popupType = "" }
+        if (tile.players.length > 0) { this.game.popupType = "combat_popup" }
+        else if (tile.type === "Village") { this.game.popupType = "village_options" }
+        else if (tile.type === "Fields") { 
+            this.game.popupType = "field_options"
+            this.clientState.cardDrawn = false
+        }
+        else { this.game.popupType = "" }
+        this.socket.emit('change-popup-type', this.game.popupType)
+    }
+
+    drawAdventureCard = () => {
+        console.log("Card Drawn")
+        this.clientState.cardDrawn = true
     }
 
     @action endTurn = () => {
         if (this.player.name !== this.currentPlayer.name) { return }
-        else if (!this.movementMade) { return }
+        else if (!this.clientState.movementMade) { return }
+        else if (!this.clientState.cardDrawn) { return }
         else {
             this.socket.emit('end-turn')
-            this.isCurrentPlayer = false
-            this.movementRollMade = false
-            this.movementMade = false
-            this.popupType = ""
+            this.clientState.isCurrentPlayer = false
+            this.clientState.movementRollMade = false
+            this.clientState.movementMade = false
         }
     }
 
     @action getCurrentTurn = () => {
         this.socket.on('new-turn', newPlayer => {
+            this.game.popupType = ""
             this.currentPlayer = newPlayer
             this.setCurrentPlayerStatus()
         })
@@ -172,8 +188,9 @@ export class GameStore {
     @action rollDie = () => {
         if (this.player.name !== this.currentPlayer.name) { return }
         else {
+            console.log(this.fightStore.dummyCheck)
             this.socket.emit('roll-movement', this.currentPlayer)
-            this.movementRollMade = true
+            this.clientState.movementRollMade = true
         }
     }
 
@@ -184,11 +201,11 @@ export class GameStore {
     }
 
     setCurrentPlayerStatus = () => {
-        if (this.player.name !== this.currentPlayer.name) { this.isCurrentPlayer = false }
+        if (this.player.name !== this.currentPlayer.name) { this.clientState.isCurrentPlayer = false }
         else {
-            this.isCurrentPlayer = true
-            this.movementRollMade = false
-            this.movementMade = false
+            this.clientState.isCurrentPlayer = true
+            this.clientState.movementRollMade = false
+            this.clientState.movementMade = false
         }
     }
 }
