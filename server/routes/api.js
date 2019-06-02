@@ -17,6 +17,12 @@ let arrFollowers = [
     {title: "Leprechaun", img: "https://image.spreadshirtmedia.com/image-server/v1/mp/designs/1012572415,width=178,height=178,version=-1723906061/feast-of-saint-patrick-leprechaun-pot-gold-coins.png", text: "While the leprechaun follows you add 3 to your gold", specialAbilities: [], stats: {strength: null, craft: null, life: null, gold: 3}}
 ]
 
+let arrClasses = [
+    {name: "Warrior", img: "http://www.talismanwiki.com/wiki/images/9/97/Warrior.png", specialAbilities: ["You may roll two dice in battle and use the highter roll to determine your attack score", "You may use two weapons at the same time"], stats: {strength: 4, craft: 2, life: 5, gold: 1}},
+    {name: "Troll", img: "http://www.talismanwiki.com/wiki/images/f/f3/Troll.png", specialAbilities: ["Whenever you roll a 4 for your move, you may regenerate instead of moving. if you choose to regenerate, heal one life and end your turn"], stats: {strength: 6, craft: 1, life: 6, gold: 1}},
+    {name: "Elf", img: "http://www.talismanwiki.com/wiki/images/8/89/Elf.png", specialAbilities: ["You may evade creatures and characters in the woods", "IF you're on a 'woods' tile, instead of rolling the die for your move, you may move to any other 'woods' tile"], stats: {strength: 3, craft: 4, life: 4, gold: 1}}
+]
+
 router.get('/sanity', function (req, res) {
     res.send("OK!")
 })
@@ -38,17 +44,16 @@ router.put('/drop', function (req, res) {
     res.send("db dropped")
 })
 
-router.put('/items', function( req,res) {
-    dataDao.populate(arrItems)
-    res.send("db populated")
-})
-
 router.put('/adventureCards', async function ( req, res){
     let arrEnemies = await dataDao.handleArrEnemies()
-    dataDao.populate(arrItems, arrFollowers, arrEnemies)
+    dataDao.populateAdventureCards(arrItems, arrFollowers, arrEnemies)
     res.send("db populated with items, followrs and enemies")
 })
 
+router.put('/classes', async function (req, res){
+    dataDao.populateClasses(arrClasses)
+    res.send("db populated with classes")
+})
 // ------------------------------------------
 // GET methods
 // ------------------------------------------

@@ -38,7 +38,7 @@ class dataDao {
         Player.collection.drop()
     }
 
-    async populate(arrItems, arrFollowers, arrEnemies) {
+    async populateAdventureCards(arrItems, arrFollowers, arrEnemies) {
         for (let i = 0; i < arrItems.length; i++)
             await this.saveItemToDB(arrItems[i])
 
@@ -49,9 +49,14 @@ class dataDao {
             await this.saveEnemyToDB(arrEnemies[i])
 
         // this method being called in api.js
-
         console.log("populated")
     }
+
+    async populateClasses(arrClasses){
+        for (let i = 0; i < arrClasses.length; i++)
+        await this.saveClassToDB(arrClasses[i])
+    }
+
 
     // ----------------------------------------
     // GET methods
@@ -68,6 +73,17 @@ class dataDao {
     // ----------------------------------------
     // SAVE methods
     // ----------------------------------------
+    async saveClassToDB(argClass) {
+        let classToSave = new Class({
+            name: argClass.name,
+            img: argClass.img,
+            specialAbilities: argClass.specialAbilities,
+            stats: argClass.stats
+        })
+        classToSave.save()
+        console.log(`saved class ${classToSave.name} to the database`)
+    }
+
     async saveItemToDB(argItem) {
         let itemToSave = new Item({
             title: argItem.title,
@@ -119,7 +135,6 @@ class dataDao {
         let arrEnemies = data.body.filter(enemy => enemy.flavor)
         return arrEnemies
     }
-
 
     async savePlayerToDB(argPlayer) {
         let player = new Player({
