@@ -29,7 +29,7 @@ const server = app.listen(port, function () {
 })
 
 let game = new Game(5, 5)
-game.populateAdventureCards()
+// game.populateAdventureCards()
 game.getOuterRegionAsArray()
 
 const io = socketIo(server)
@@ -58,8 +58,19 @@ io.on("connection", function (socket) {
         io.sockets.in(room).emit('update-game-to-client', game)
     })
 
+    socket.on('draw-adventure-card', function() {
+        let drawnCard = game.drawAdventureCard()[0]
+        io.sockets.in(room).emit('adventure-card-drawn', drawnCard)
+    })
+
+    socket.on('close-popup-to-server', function () {
+        game.resetPopup()
+        io.sockets.in(room).emit('update-game-to-client', game)
+    })
+
     socket.on('end-turn', function () {
         let newPlayer = handlePlayers.advanceTurn(room)
+        game.resetPopup()
         io.sockets.in(room).emit('new-turn', newPlayer)
         io.sockets.in(room).emit('update-game-to-client', game)
     })

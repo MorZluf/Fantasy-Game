@@ -10,7 +10,7 @@ import { GeneralStore } from './stores/GeneralStore'
 import { DataStore } from './stores/DataStore';
 import { FightStore } from './stores/FightStore';
 
-const gameStore = new GameStore(new FightStore)
+const gameStore = new GameStore(new FightStore())
 const generalStore = new GeneralStore()
 const dataStore = new DataStore()
 const stores = {generalStore, gameStore, dataStore}

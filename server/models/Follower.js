@@ -2,6 +2,7 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 const FollowerSchema= new Schema({
+    type: String,
     title: String,
     img: String,
     text: String,
