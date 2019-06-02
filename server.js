@@ -28,7 +28,7 @@ const server = app.listen(port, function () {
     console.log(`Server running on port ${port}`)
 })
 
-let game = new Game(7, 7)
+let game = new Game(5, 5)
 game.populateAdventureCards()
 game.getOuterRegionAsArray()
 

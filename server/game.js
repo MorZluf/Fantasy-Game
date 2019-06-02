@@ -8,7 +8,7 @@ class Game extends Matrix {
         this.players = {}
         this.outerRegionAsArray = []
         this.adventureCards = []
-        this.movementDie = 6
+        this.movementDie = 4
         this.isBattleOn = false
         this.arrPlayersOnTile = []
         this.setInitialBoard()
@@ -20,12 +20,12 @@ class Game extends Matrix {
 
     setInitialBoard() {
         this.setPlayers(2)
-        this.addPlayerToTile("Player_1", { x: 0, y: 3 })
-        this.addPlayerToTile("Player_2", { x: 0, y: 2 }) // TODO: change x:0, y:5 --> x:6 y:3  // changed for combat troubleshooting
+        this.addPlayerToTile("Player_1", { x: 0, y: 2 })
+        this.addPlayerToTile("Player_2", { x: 4, y: 2 }) // TODO: change x:0, y:5 --> x:6 y:3  // changed for combat troubleshooting
         this.changeTileType("Village", { x: 0, y: 0 })
-        this.changeTileType("Village", { x: 6, y: 0 })
-        this.changeTileType("Village", { x: 0, y: 6 })
-        this.changeTileType("Village", { x: 6, y: 6 })
+        this.changeTileType("Village", { x: 4, y: 0 })
+        this.changeTileType("Village", { x: 0, y: 4 })
+        this.changeTileType("Village", { x: 4, y: 4 })
         this.fillCenter()
         this.closeAllTiles()
     }
@@ -118,8 +118,8 @@ class Game extends Matrix {
         this.matrix[position.y][position.x].type = type
     }
 
-    rollDie() {
-        let dieRoll = Math.floor(Math.random() * Math.floor(0) + 1) // TODO: changed Math.floor(6) -->  Math.floor(6) for combat troubleshooting
+    rollDie(dieType) {   
+            let dieRoll = Math.floor(Math.random() * Math.floor(dieType) + 1) // TODO: changed Math.floor(6) -->  Math.floor(6) for combat troubleshooting
         return dieRoll
     }
 
@@ -127,7 +127,7 @@ class Game extends Matrix {
         let position = this.findPlayerCoordinates(player)
 
         let index
-        this.movementDie = Number(this.rollDie())
+        this.movementDie = Number(this.rollDie(4))
 
         for (let pos in this.outerRegionAsArray) {
             if (this.outerRegionAsArray[pos].coords.x === position.x &&
@@ -191,22 +191,22 @@ class Game extends Matrix {
         for (let i = 1; i < this.matrix.length; i++) {
             this.outerRegionAsArray.push({
                 coords: {
-                    "x": 6,
+                    "x": 4,
                     "y": i
                 },
-                "type": this.matrix[i][6].type
+                "type": this.matrix[i][4].type
             })
         }
     }
 
     convertBottomRow() {
-        for (let i = this.matrix[6].length - 2; i >= 0; i--) {
+        for (let i = this.matrix[4].length - 2; i >= 0; i--) {
             this.outerRegionAsArray.push({
                 coords: {
                     "x": i,
-                    "y": 6
+                    "y": 4
                 },
-                "type": this.matrix[6][i].type
+                "type": this.matrix[4][i].type
             })
         }
     }
@@ -235,8 +235,6 @@ class Game extends Matrix {
         this.adventureCards.push(...enemies)
     }
 
-
-
     async drawAdventureCard() {
         if (!this.adventureCards.length) {
             await this.populateAdventureCards()
@@ -249,8 +247,8 @@ class Game extends Matrix {
 
     combat(player, attribute, oponent) {
         let attribute = attribute
-        let playerScore = player.stats.attribute + rollDie()
-        let oponentScore = oponent.attribute + rollDie()
+        let playerScore = player.stats.attribute + rollDie(6)
+        let oponentScore = oponent.attribute + rollDie(6)
         if (playerScore > oponentScore) { return "player wins" }
         else if (playerScore < oponentScore) { return "oponent wins" }
     }
@@ -264,7 +262,7 @@ class Game extends Matrix {
 
 module.exports = Game
 
-let game = new Game(7, 7)
+// let game = new Game(5, 5)
 
 // const testing = async function() {
 //    await game.populateAdventureCards()
