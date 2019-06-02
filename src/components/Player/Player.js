@@ -14,8 +14,8 @@ class Player extends Component {
     endTurn = () => this.props.gameStore.endTurn()
 
     canEndTurn = () => this.checkCurrentPlayer() && 
-        this.props.gameStore.isCurrentPlayer &&
-        this.props.gameStore.movementMade
+        this.props.gameStore.clientState.isCurrentPlayer &&
+        this.props.gameStore.clientState.movementMade
 
     render() {
         const player = this.getPlayerData()
