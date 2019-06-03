@@ -10,9 +10,30 @@ import OpponentDie from './OpponentDie';
 @observer
 class BattleStartPopup extends Component {
 
+    componentDidUpdate() {
+        this.props.gameStore.calculatedBoth()
+
+        if (this.bothRolled()) {
+            this.props.gameStore.fightStore.isTie
+                ?
+                this.renderTie()
+                :
+                this.renderWinnerLoser()
+        }
+    }
     componentDidMount() {
         // this.props.gameStore.renderPopup()
+        this.props.gameStore.getUpdatesFightStore()
+
     }
+    updateVSsection = () => {
+
+    }
+
+    bothRolled = () => {
+        return (this.props.gameStore.fightStore.winner && this.props.gameStore.fightStore.loser)
+    }
+
     renderPlayerMenu() {
         let player = this.props.gameStore.fightStore.player
 
@@ -20,9 +41,37 @@ class BattleStartPopup extends Component {
             <div className="battle-player1-menu">
                 < div className="player-combat-stats" >
                     {this.renderPlayerStats()}
-                    {this.isCurrentPlayer() ? <PlayerDie /> : null }
+                    {this.isCurrentPlayer() ? <PlayerDie /> : null}
                 </div >
             </div >
+        )
+    }
+
+    renderTie = () => {
+
+    }
+    
+    renderWinnerLoser = () => {
+
+        // if (this.props.gameStore.fightStore.winner === this.props.gameStore.player.name)
+
+        return (
+            <div className="results">
+                <div>{this.props.gameStore.fightStore.player} rolled {this.props.gameStore.fightStore.playerRoll}</div>
+                <div>{this.props.gameStore.fightStore.opponent} rolled {this.props.gameStore.fightStore.opponentRoll}</div>
+
+                <div className="winner">
+                    The winner is : {this.props.gameStore.fightStore.winner}
+                    {this.renderWinnerAndLoserOptions()}
+                </div>
+            </div>
+        )
+    }
+    renderWinnerAndLoserOptions = () => {
+        return (
+            <div>
+                winner_loser_options_depends_on_who_the_player_is
+            </div>
         )
     }
     isCurrentPlayer = () => {
@@ -58,6 +107,7 @@ class BattleStartPopup extends Component {
             </div>
         )
     }
+
     renderPlayerStats = () => {
         let player_stats = this.props.gameStore.fightStore.playerStats
 
@@ -74,13 +124,13 @@ class BattleStartPopup extends Component {
         return (
             <div className="vs">
                 <span>-VS-</span>
+
             </div>
         )
     }
     render() {
         return (
             <div className="start-battle">
-                {console.log(this.props.gameStore.fightStore)}
                 {this.renderPlayerMenu()}
                 {this.renderVS()}
                 {this.renderOpponentMenu()}

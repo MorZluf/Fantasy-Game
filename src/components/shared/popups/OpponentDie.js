@@ -7,8 +7,6 @@ class OpponentDie extends Component {
 
     rollDie = () => this.props.gameStore.assignRolledNumberToOpponent(this.getRandom())
     
-    submit = () => this.props.gameStore.submitOpponent()
-
     getRandom = () => Math.floor(Math.random() * Math.floor(6) + 1)
     
     didPress = () => this.props.gameStore.fightStore.opponentSubmit
@@ -18,7 +16,7 @@ class OpponentDie extends Component {
             <div>
                 <div className="die-image">{this.props.gameStore.fightStore.opponentRoll}</div>
                 <button onClick={this.rollDie} style={{visibility: this.didPress() ? "hidden" : "visible" }} >Roll</button>
-                <button onClick={this.submit} >Submit</button>
+                {/* <button onClick={this.submit} >Submit</button> */}
             </div>
         )
     }

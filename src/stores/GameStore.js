@@ -32,15 +32,8 @@ export class GameStore {
         return this.game.matrix[y][x]
     }
 
-    @action submitPlayer = player => {
-        player === this.fightStats.player1
-            ?
-            this.fightStats.player1_submit = true
-            :
-            this.fightStats.player2_submit = true
-
-        if (this.bothPlayersSubmittedDie())
-            this.game.popupType = "show_win_lose"
+    @action submitPlayer = () => {
+        this.game.fightStore.playerSubmit = true
     }
 
     bothPlayersSubmittedDie = () => this.fightStats.player1_submit && this.fightStats.player2_submit ? true : false
@@ -90,6 +83,20 @@ export class GameStore {
             this.clientState.cardDrawn = false
         })
     }
+    
+    @action getUpdatesFightStore = () => {
+        this.socket.on('calculate-win-lose', fightStore => {
+            this.fightStore = fightStore
+        })  
+    }
+    @action calculatedBoth = () => {
+        this.socket.on('calculated-both', fightStore => {
+            this.fightStore = fightStore
+            console.log("in calculate both")
+            console.log(this.fightStore)
+        })  
+    }
+
 
     @action getFightState = () => {
         this.socket.on('show-fight-screen-selected', fightStore => {

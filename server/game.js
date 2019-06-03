@@ -37,7 +37,7 @@ class Game extends Matrix {
     }
 
     setPlayers(num) {
-        for (let i = 1; i < num + 1; i ++) {
+        for (let i = 1; i < num + 1; i++) {
             this.players["Player_" + i] = {
                 name: "charname",
                 class: "Warrior",
@@ -54,7 +54,7 @@ class Game extends Matrix {
             }
         }
     }
-    
+
     closeAllTiles() {
         for (let r = 0; r < this.matrix.length; r++) {
             for (let c = 0; c < this.matrix[r].length; c++) {
@@ -66,7 +66,7 @@ class Game extends Matrix {
     enableFightScreen() {
         this.isToShowFightScreen = true
     }
-    
+
     fillCenter() {
         for (let r = 1; r < this.matrix.length - 1; r++) {
             for (let c = 1; c < this.matrix[r].length - 1; c++) {
@@ -89,6 +89,21 @@ class Game extends Matrix {
         this.matrix[position.y][position.x].players.splice(index, 1)
     }
 
+    // returns {winner: "playerOR_opponent", loser: "playerOR_opponent"}  
+    calculateWinnerAndLoser(fightStore) {
+        let result = {}
+        let playerStrength = fightStore.playerRoll + fightStore.playerStats.strength
+        let opponentStrength = fightStore.opponentRoll + fightStore.opponentStats.strength
+
+        if (playerStrength > opponentStrength)
+            result = { winner: fightStore.player, loser: fightStore.opponent, isTie: false }
+        else if (playerStrength < opponentStrength)
+            result = { winner: fightStore.opponent, loser: fightStore.player, isTie: false }
+        else
+            result = { winner: "", loser: "", isTie: true }
+
+        return result
+    }
     movePlayer(moveData) {  //moveData = {player: "NAME", coords: {x: "NUM", y: "NUM"}}
 
         let oldPosition = this.findPlayerCoordinates(moveData.player)
@@ -116,7 +131,7 @@ class Game extends Matrix {
     checkIfTwoPlayersOnSameTile(moveData) {
         return this.matrix[moveData.coords.y][moveData.coords.x].players.length > 1
     }
-    
+
     changeTileOpenStatus(position) {
         this.matrix[position.y][position.x].canMoveHere = !this.matrix[position.y][position.x].canMoveHere
     }
@@ -124,8 +139,8 @@ class Game extends Matrix {
         this.matrix[position.y][position.x].type = type
     }
 
-    rollDie(dieType) {   
-            let dieRoll = Math.floor(Math.random() * Math.floor(dieType) + 1) 
+    rollDie(dieType) {
+        let dieRoll = Math.floor(Math.random() * Math.floor(dieType) + 1)
         return dieRoll
     }
 
