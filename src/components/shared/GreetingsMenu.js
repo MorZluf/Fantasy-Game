@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
 import '../../style/greetingsmenu.css'
 import { BrowserRouter as Route, Link } from 'react-router-dom'
+import { GameStore } from '../../stores/GameStore';
+import ClassSelectPopup from './popups/ClassSelectPopup';
+import { observer, inject } from 'mobx-react'
 
 
-
+@inject("gameStore")
+@observer
 class GreetingsMenu extends Component {
     doSomething = () => {
         console.log("doing something in greetings menu...")
@@ -22,6 +26,10 @@ class GreetingsMenu extends Component {
         )
     }
 
+    showClassSelectPopup = () =>{
+        this.props.gameStore.isShowClassSelectPopup = true
+    }
+
     render() {
         return (
              <div className="greetings-menu">
@@ -30,9 +38,10 @@ class GreetingsMenu extends Component {
                 {this.getListOfRooms()}
                 <br/>
                 <button className="btn"><Link to="/instructions">Instructions</Link></button>
-                <button className="btn"><Link to="/board">Create New Game</Link></button>
+                <button className="btn" onClick={this.showClassSelectPopup}>Create New Game</button>
                 <button className="btn"><Link to="/board">Join New Game</Link></button>
                 <button className="btn"><Link to="/board">Continue Game</Link></button>
+                {this.props.gameStore.isShowClassSelectPopup ? <ClassSelectPopup /> : null}
              </div>
         )
     }

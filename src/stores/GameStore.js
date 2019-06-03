@@ -32,6 +32,7 @@ export class GameStore {
         player1_submit: false,
         player2_submit: false
     }
+    @observable isShowClassSelectPopup = false
 
     @action getTilePlayerSatandsOn = (x, y) => {
         return this.game.matrix[y][x]

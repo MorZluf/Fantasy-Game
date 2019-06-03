@@ -1,5 +1,5 @@
 const Matrix = require('./matrix')
-
+const Class = require('../server/models/Class')
 const DataDao = require('./utils/dataDao')
 const dataDao = new DataDao()
 class Game extends Matrix {
@@ -12,6 +12,7 @@ class Game extends Matrix {
         this.isBattleOn = false
         this.arrPlayersOnTile = []
         this.popupType = ""
+        this.arrClasses = []
         this.setInitialBoard()
     }
 
@@ -20,7 +21,6 @@ class Game extends Matrix {
     }
 
     setInitialBoard() {
-        this.setPlayers(2)
         this.addPlayerToTile("Player_1", { x: 0, y: 2 })
         this.addPlayerToTile("Player_2", { x: 4, y: 2 }) // TODO: change x:0, y:5 --> x:6 y:3  // changed for combat troubleshooting
         this.changeTileType("Village", { x: 0, y: 0 })
@@ -31,25 +31,29 @@ class Game extends Matrix {
         this.closeAllTiles()
     }
 
-    setPlayers(num) {
-        for (let i = 1; i < num + 1; i ++) {
-            this.players["Player_" + i] = {
-                name: "charname",
-                class: "Warrior",
+    async setPlayers(clientName, playerName, className) {
+        let selectedClass = await this.findSelectedClass(className)    
+        this.players[clientName] = {
+                name: playerName,
+                class: className,
                 stats: {
-                    strength: 4,
-                    craft: 2,
-                    life: 5,
-                    gold: 1,
-                    alignment: "neutral"
+                    strength: selectedClass[0].stats.strength,
+                    craft: selectedClass[0].stats.craft,
+                    life: selectedClass[0].stats.life,
+                    gold: selectedClass[0].stats.gold,
                 },
-                inventory: ["sword"],
-                followers: ["blacksmith"],
+                inventory: [],
+                followers: [],
                 collectedEnemies: []
             }
+            console.log(this.players[clientName])
         }
+
+    async findSelectedClass(className){
+        let selectedClass = await Class.find({name: className})
+        return selectedClass
     }
-    
+        
     closeAllTiles() {
         for (let r = 0; r < this.matrix.length; r++) {
             for (let c = 0; c < this.matrix[r].length; c++) {
@@ -236,6 +240,12 @@ class Game extends Matrix {
         this.adventureCards.push(...enemies)
     }
 
+    async populateClassesArr(){
+        const classesFromDB = await dataDao.getClasses()
+        this.arrClasses.push(...classesFromDB)
+        console.log(this.arrClasses)
+    }
+
     async drawAdventureCard() {
         if (!this.adventureCards.length) {
             await this.populateAdventureCards()
@@ -267,11 +277,11 @@ class Game extends Matrix {
 
 module.exports = Game
 
-// let game = new Game(5, 5)
+let game = new Game(5, 5)
 
 // const testing = async function() {
-//    await game.populateAdventureCards()
-//    console.log(await game.drawAdventureCard())
+//     let res = await game.findSelectedClass("Troll")
+//     console.log(res)
+//     console.log(res[0].stats.strength)
 // }
-
 // testing()

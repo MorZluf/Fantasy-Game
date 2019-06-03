@@ -35,3 +35,11 @@
 ::placeholder{
     color: ivory;
 }
+
+
+.select-class-container{
+    width: 50vw;
+    height: 50vh;
+    background-color: black;
+    opacity: 0.9;
+}

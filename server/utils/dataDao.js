@@ -62,7 +62,7 @@ class dataDao {
     // GET methods
     // ----------------------------------------
     async getClasses() { return await Class.find({}) }
-    async getClass(className) { return className === "Warrior" ? this.dummyWarrior : null } // async getClass(className) { return await Class.findOne({name: className})}
+    async getClass() { return className === "Warrior" ? this.dummyWarrior : null } // async getClass(className) { return await Class.findOne({name: className})}
     async getGames() { return await Game.find({}) }
     async getItems() { return await Item.find({}) }
     async getFollowers() { return await Follower.find({}) }
@@ -164,11 +164,11 @@ class dataDao {
     }
 }
 
-let test = new dataDao()
+// let test = new dataDao()
 
-const testing = async function () {
-    await test.handleArrEnemies()
-}
-testing()
+// const testing = async function () {
+//     await test.handleArrEnemies()
+// }
+// testing()
 
 module.exports = dataDao
