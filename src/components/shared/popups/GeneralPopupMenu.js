@@ -14,7 +14,7 @@ class GeneralPopupMenu extends Component {
         let popupToShow = ""
         switch (this.props.gameStore.game.popupType) {
             case "combat_popup":
-                popupToShow =  <CombatPopup />;
+                popupToShow = <CombatPopup />;
                 break;
             case "start_battle":
                 popupToShow = <BattleStartPopup />;
@@ -38,6 +38,10 @@ class GeneralPopupMenu extends Component {
         return popupToShow
     }
 
+    componentDidMount() {
+        this.props.gameStore.getFightState()
+    }
+    
     render() {
         console.log("ToDo: " + ["in game.js line 93", " in game.js line 19"])
         return (

@@ -6,13 +6,13 @@ export class FightStore {
     @observable player = null
     @observable opponent = null
     @observable playerRoll = null
-    @observable oponentRoll = null
+    @observable opponentRoll = null
 
     @observable playerSubmit = false
     @observable opponentSubmit = false
 
-    @observable playerStats = {} // ??
-    @observable opponentStats = {} // ??  do i need it ? s
+    @observable playerStats = {} 
+    @observable opponentStats = {} 
 
     
     @action functionName = () => {

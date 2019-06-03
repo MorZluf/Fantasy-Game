@@ -1,47 +1,68 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react'
 
-import CombatDie_Player1 from '../popups/CombatDie_Player1';
-import CombatDie_Player2 from '../popups/CombatDie_Player2';
-
 import '../../../style/popups.css';
+import PlayerDie from './PlayerDie';
+import OpponentDie from './OpponentDie';
+
 @inject("gameStore", "generalStore")
 
 @observer
 class BattleStartPopup extends Component {
 
-    renderPlayer1Menu() {
-        let currentPlayer = this.props.gameStore.currentPlayer.name
-        
+    componentDidMount() {
+        // this.props.gameStore.renderPopup()
+    }
+    renderPlayerMenu() {
+        let player = this.props.gameStore.fightStore.player
+
         return (
             <div className="battle-player1-menu">
                 < div className="player-combat-stats" >
-                    {this.renderPlayerStats(currentPlayer)}
-                    <CombatDie_Player1 player={currentPlayer}/>
+                    {this.renderPlayerStats()}
+                    {this.isCurrentPlayer() ? <PlayerDie /> : null }
                 </div >
             </div >
         )
     }
+    isCurrentPlayer = () => {
+        return this.props.gameStore.player.name === this.props.gameStore.fightStore.player ? true : false
+    }
 
-    renderPlayer2Menu() {
-        let chosenPlayer = this.props.generalStore.chosenPlayer
+    isCurrentOpponent = () => {
+        return this.props.gameStore.player.name === this.props.gameStore.fightStore.opponent ? true : false
+    }
+
+    renderOpponentMenu() {
+        let opponent = this.props.gameStore.fightStore.opponent
 
         return (
             <div className="battle-player2-menu">
                 <div className="player-combat-stats" >
-                    {this.renderPlayerStats(chosenPlayer)}
-                    <CombatDie_Player2 player={chosenPlayer}/>
+                    {this.renderOpponentStats()}
+                    {this.isCurrentOpponent() ? <OpponentDie /> : null}
                 </div >
             </div >
         )
     }
 
-    renderPlayerStats = player => {
-        let player_stats = this.props.gameStore.getPlayerStatsByPlayer(player)
+    renderOpponentStats = () => {
+        let opponentStats = this.props.gameStore.fightStore.opponentStats
 
         return (
             <div className="player-stats">
-            <h6>(stats are hardcoded...)</h6>
+                <div>stgh : {opponentStats.strength}</div>
+                <div>crft : {opponentStats.craft}</div>
+                <div>life : {opponentStats.life}</div>
+                <div>gold : {opponentStats.gold}</div>
+            </div>
+        )
+    }
+    renderPlayerStats = () => {
+        let player_stats = this.props.gameStore.fightStore.playerStats
+
+        return (
+            <div className="player-stats">
                 <div>stgh : {player_stats.strength}</div>
                 <div>crft : {player_stats.craft}</div>
                 <div>life : {player_stats.life}</div>
@@ -59,10 +80,10 @@ class BattleStartPopup extends Component {
     render() {
         return (
             <div className="start-battle">
-                {/* {this.renderPlayer1Menu()}
-                {this.renderVS()}
-                {this.renderPlayer2Menu()} */}
                 {console.log(this.props.gameStore.fightStore)}
+                {this.renderPlayerMenu()}
+                {this.renderVS()}
+                {this.renderOpponentMenu()}
             </div >
         )
     }

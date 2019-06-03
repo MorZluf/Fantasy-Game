@@ -19,38 +19,15 @@ export class GameStore {
         movementMade: false,
         cardDrawn: true
     }
-    @observable fightStats = { // = { player1: name1, player2: name2, rolledDie1 : -1, rolledDie2 : -1 , isStarted: false}
-        player1: "",
-        player2: "",
-        rolledDie1: -1,
-        rolledDie2: -1,
-        player1_stats: {
-            strength : 0,
-        },
-        player2_stats: {
-            strength : 0,
-        },
-        player1_submit: false,
-        player2_submit: false
-    }
 
     @action initFightPlayers = (player, opponent) => {
         this.fightStore.player = player
         this.fightStore.opponent = opponent
-        
         this.socket.emit('initialize-player-vs-player-fightstats', this.fightStore)
     }
 
     @action getTilePlayerSatandsOn = (x, y) => {
         return this.game.matrix[y][x]
-    }
-    @action assingToPlayer1 = (num, player1) => {
-        this.fightStats.player1 = player1
-        this.fightStats.rolledDie1 = num
-    }
-    @action assingToPlayer2 = (num, player2) => {
-        this.fightStats.player2 = player2
-        this.fightStats.rolledDie2 = num
     }
 
     @action submitPlayer = player => {
@@ -65,17 +42,6 @@ export class GameStore {
     }
 
     bothPlayersSubmittedDie = () => this.fightStats.player1_submit && this.fightStats.player2_submit ? true : false
-
-
-    getPlayerStatsByPlayer = name => {
-        // hard coded! 
-        return {
-            strength: 5,
-            craft: 3,
-            gold: 2,
-            life: 7
-        }
-    }
 
     getCoordByPlayerName = name => {
         for (let i = 0; i < this.game.matrix.length; i++)
@@ -104,6 +70,7 @@ export class GameStore {
             this.isToShowFightScreen = true
         })
     }
+
     @action getInitialGame = () => {
         this.socket.on('new-game-board', newGame => {
             this.game = newGame
@@ -121,20 +88,46 @@ export class GameStore {
         })
     }
 
-    // vova ToDo : Check if can be removed..
-    // @action initializeFightStats = () => {
-    //     this.socket.on('initialize-player-vs-player-fightstats', fightStats => {
-    //         this.fightStats = fightStats
-    //     })
-    // }
-
-    @action showFightScreen = () => {
+    @action getFightState = () => {
         this.socket.on('show-fight-screen-selected', fightStore => {
             this.fightStore = fightStore
+            this.getPlayerAndOpponentStats()
+            this.game.popupType = "start_battle"
         })
     }
-    @action changeToStarted = (chosenPlayer, currentPlayer) => {
-        this.socket.emit('change-game-started-to-started', { chosenPlayer, currentPlayer })
+    getPlayerAndOpponentStats = () => {
+        let player = this.fightStore.player
+        let opponent = this.fightStore.opponent
+
+        this.fightStore.playerStats = this.getPlayerByName(player).stats
+        this.fightStore.opponentStats = this.getPlayerByName(opponent).stats
+
+        console.log(this.fightStore)
+    }
+
+    getPlayerByName = name => {
+        let result = this.game.players[name]
+        return result
+    }
+
+    @action assignRolledNumberToPlayer = num => {
+        this.fightStore.playerRoll = num
+        this.changePlayerSubmittedState(true)
+        this.socket.emit('update-fightStore-state', this.fightStore)
+    }
+
+    @action assignRolledNumberToOpponent = num => {
+        this.fightStore.opponentRoll = num
+        this.changeOpponentSubmittedState(true)
+        this.socket.emit('update-fightStore-state', this.fightStore)
+    }
+
+    changePlayerSubmittedState = bool => {
+        this.fightStore.playerSubmit = bool
+    }
+
+    changeOpponentSubmittedState = bool => {
+        this.fightStore.opponentSubmit = bool
     }
 
     // old
@@ -168,7 +161,7 @@ export class GameStore {
     determineTileActions = tile => {
         if (tile.players.length > 0) { this.game.popupType = "combat_popup" }
         else if (tile.type === "Village") { this.game.popupType = "village_options" }
-        else if (tile.type === "Fields") { 
+        else if (tile.type === "Fields") {
             this.game.popupType = "field_options"
             this.clientState.cardDrawn = false
         }

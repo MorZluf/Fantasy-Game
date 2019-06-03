@@ -78,6 +78,7 @@ io.on("connection", function (socket) {
         game.enableFightScreen()
         io.sockets.in(room).emit('show-fight-screen')
     })
+    // vova ToDo: delete chain methods
     socket.on('player-vs-player', function (players) {
         let playerStats = {
             player1 : players.chosenPlayer,
@@ -94,6 +95,9 @@ io.on("connection", function (socket) {
         io.sockets.in(room).emit('show-fight-screen-selected', fightStore)
     })
 
+    socket.on('update-fightStore-state', function(fightStore){
+        io.sockets.in(room).emit('show-win-lose', fightStore)
+    })
     socket.on('disconnect', function (socket) {
         handlePlayers.removePlayer(socket, room)
     })

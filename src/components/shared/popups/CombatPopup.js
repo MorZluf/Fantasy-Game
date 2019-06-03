@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { observer, inject } from 'mobx-react'
-import MsgComponent from '../MsgComponent';
+import { observer, inject } from 'mobx-react';
 
 @inject("gameStore", "generalStore")
 
@@ -39,55 +38,41 @@ class CombatPopup extends Component {
         return result
     }
 
-    renderFightScreen = () => {
-        let curPlayer = this.props.gameStore.currentPlayer
+    initFightStats = () => {
+        let curPlayer = this.props.gameStore.currentPlayer.name
         let opponent = this.props.generalStore.chosenPlayer
         this.props.gameStore.initFightPlayers(curPlayer, opponent)
-        // this.props.gameStore.renderFightScreen("start_battle")  // vova ToDo : check if needed.. cuz i do it in renderChosePlayerToFight
     }
 
-
-    componentDidMount() {
-
-    }
-
+    // vova ToDo : check if needed all this chain reactions
     fight = () => {
         let chosenPlayer = this.props.generalStore.chosenPlayer
         this.props.gameStore.fight(chosenPlayer, this.props.gameStore.currentPlayer.name)
         this.props.gameStore.initializeFightStats()
     }
-    canChoose = () => this.props.gameStore.currentPlayer.name === this.props.gameStore.player.name ? true : false
 
     checkIfCurrentPlayerChosing = () => this.props.gameStore.currentPlayer.name === this.props.gameStore.player.name ? true : false
 
-    otherPlayersChoosingMSG = () => `${this.props.gameStore.currentPlayer.name} currently choosing who to fight against...`
-    
-
-    renderPlayerIsChoosing = () => {
-        return (
-            <div>
-                <input list="player-list" name="player" onChange={this.props.generalStore.handleChosePlayer} placeholder="Select player to battle" />
-                {this.getListOfPlayers()}
-                <button onClick={this.renderFightScreen}>FIGHT!</button>
-            </div>
-        )
-    }
-
-    renderMsgToOthers = () =>  <div><MsgComponent msg={this.otherPlayersChoosingMSG()} /></div>
-        
-    
     render() {
 
         return (
 
             <div className="combat-popup" >
+
+                <h5>{this.props.gameStore.currentPlayer.name} is choosing who to fight!</h5>
                 {
                     this.checkIfCurrentPlayerChosing()
-                    ?
-                    this.renderPlayerIsChoosing()
-                    :
-                    this.renderMsgToOthers()
+                        ?
+                        <div>
+                            <input list="player-list" name="player" onChange={this.props.generalStore.handleChosePlayer} placeholder="Select player to battle" />
+                            {this.getListOfPlayers()}
+                            <button onClick={this.initFightStats}>FIGHT!</button>
+                        </div>
+                        :
+                        null
                 }
+
+
             </div>
         )
     }
