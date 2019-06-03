@@ -63,6 +63,11 @@ io.on("connection", function (socket) {
         io.sockets.in(room).emit('adventure-card-drawn', drawnCard)
     })
 
+    socket.on('add-remove-card', function(modifyCardObject) {
+        game.addRemovePlayerCard(modifyCardObject)
+        io.sockets.in(room).emit('update-game-to-client', game)
+    })
+
     socket.on('close-popup-to-server', function () {
         game.resetPopup()
         io.sockets.in(room).emit('update-game-to-client', game)

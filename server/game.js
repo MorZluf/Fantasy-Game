@@ -250,6 +250,15 @@ class Game extends Matrix {
         return card
     }
 
+    addRemovePlayerCard(modifyCardObject) {
+        if (modifyCardObject === "add") {
+            //Add
+        }
+        else {
+            //Remove
+        }
+    }
+
     combat(player, attribute, oponent) {
         let attribute = attribute
         let playerScore = player.stats.attribute + rollDie(6)
