@@ -107,6 +107,16 @@ export class GameStore {
         })
     }
 
+    @action setPlayerClass = (playerName, className) => {
+        let playerObject = {
+            playerName,
+            clientName: this.player.name,
+            className
+        }
+        console.log(playerObject)
+        this.socket.emit('class-select', playerObject)
+    }
+
     @action fight = (chosenPlayer, currentPlayer) => {
         this.socket.emit('player-vs-player', { chosenPlayer, currentPlayer })
     }

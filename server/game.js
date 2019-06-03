@@ -5,7 +5,35 @@ const dataDao = new DataDao()
 class Game extends Matrix {
     constructor(numRows, numColumns) {
         super(numRows, numColumns)
-        this.players = {}
+        this.players = {"Player_1" :
+            {
+                name: "charname",
+                class: "Warrior",
+                stats: {
+                    strength: 4,
+                    craft: 2,
+                    life: 5,
+                    gold: 1,
+                },
+                inventory: [],
+                followers: [],
+                collectedEnemies: []
+            },
+            "Player_2" :
+            {
+                name: "charname",
+                class: "Warrior",
+                stats: {
+                    strength: 4,
+                    craft: 2,
+                    life: 5,
+                    gold: 1,
+                },
+                inventory: [],
+                followers: [],
+                collectedEnemies: []
+            }
+        }
         this.outerRegionAsArray = []
         this.adventureCards = []
         this.movementDie = 4
@@ -15,6 +43,7 @@ class Game extends Matrix {
         this.arrClasses = []
         this.populateAdventureCards()
         this.setInitialBoard()
+        this.populateClassesArr()
     }
 
     getPlayers() {
@@ -37,7 +66,8 @@ class Game extends Matrix {
     }
 
     async setPlayers(clientName, playerName, className) {
-        let selectedClass = await this.findSelectedClass(className)    
+        let selectedClass = await this.findSelectedClass(className) 
+
         this.players[clientName] = {
                 name: playerName,
                 class: className,
@@ -51,7 +81,6 @@ class Game extends Matrix {
                 followers: [],
                 collectedEnemies: []
             }
-            console.log(this.players[clientName])
         }
 
     async findSelectedClass(className){
@@ -248,7 +277,6 @@ class Game extends Matrix {
     async populateClassesArr(){
         const classesFromDB = await dataDao.getClasses()
         this.arrClasses.push(...classesFromDB)
-        console.log(this.arrClasses)
     }
 
     drawAdventureCard() {
@@ -276,6 +304,8 @@ class Game extends Matrix {
     changePopupType(popupType) {
         this.popupType = popupType
     }
+
+
 
 }
 

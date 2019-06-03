@@ -18,9 +18,9 @@ let arrFollowers = [
 ]
 
 let arrClasses = [
-    {name: "Warrior", img: "http://www.talismanwiki.com/wiki/images/9/97/Warrior.png", specialAbilities: ["You may roll two dice in battle and use the highter roll to determine your attack score", "You may use two weapons at the same time"], stats: {strength: 4, craft: 2, life: 5, gold: 1}},
+    {name: "Warrior", img: "http://www.talismanwiki.com/wiki/images/9/97/Warrior.png", specialAbilities: ["You may roll two dice in battle and use the highter roll to determine your attack score.", "You may use two weapons at the same time"], stats: {strength: 4, craft: 2, life: 5, gold: 1}},
     {name: "Troll", img: "http://www.talismanwiki.com/wiki/images/f/f3/Troll.png", specialAbilities: ["Whenever you roll a 4 for your move, you may regenerate instead of moving. if you choose to regenerate, heal one life and end your turn"], stats: {strength: 6, craft: 1, life: 6, gold: 1}},
-    {name: "Elf", img: "http://www.talismanwiki.com/wiki/images/8/89/Elf.png", specialAbilities: ["You may evade creatures and characters in the woods", "IF you're on a 'woods' tile, instead of rolling the die for your move, you may move to any other 'woods' tile"], stats: {strength: 3, craft: 4, life: 4, gold: 1}}
+    {name: "Elf", img: "http://www.talismanwiki.com/wiki/images/8/89/Elf.png", specialAbilities: ["You may evade creatures and characters in the woods.", "If you're on a 'woods' tile, instead of rolling the die for your move, you may move to any other 'woods' tile"], stats: {strength: 3, craft: 4, life: 4, gold: 1}}
 ]
 
 router.get('/sanity', function (req, res) {

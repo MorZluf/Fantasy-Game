@@ -6,7 +6,7 @@ import ClassSelectPopup from './popups/ClassSelectPopup';
 import { observer, inject } from 'mobx-react'
 
 
-@inject("gameStore")
+@inject("gameStore", "generalStore")
 @observer
 class GreetingsMenu extends Component {
     doSomething = () => {
@@ -30,17 +30,19 @@ class GreetingsMenu extends Component {
         this.props.gameStore.isShowClassSelectPopup = true
     }
 
+    handleInput = event => { this.props.generalStore.handleInput(event) }
+
     render() {
         return (
              <div className="greetings-menu">
-                <input className="inpt" type="text" placeholder=" Enter your name" />
+                <input className="inpt" type="text" placeholder=" Enter your name" onChange={this.handleInput}/>
                 <input className="inpt" list="room-list" name="room" placeholder=" Select room" />
                 {this.getListOfRooms()}
                 <br/>
                 <button className="btn"><Link to="/instructions">Instructions</Link></button>
                 <button className="btn" onClick={this.showClassSelectPopup}>Create New Game</button>
-                <button className="btn"><Link to="/board">Join New Game</Link></button>
-                <button className="btn"><Link to="/board">Continue Game</Link></button>
+                <button className="btn">Join New Game</button>
+                <button className="btn">Continue Game</button>
                 {this.props.gameStore.isShowClassSelectPopup ? <ClassSelectPopup /> : null}
              </div>
         )
