@@ -38,10 +38,14 @@ class GeneralPopupMenu extends Component {
         return popupToShow
     }
 
+    componentDidMount() {
+        this.props.gameStore.getFightState()
+    }
+    
     render() {
         console.log("ToDo: " + ["in game.js line 93", " in game.js line 19"])
         return (
-            <div className="general-popup-container">
+            <div className="general-popup-container" >
                 {this.renderPopup()}
             </div>
         )
