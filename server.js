@@ -112,6 +112,10 @@ io.on("connection", function (socket) {
         io.sockets.in(room).emit('show-fight-screen-selected', fightStore)
     })
 
+    socket.on('initialize-player-vs-opponent-fightstats', function (fightStore) {
+        io.sockets.in(room).emit('show-fight-screen-selected', fightStore)
+    })
+
     socket.on('update-fightStore-state', function (fightStore) {
 
         if (fightStore.playerSubmit && fightStore.opponentSubmit) {

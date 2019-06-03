@@ -12,6 +12,10 @@ class FieldPopup extends Component {
 
     toCombat = () => {
         // this.props.gameStore.closePopup()
+        let curPlayerName = this.props.gameStore.currentPlayer.name
+        let drawnCard = this.props.gameStore.drawnCard
+
+        this.props.gameStore.assignEnemyAsAnOpponent(curPlayerName, drawnCard)
         this.props.gameStore.game.popupType = "start_battle"
     }
 
@@ -19,7 +23,7 @@ class FieldPopup extends Component {
         this.props.gameStore.addCardToPlayer(this.props.gameStore.currentPlayer.name, this.props.gameStore.drawnCard)
         this.props.gameStore.closePopup()
     }
-    
+
     componentDidMount = () => {
         this.props.gameStore.setDrawnAdventureCard()
         // this.props.gameStore.setEndCardDraw()
@@ -29,10 +33,10 @@ class FieldPopup extends Component {
         return (
             <div className="field-popup">
                 <h4>Field-Popup</h4>
-                {this.props.gameStore.clientState.cardDrawn ? 
+                {this.props.gameStore.clientState.cardDrawn ?
                     <div>
                         <AdventureCard details={this.props.gameStore.drawnCard} />
-                        <React.Fragment>{this.props.gameStore.isPlayerCurrent() ? 
+                        <React.Fragment>{this.props.gameStore.isPlayerCurrent() ?
                             <React.Fragment>{this.props.gameStore.drawnCard.type === "enemy" ?
                                 <button onClick={this.toCombat}>Fight</button> :
                                 <div><button onClick={this.takeCard}>Take</button><button onClick={this.discardCard}>Discard</button></div>}
@@ -40,9 +44,9 @@ class FieldPopup extends Component {
                             null}
                         </React.Fragment>
                     </div> :
-                    <React.Fragment>{this.props.gameStore.isPlayerCurrent() ? 
-                        <button onClick={this.drawCard}>Draw Card</button> : 
-                        null }
+                    <React.Fragment>{this.props.gameStore.isPlayerCurrent() ?
+                        <button onClick={this.drawCard}>Draw Card</button> :
+                        null}
                     </React.Fragment>}
             </div>
         )

@@ -23,7 +23,17 @@ export class GameStore {
     @action initFightPlayers = (player, opponent) => {
         this.fightStore.player = player
         this.fightStore.opponent = opponent
+        this.fightStore.opponentType = "player"
         this.socket.emit('initialize-player-vs-player-fightstats', this.fightStore)
+    }
+
+    @action assignEnemyAsAnOpponent = (player, enemyCard) => {
+
+        this.fightStore.player = player
+        this.fightStore.opponent = enemyCard.title
+        this.fightStore.opponentType = "enemy"
+        
+        this.socket.emit('initialize-player-vs-opponent-fightstats', this.fightStore)
     }
 
     @action isPlayerCurrent = () => this.player.name === this.currentPlayer.name
@@ -83,23 +93,32 @@ export class GameStore {
             this.clientState.cardDrawn = false
         })
     }
-    
+
     @action getUpdatesFightStore = () => {
-        this.socket.on('calculate-win-lose', fightStore => {
-            this.fightStore = fightStore
-        })  
+        if (this.fightStore.opponentType = "player")
+            this.socket.on('calculate-win-lose', fightStore => {
+                this.fightStore = fightStore
+            })
+        if (this.fightStore.opponentType = "enemy")
+            this.socket.on('calculate-win-lose-enemy', fightStore => {
+                this.fightStore = fightStore
+            })
     }
     @action calculatedBoth = () => {
         this.socket.on('calculated-both', fightStore => {
             this.fightStore = fightStore
-        })  
+        })
     }
 
 
     @action getFightState = () => {
         this.socket.on('show-fight-screen-selected', fightStore => {
             this.fightStore = fightStore
-            this.getPlayerAndOpponentStats()
+            if (this.fightStore.opponentType == "player")
+                this.getPlayerAndOpponentStats()
+            if (this.fightStore.opponentType == "enemy")
+                this.getPlayerAndEnemyStats()
+
             this.game.popupType = "start_battle"
         })
     }
@@ -110,6 +129,13 @@ export class GameStore {
         this.fightStore.playerStats = this.getPlayerByName(player).stats
         this.fightStore.opponentStats = this.getPlayerByName(opponent).stats
     }
+    getPlayerAndEnemyStats = () => {
+        let player = this.fightStore.player
+
+        this.fightStore.playerStats = this.getPlayerByName(player).stats
+        this.fightStore.opponentStats = this.drawnCard.stats  // getting the enemy out of a drawn card that is in the store
+    }
+
 
     getPlayerByName = name => {
         let result = this.game.players[name]
@@ -167,9 +193,7 @@ export class GameStore {
     determineTileActions = tile => {
         if (tile.players.length > 0) { this.game.popupType = "combat_popup" }
         else if (tile.type === "Village") { this.game.popupType = "village_options" }
-        else if (tile.type === "Fields") {
-            this.game.popupType = "field_options"
-        }
+        else if (tile.type === "Fields") { this.game.popupType = "field_options" }
         else { this.game.popupType = "" }
         this.socket.emit('change-popup-type', this.game.popupType)
     }
@@ -190,16 +214,16 @@ export class GameStore {
             card: card,
             action: "add"
         }
-        this.socket.emit('add-remove-card', cardAddObject)        
+        this.socket.emit('add-remove-card', cardAddObject)
     }
 
     @action closePopup = () => this.socket.emit('close-popup-to-server')
 
     @action endTurn = () => {
-            this.socket.emit('end-turn')
-            this.clientState.isCurrentPlayer = false
-            this.clientState.movementRollMade = false
-            this.clientState.movementMade = false
+        this.socket.emit('end-turn')
+        this.clientState.isCurrentPlayer = false
+        this.clientState.movementRollMade = false
+        this.clientState.movementMade = false
     }
 
     @action getCurrentTurn = () => {

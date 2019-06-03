@@ -20,14 +20,13 @@ class BattleStartPopup extends Component {
                 ?
                 result = this.renderTie()
                 :
-                result =this.renderWinnerLoser()
+                result = this.renderWinnerLoser()
         }
         return result
     }
     componentDidMount() {
         // this.props.gameStore.renderPopup()
         this.props.gameStore.getUpdatesFightStore()
-
     }
 
     bothRolled = () => {
@@ -64,7 +63,7 @@ class BattleStartPopup extends Component {
 
                 <div className="winner">
                     The winner is : {this.props.gameStore.fightStore.winner}
-                    {this.checkIfCurrentPlayerIsAWinner() ? this.renderWinnerAndLoserOptions() : null }
+                    {this.checkIfCurrentPlayerIsAWinner() ? this.renderWinnerAndLoserOptions() : null}
                 </div>
             </div>
         )
@@ -72,20 +71,20 @@ class BattleStartPopup extends Component {
 
 
     calculateOveralPlayer = () => {
-        let result =  this.props.gameStore.fightStore.playerRoll + this.props.gameStore.fightStore.playerStats.strength
+        let result = this.props.gameStore.fightStore.playerRoll + this.props.gameStore.fightStore.playerStats.strength
         return result
     }
 
     calculateOveralOpponent = () => {
-        let result =  this.props.gameStore.fightStore.opponentRoll + this.props.gameStore.fightStore.opponentStats.strength
+        let result = this.props.gameStore.fightStore.opponentRoll + this.props.gameStore.fightStore.opponentStats.strength
         return result
     }
 
     checkIfCurrentPlayerIsAWinner = () => {
-        return ( this.props.gameStore.fightStore.winner === this.props.gameStore.player.name ) ? true : false
-       
+        return (this.props.gameStore.fightStore.winner === this.props.gameStore.player.name) ? true : false
+
     }
-    
+
     renderWinnerAndLoserOptions = () => {
         return (
             <div>
@@ -108,19 +107,32 @@ class BattleStartPopup extends Component {
 
         return (
             <div className="battle-player2-menu">
+            {this.props.gameStore.fightStore.opponentType === "player"} ? 
                 <div className="player-combat-stats" >
                     {this.renderOpponentStats()}
                     {this.isCurrentOpponent() ? <OpponentDie /> : null}
                 </div >
+                :
+                <div className="enemy-combat-stats" >
+                    {this.renderOpponentStats()}
+                    {this.rollDie()} 
+                    {/* THE ENEMY WILL ROLL THE DIE AUTOMATICALLY */}
+                    {/* CONTINUE FROM HERE... MAKE SURE U GET THE FULL AUTOMATED FLOW VS ENEMY */}
+                </div >
             </div >
         )
     }
+
+    rollDie = () => this.props.gameStore.assignRolledNumberToOpponent(this.getRandom())
+    
+    getRandom = () => Math.floor(Math.random() * Math.floor(6) + 1)
 
     renderOpponentStats = () => {
         let opponentStats = this.props.gameStore.fightStore.opponentStats
 
         return (
             <div className="player-stats">
+                <div>{this.props.gameStore.fightStore.opponent}</div>
                 <div>stgh : {opponentStats.strength}</div>
                 <div>crft : {opponentStats.craft}</div>
                 <div>life : {opponentStats.life}</div>
@@ -134,6 +146,7 @@ class BattleStartPopup extends Component {
 
         return (
             <div className="player-stats">
+                <div>{this.props.gameStore.fightStore.player}</div>
                 <div>stgh : {player_stats.strength}</div>
                 <div>crft : {player_stats.craft}</div>
                 <div>life : {player_stats.life}</div>
