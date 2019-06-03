@@ -4,8 +4,10 @@ import Player from '../Player/Player'
 import BoardControls from './BoardControls'
 import GeneralPopupMenu from '.././shared/popups/GeneralPopupMenu'
 // import '../App.css'
+import { observer, inject } from 'mobx-react'
 
-
+@inject("gameStore")
+@observer
 class MainGame extends Component {
 
     render() {
@@ -16,9 +18,9 @@ class MainGame extends Component {
                 <hr></hr>
                 <div className="game-screen">
                     <div className="main-controls">
-                        <Player player="Player_1" />
+                        <Player client={"Player_1"} player={this.props.gameStore.game.players["Player_1"]} />
                         <BoardControls />
-                        <Player player="Player_2" />
+                        <Player client={"Player_2"} player={this.props.gameStore.game.players["Player_2"]} />
                     </div>
                     <Board />
                 </div>

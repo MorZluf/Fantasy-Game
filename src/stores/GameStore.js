@@ -174,13 +174,17 @@ export class GameStore {
         })
     }
 
-    @action closePopup = () => this.socket.emit('close-popup-to-server')
+    @action addCardToPlayer = (player, card) => {
+        // this.game.players[player][card.type === "item" ? "inventory" : "followers"].push(card)
+        let cardAddObject = {
+            player: player,
+            card: card,
+            action: "add"
+        }
+        this.socket.emit('add-remove-card', cardAddObject)        
+    }
 
-    // @action setEndCardDraw = () => {
-    //     this.socket.on('close-card-draw-from-server', () => {
-    //         this.clientState.cardDrawn = false
-    //     })
-    // }
+    @action closePopup = () => this.socket.emit('close-popup-to-server')
 
     @action endTurn = () => {
             this.socket.emit('end-turn')

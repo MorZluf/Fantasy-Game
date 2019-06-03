@@ -5,7 +5,7 @@ class InventoryPopUp extends Component {
         const inventory = this.props.inventory
         return (<div>
             <h4 onClick={this.props.close}>Inventory:</h4>
-            {inventory.map((i, j) => <div key={j}>{i}</div>)}
+            {inventory.map((i, j) => <div key={j}>{i.title}</div>)}
         </div>)
     }
 }
