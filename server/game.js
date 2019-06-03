@@ -253,10 +253,45 @@ class Game extends Matrix {
     addRemovePlayerCard(modifyCardObject) {
         if (modifyCardObject.action === "add") {
             this.players[modifyCardObject.player][modifyCardObject.card.type === "item" ? "inventory" : "followers"].push(modifyCardObject.card)
+            if (!this.cannotAddWeaponStats(modifyCardObject.player, modifyCardObject.card)
+                    && !(modifyCardObject.type === "item" && !modifyCardObject.isStatic)) {
+                this.addToPlayerStatsFromCard(modifyCardObject.player, modifyCardObject.card)
+            }
         }
         else {
-            this.players[modifyCardObject.player][modifyCardObject.card.type === "item" ? "inventory" : "followers"].splice(modifyCardObject.index, 1)
+            this.players[modifyCardObject.player][modifyCardObject.card.type === "item" ? "inventory" : "followers"].splice(modifyCardObject.index, 1)  //requires modifyCardObject to be sent with index of the item to be removed
+            this.reducePlayerStatsFromLostCard(modifyCardObject.player, modifyCardObject.card)
         }
+    }
+
+    addToPlayerStatsFromCard(player, card) {
+        let stats = Object.keys(card.stats)
+        for (let stat of stats) {
+            if (card.stats[stats]) { player.stats[stat] += card.stats[stats] }
+        }
+    }
+
+    reducePlayerStatsFromLostCard(player, card) {
+        let stats = Object.keys(card.stats)
+        for (let stat of stats) {
+            if (card.stats[stats]) { player.stats[stat] -= card.stats[stats] }
+        }
+    }
+
+    cannotAddWeaponStats(player, card) {
+        if (card.type === "item" && card.isWeapon && player.class === "Warrior" && this.countPlayerWeapons(player) > 1) {
+                return true
+            }
+        else if (card.type === "item" && card.isWeapon && this.countPlayerWeapons(player) > 0) { return true }
+        else { return false }
+    }
+
+    countPlayerWeapons(player) {
+        const weapons = 0
+        for (let item of player.inventory) {
+            if (item.isWeapon) { weapons ++ }
+        }
+        return weapons
     }
 
     combat(player, attribute, oponent) {
@@ -267,10 +302,10 @@ class Game extends Matrix {
         else if (playerScore < oponentScore) { return "oponent wins" }
     }
 
-    changePlayerAttribute(player, attribute, value) {
-        let attribute = attribute
-        player.stats.attribute = value
-    }
+    // changePlayerAttribute(player, attribute, value) {
+    //     let attribute = attribute
+    //     player.stats.attribute = value
+    // }
 
     changePopupType(popupType) {
         this.popupType = popupType

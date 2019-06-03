@@ -5,10 +5,10 @@ const DataDao = require("../utils/dataDao")
 const dataDao = new DataDao()  
 
 let arrItems = [
-    {type: "item", title : "Sword", img:  "https://sabersmith.com/wp-content/uploads/2017/12/broadsword-satin.jpg", text: "When you have a sword add 1 to your strength", stats:{ strength: 1, craft: null, life: null, gold: null },isStatic: true},
-    {type: "item", title: "Axe", img: "https://mcishop.azureedge.net/mciassets/w_5_0032493_oriental-dragon-battle-axe_550.png", text:"When you have an axe add 1 to your strength", stats:{ strength: 1, craft: null, life: null, gold: null }, isStatic: true},
-    {type: "item", title: "Potion", img: "https://cdna.artstation.com/p/assets/images/images/009/955/302/large/alex-edwards-green-potion-effect.jpg?1521754125", text:"Use this item to add 1 to your life", stats:{ strength: null, craft: null, life: 1, gold: null }, isStatic: false},
-    {type: "item", title: "Bag Of Gold", img: "http://www.thegoldqueen.com/wp-content/uploads/2011/03/bag-with-dollars-money-on-pile-of-golden-coins-vector.jpg", text:"Use this item to add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: false}
+    {type: "item", title : "Sword", img:  "https://sabersmith.com/wp-content/uploads/2017/12/broadsword-satin.jpg", text: "When you have a sword add 1 to your strength", stats:{ strength: 1, craft: null, life: null, gold: null },isStatic: true, isWeapon: true},
+    {type: "item", title: "Axe", img: "https://mcishop.azureedge.net/mciassets/w_5_0032493_oriental-dragon-battle-axe_550.png", text:"When you have an axe add 1 to your strength", stats:{ strength: 1, craft: null, life: null, gold: null }, isStatic: true, isWeapon: true},
+    {type: "item", title: "Potion", img: "https://cdna.artstation.com/p/assets/images/images/009/955/302/large/alex-edwards-green-potion-effect.jpg?1521754125", text:"Use this item to add 1 to your life", stats:{ strength: null, craft: null, life: 1, gold: null }, isStatic: false, isWeapon: false},
+    {type: "item", title: "Bag Of Gold", img: "http://www.thegoldqueen.com/wp-content/uploads/2011/03/bag-with-dollars-money-on-pile-of-golden-coins-vector.jpg", text:"Use this item to add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: false, isWeapon: false}
 ]
 
 let arrFollowers = [
