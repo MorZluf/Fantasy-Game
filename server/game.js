@@ -12,11 +12,16 @@ class Game extends Matrix {
         this.isBattleOn = false
         this.arrPlayersOnTile = []
         this.popupType = ""
+        this.populateAdventureCards()
         this.setInitialBoard()
     }
 
     getPlayers() {
         return this.players
+    }
+
+    resetPopup() {
+        this.popupType = ""
     }
 
     setInitialBoard() {
@@ -236,14 +241,13 @@ class Game extends Matrix {
         this.adventureCards.push(...enemies)
     }
 
-    async drawAdventureCard() {
-        if (!this.adventureCards.length) {
-            await this.populateAdventureCards()
-        }
+    drawAdventureCard() {
         let index = Math.floor(Math.random() * this.adventureCards.length)
-        console.log("index is " + index)
-        console.log("the array's length is" + this.adventureCards.length)
-        return this.adventureCards.splice(index, 1)
+        let card = this.adventureCards.splice(index, 1)
+        if (!this.adventureCards.length) {
+            this.populateAdventureCards()
+        }
+        return card
     }
 
     combat(player, attribute, oponent) {
