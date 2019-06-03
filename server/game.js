@@ -21,7 +21,7 @@ class Game extends Matrix {
             },
             "Player_2" :
             {
-                name: "charname",
+                name: "charname",   
                 class: "Warrior",
                 stats: {
                     strength: 4,
@@ -61,6 +61,14 @@ class Game extends Matrix {
         this.changeTileType("Village", { x: 4, y: 0 })
         this.changeTileType("Village", { x: 0, y: 4 })
         this.changeTileType("Village", { x: 4, y: 4 })
+        this.changeTileType("Woods", { x: 0, y: 3 })
+        this.changeTileType("Woods", { x: 4, y: 3 })
+        this.changeTileType("Woods", { x: 2, y: 0 })
+        this.changeTileType("Guardian", { x: 3, y: 4 })
+        this.changeTileType("Hills", { x: 1, y: 4 })
+        this.changeTileType("Hills", { x: 4, y: 2 })
+
+
         this.fillCenter()
         this.closeAllTiles()
     }
