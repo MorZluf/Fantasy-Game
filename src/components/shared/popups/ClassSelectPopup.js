@@ -12,11 +12,12 @@ class ClassSelectPopup extends Component {
     hideClassSelectPopup = () =>{
         this.props.gameStore.isShowClassSelectPopup = false
     }
-
+    
     render(){
         return(
             <div className="select-class-container">
-                {this.props.gameStore.arrClasses}
+                {console.log(this.props.gameStore.game.arrClasses)}
+                
                 <button className="btn" 
                 onClick={this.hideClassSelectPopup}>
                     <Link to="/board">Create New Game</Link></button>                

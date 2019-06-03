@@ -39,11 +39,15 @@ class dataDao {
     }
 
     async populateAdventureCards(arrItems, arrFollowers, arrEnemies) {
-        for (let i = 0; i < arrItems.length; i++)
-            await this.saveItemToDB(arrItems[i])
+        for(let i = 0; i < 5; i ++) {
+            for (let i = 0; i < arrItems.length; i++)
+                await this.saveItemToDB(arrItems[i])
+        }
 
-        for (let i = 0; i < arrFollowers.length; i++)
-            await this.saveFollowerToDB(arrFollowers[i])
+        for(let i = 0; i < 4; i ++) {
+            for (let i = 0; i < arrFollowers.length; i++)
+                await this.saveFollowerToDB(arrFollowers[i])
+        }
 
         for (let i = 0; i < arrEnemies.length; i++)
             await this.saveEnemyToDB(arrEnemies[i])
@@ -86,6 +90,7 @@ class dataDao {
 
     async saveItemToDB(argItem) {
         let itemToSave = new Item({
+            type: "item",
             title: argItem.title,
             img: argItem.img,
             text: argItem.text,
@@ -98,6 +103,7 @@ class dataDao {
 
     async saveFollowerToDB(argFollower) {
         let followerToSave = new Follower({
+            type: "follower",
             title: argFollower.title,
             img: argFollower.img,
             text: argFollower.text,
@@ -109,6 +115,7 @@ class dataDao {
 
     async saveEnemyToDB(arrEnemies) {
         let enemyToSave = new Enemy({
+            type: "enemy",
             title: arrEnemies.name,
             img: arrEnemies.imgGold,
             text: arrEnemies.flavor,
