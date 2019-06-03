@@ -12,21 +12,21 @@ class BattleStartPopup extends Component {
 
     componentDidUpdate() {
         this.props.gameStore.calculatedBoth()
-
+    }
+    renderResults = () => {
+        let result = ""
         if (this.bothRolled()) {
             this.props.gameStore.fightStore.isTie
                 ?
-                this.renderTie()
+                result = this.renderTie()
                 :
-                this.renderWinnerLoser()
+                result =this.renderWinnerLoser()
         }
+        return result
     }
     componentDidMount() {
         // this.props.gameStore.renderPopup()
         this.props.gameStore.getUpdatesFightStore()
-
-    }
-    updateVSsection = () => {
 
     }
 
@@ -48,29 +48,49 @@ class BattleStartPopup extends Component {
     }
 
     renderTie = () => {
-
+        return (<div>
+            its a tie...
+        </div>)
     }
-    
+
     renderWinnerLoser = () => {
 
         // if (this.props.gameStore.fightStore.winner === this.props.gameStore.player.name)
 
         return (
             <div className="results">
-                <div>{this.props.gameStore.fightStore.player} rolled {this.props.gameStore.fightStore.playerRoll}</div>
-                <div>{this.props.gameStore.fightStore.opponent} rolled {this.props.gameStore.fightStore.opponentRoll}</div>
+                <div>{this.props.gameStore.fightStore.player}'s overall is {this.calculateOveralPlayer()}</div>
+                <div>{this.props.gameStore.fightStore.opponent} 's overall is {this.calculateOveralOpponent()}</div>
 
                 <div className="winner">
                     The winner is : {this.props.gameStore.fightStore.winner}
-                    {this.renderWinnerAndLoserOptions()}
+                    {this.checkIfCurrentPlayerIsAWinner() ? this.renderWinnerAndLoserOptions() : null }
                 </div>
             </div>
         )
     }
+
+
+    calculateOveralPlayer = () => {
+        let result =  this.props.gameStore.fightStore.playerRoll + this.props.gameStore.fightStore.playerStats.strength
+        return result
+    }
+
+    calculateOveralOpponent = () => {
+        let result =  this.props.gameStore.fightStore.opponentRoll + this.props.gameStore.fightStore.opponentStats.strength
+        return result
+    }
+
+    checkIfCurrentPlayerIsAWinner = () => {
+        return ( this.props.gameStore.fightStore.winner === this.props.gameStore.player.name ) ? true : false
+       
+    }
+    
     renderWinnerAndLoserOptions = () => {
         return (
             <div>
-                winner_loser_options_depends_on_who_the_player_is
+                <button>get a follower</button>
+                <button>get an item</button>
             </div>
         )
     }
@@ -124,7 +144,7 @@ class BattleStartPopup extends Component {
         return (
             <div className="vs">
                 <span>-VS-</span>
-
+                {this.props.gameStore.fightStore.isToRenderRESULTS ? this.renderResults() : <div>waiting for both fighters..</div>}
             </div>
         )
     }

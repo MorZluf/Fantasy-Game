@@ -92,8 +92,6 @@ export class GameStore {
     @action calculatedBoth = () => {
         this.socket.on('calculated-both', fightStore => {
             this.fightStore = fightStore
-            console.log("in calculate both")
-            console.log(this.fightStore)
         })  
     }
 

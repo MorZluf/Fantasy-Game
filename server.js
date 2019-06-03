@@ -85,7 +85,7 @@ io.on("connection", function (socket) {
         }
         io.sockets.in(room).emit('update-fight-stats', playerStats)
     })
-    
+
     socket.on('enable-show-fight-screen', function () {
         game.enableFightScreen()
         io.sockets.in(room).emit('show-fight-screen')
@@ -115,7 +115,7 @@ io.on("connection", function (socket) {
             fightStore.winner = winnerLoseObj.winner
             fightStore.loser = winnerLoseObj.loser
             fightStore.isTie = winnerLoseObj.isTie
-
+            fightStore.isToRenderRESULTS = true
             io.sockets.in(room).emit('calculated-both', fightStore)
         }
 

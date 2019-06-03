@@ -96,11 +96,23 @@ class Game extends Matrix {
         let opponentStrength = fightStore.opponentRoll + fightStore.opponentStats.strength
 
         if (playerStrength > opponentStrength)
-            result = { winner: fightStore.player, loser: fightStore.opponent, isTie: false }
+            result = {
+                winner: fightStore.player,
+                loser: fightStore.opponent,
+                isTie: false
+            }
         else if (playerStrength < opponentStrength)
-            result = { winner: fightStore.opponent, loser: fightStore.player, isTie: false }
+            result = {
+                winner: fightStore.opponent,
+                loser: fightStore.player,
+                isTie: false
+            }
         else
-            result = { winner: "", loser: "", isTie: true }
+            result = {
+                winner: "",
+                loser: "",
+                isTie: true
+            }
 
         return result
     }
