@@ -94,6 +94,7 @@ class BattleStartPopup extends Component {
             </div>
         )
     }
+
     isCurrentPlayer = () => {
         return this.props.gameStore.player.name === this.props.gameStore.fightStore.player ? true : false
     }
@@ -158,5 +159,6 @@ class BattleStartPopup extends Component {
         )
     }
 }
+
 
 export default BattleStartPopup;
