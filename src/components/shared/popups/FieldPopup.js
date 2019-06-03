@@ -16,7 +16,7 @@ class FieldPopup extends Component {
     }
 
     takeCard = () => {
-        this.props.gameStore.addCardToPlayer(this.props.gameStore.drawnCard, this.props.gameStore.currentPlayer)
+        this.props.gameStore.addCardToPlayer(this.props.gameStore.currentPlayer.name, this.props.gameStore.drawnCard)
         this.props.gameStore.closePopup()
     }
     

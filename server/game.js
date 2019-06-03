@@ -48,8 +48,8 @@ class Game extends Matrix {
                     gold: 1,
                     alignment: "neutral"
                 },
-                inventory: ["sword"],
-                followers: ["blacksmith"],
+                inventory: [],
+                followers: [],
                 collectedEnemies: []
             }
         }
@@ -251,11 +251,11 @@ class Game extends Matrix {
     }
 
     addRemovePlayerCard(modifyCardObject) {
-        if (modifyCardObject === "add") {
-            //Add
+        if (modifyCardObject.action === "add") {
+            this.players[modifyCardObject.player][modifyCardObject.card.type === "item" ? "inventory" : "followers"].push(modifyCardObject.card)
         }
         else {
-            //Remove
+            this.players[modifyCardObject.player][modifyCardObject.card.type === "item" ? "inventory" : "followers"].splice(modifyCardObject.index, 1)
         }
     }
 

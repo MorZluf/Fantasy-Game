@@ -7,9 +7,7 @@ import { observer, inject } from 'mobx-react'
 @observer
 
 class Player extends Component {
-    checkCurrentPlayer = () => this.props.player === this.props.gameStore.currentPlayer.name
-
-    getPlayerData = () => this.props.gameStore.getPlayerData(this.props.player)
+    checkCurrentPlayer = () => this.props.client === this.props.gameStore.currentPlayer.name
 
     endTurn = () => this.props.gameStore.endTurn()
 
@@ -18,9 +16,9 @@ class Player extends Component {
         this.props.gameStore.clientState.movementMade
 
     render() {
-        const player = this.getPlayerData()
+        const player = this.props.player
         return (
-             <div className={this.checkCurrentPlayer() ? "current-player player-board" : "player-board"}>{player.name} ({this.props.player})
+             <div className={this.checkCurrentPlayer() ? "current-player player-board" : "player-board"}>{player.name} ({this.props.client})
              <PlayerControls player={player}/>
              <button onClick={this.endTurn} style={{visibility: this.canEndTurn() ? "visible" : "hidden"}}>End turn</button>
              </div>

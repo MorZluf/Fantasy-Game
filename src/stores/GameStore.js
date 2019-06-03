@@ -175,6 +175,7 @@ export class GameStore {
     }
 
     @action addCardToPlayer = (player, card) => {
+        // this.game.players[player][card.type === "item" ? "inventory" : "followers"].push(card)
         let cardAddObject = {
             player: player,
             card: card,
