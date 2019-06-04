@@ -100,12 +100,28 @@ export class GameStore {
             this.fightStore = fightStore
         })
     }
+
     @action calculatedBoth = () => {
         this.socket.on('calculated-both', fightStore => {
             this.fightStore = fightStore
         })
     }
 
+    @action getTranslateLifeFromPlayerToPlayer = () => {
+        this.socket.emit('transfer-life-from-player-to-player', this.fightStore)
+    }
+
+    @action resetFightStats = () => {
+        this.socket.emit('reset-fight-store')
+    }
+
+
+    @action resetFightStore = () => {
+        this.socket.on('reset-fight-store-broadcast', () => {
+            this.fightStore = {}
+            this.game.popupType = ""
+        })
+    }
 
     @action getFightState = () => {
         this.socket.on('show-fight-screen-selected', fightStore => {
@@ -161,12 +177,6 @@ export class GameStore {
 
     @action renderPopup = argPopupType => {
         this.game.popupType = argPopupType
-    }
-    @action resetFightStats = () => {
-        
-    }
-    @action getTranslateLifeFromPlayerToPlayer = (winner, loser) => {
-
     }
     addDefeatedEnemyToPlayer = () => {
         let player = this.fightStore.player

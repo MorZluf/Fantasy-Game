@@ -43,10 +43,19 @@ io.on("connection", function (socket) {
     socket.emit('player-data', handlePlayers.addPlayer(socket, room))
     socket.emit('new-game-board', game)
 
-    socket.on('class-select', function(playerObject){
+    socket.on('class-select', function (playerObject) {
         game.setPlayers(playerObject.clientName, playerObject.playerName, playerObject.className)
         console.log(game.players)
         io.sockets.in(room).emit('update-game-to-client', game)
+    })
+
+    socket.on('transfer-life-from-player-to-player', function (fightStore) {
+        game.transferLifeFromPlayerToPlayer(fightStore.winner, fightStore.loser)
+        io.sockets.in(room).emit('update-game-to-client', game)
+    })
+
+    socket.on('reset-fight-store', function () {
+        io.sockets.in(room).emit('reset-fight-store-broadcast')
     })
 
     socket.on('move-player', function (moveData) {
@@ -69,7 +78,7 @@ io.on("connection", function (socket) {
         io.sockets.in(room).emit('adventure-card-drawn', drawnCard)
     })
 
-    socket.on('add-remove-card', function(modifyCardObject) {
+    socket.on('add-remove-card', function (modifyCardObject) {
         game.addRemovePlayerCard(modifyCardObject)
         io.sockets.in(room).emit('update-game-to-client', game)
     })
@@ -85,7 +94,7 @@ io.on("connection", function (socket) {
         io.sockets.in(room).emit('new-turn', newPlayer)
         io.sockets.in(room).emit('update-game-to-client', game)
     })
-  
+
     // socket.on('change-game-started-to-started', function (players) {
     //     let playerStats = {
     //         player1 : players.chosenPlayer,
@@ -96,7 +105,7 @@ io.on("connection", function (socket) {
     //     }
     //     io.sockets.in(room).emit('update-fight-stats', playerStats)
     // })
-    socket.on('enable-show-fight-screen', function (){
+    socket.on('enable-show-fight-screen', function () {
 
         game.enableFightScreen()
         io.sockets.in(room).emit('show-fight-screen')
