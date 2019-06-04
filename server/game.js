@@ -287,7 +287,7 @@ class Game extends Matrix {
     }
 
     addWeaponStats(player, card) {
-        if (player.class === "Troll") { return this.addWeaponStatsToWarrior(player, card) }
+        // if (player.class === "Warrior") { return this.addWeaponStatsToWarrior(player, card) }
         if (this.countPlayerWeapons(player) < 1) { this.addStats(player, card) }
         else if (this.isBiggerWeapon(card, this.findBiggestWeapon(player))) {
             this.replaceWeaponStats(card, player)
