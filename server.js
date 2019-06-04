@@ -43,12 +43,9 @@ io.on("connection", function (socket) {
     socket.emit('player-data', handlePlayers.addPlayer(socket, room))
     socket.emit('new-game-board', game)
 
-    socket.on('class-select', async function(playerObject){
+    socket.on('class-select', function(playerObject){
+        game.setPlayers(playerObject.clientName, playerObject.playerName, playerObject.className)
         console.log(game.players)
-        await game.setPlayers(playerObject.clientName, playerObject.playerName, playerObject.className)
-        console.log(game.players)
-        // console.log(playerObject)
-        // console.log(game.players)
         io.sockets.in(room).emit('update-game-to-client', game)
     })
 

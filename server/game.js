@@ -73,17 +73,17 @@ class Game extends Matrix {
         this.closeAllTiles()
     }
 
-    async setPlayers(clientName, playerName, className) {
-        let selectedClass = await this.findSelectedClass(className) 
+    setPlayers(clientName, playerName, className) {
+        let selectedClass = this.findSelectedClass(className) 
 
         this.players[clientName] = {
                 name: playerName,
                 class: className,
                 stats: {
-                    strength: selectedClass[0].stats.strength,
-                    craft: selectedClass[0].stats.craft,
-                    life: selectedClass[0].stats.life,
-                    gold: selectedClass[0].stats.gold,
+                    strength: selectedClass.stats.strength,
+                    craft: selectedClass.stats.craft,
+                    life: selectedClass.stats.life,
+                    gold: selectedClass.stats.gold,
                 },
                 inventory: [],
                 followers: [],
@@ -91,9 +91,9 @@ class Game extends Matrix {
             }
         }
 
-    async findSelectedClass(className){
-        let selectedClass = await Class.find({name: className})
-        return selectedClass
+    findSelectedClass(className){
+        let selectedClass = this.arrClasses.findIndex(cl => cl.name == className)
+        return this.arrClasses[selectedClass]
     }
         
     closeAllTiles() {

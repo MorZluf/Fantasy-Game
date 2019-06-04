@@ -9,11 +9,16 @@ let arrItems = [
     {type: "item", title: "Axe", img: "https://mcishop.azureedge.net/mciassets/w_5_0032493_oriental-dragon-battle-axe_550.png", text:"When you have an axe add 1 to your strength", stats:{ strength: 1, craft: null, life: null, gold: null }, isStatic: true},
     {type: "item", title: "Potion", img: "https://cdna.artstation.com/p/assets/images/images/009/955/302/large/alex-edwards-green-potion-effect.jpg?1521754125", text:"Use the potion to add 1 to your life", stats:{ strength: null, craft: null, life: 1, gold: null }, isStatic: false},
     {type: "item", title: "Bag Of Gold", img: "http://www.thegoldqueen.com/wp-content/uploads/2011/03/bag-with-dollars-money-on-pile-of-golden-coins-vector.jpg", text:"Use this item to add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
+    {type: "item", title: "Bag Of Gold", img: "http://www.thegoldqueen.com/wp-content/uploads/2011/03/bag-with-dollars-money-on-pile-of-golden-coins-vector.jpg", text:"Use this item to add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
+    {type: "item", title: "Bag Of Gold", img: "http://www.thegoldqueen.com/wp-content/uploads/2011/03/bag-with-dollars-money-on-pile-of-golden-coins-vector.jpg", text:"Use this item to add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
+    {type: "item", title: "Bag Of Gold", img: "http://www.thegoldqueen.com/wp-content/uploads/2011/03/bag-with-dollars-money-on-pile-of-golden-coins-vector.jpg", text:"Use this item to add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
+    {type: "item", title: "Bag Of Gold", img: "http://www.thegoldqueen.com/wp-content/uploads/2011/03/bag-with-dollars-money-on-pile-of-golden-coins-vector.jpg", text:"Use this item to add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
+    {type: "item", title: "Bag Of Gold", img: "http://www.thegoldqueen.com/wp-content/uploads/2011/03/bag-with-dollars-money-on-pile-of-golden-coins-vector.jpg", text:"Use this item to add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
     {type: "item", title: "Solomon's Crown", img: "http://www.kingsolomonslv.com/wp-content/uploads/2018/08/Solomon.png", text: "When you have Solomon's Crown add 2 to your craft", stats:{ strength: null, craft: 2, life: null, gold: null}, isStatic: true},
     {type: "item", title: "Belt Of Strength", img: "https://sostalisman-retailer.co.uk/wp-content/uploads/ST02-1100-2017.png", text: "When you have the Belt Of Strength add 2 to your strength", stats:{ strength: 2, craft: null, life: null, gold: null}, isStatic: true},
     {type: "item", title: "Talisman", img: "https://i.imgur.com/N6FzL6p.gif", text: "Only if you have a Talisman you may attack the guardian", stats:{ strength: null, craft: null, life: null, gold: null}, isStatic: true},
     {type: "item", title: "Talisman", img: "https://i.imgur.com/N6FzL6p.gif", text: "Only if you have a Talisman you may attack the guardian", stats:{ strength: null, craft: null, life: null, gold: null}, isStatic: true},
-
+    {type: "item", title: "Cloak Of Might", img: "https://hmoon.com/wp-content/uploads/2017/02/SL-Cloak.png", text: "The cloak "}
 ]
 
 let arrFollowers = [
