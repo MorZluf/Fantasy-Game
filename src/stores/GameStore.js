@@ -11,6 +11,7 @@ export class GameStore {
     @observable player = {} // identifier of a client { name : PlayerName , socketId : someID }
     @observable currentPlayer = { name: "Player_1" }
     @observable game = {}
+    @observable fightStore
     @observable clientState = {
         isCurrentPlayer: true,
         currentTileType: "",
@@ -18,59 +19,25 @@ export class GameStore {
         movementMade: false,
         cardDrawn: false
     }
-    @observable drawnCard = {}
-    @observable fightStats = { // = { player1: name1, player2: name2, rolledDie1 : -1, rolledDie2 : -1 , isStarted: false}
-        player1: "",
-        player2: "",
-        rolledDie1: -1,
-        rolledDie2: -1,
-        player1_stats: {
-            strength : 0,
-        },
-        player2_stats: {
-            strength : 0,
-        },
-        player1_submit: false,
-        player2_submit: false
+
+    @action initFightPlayers = (player, opponent) => {
+        this.fightStore.player = player
+        this.fightStore.opponent = opponent
+        this.socket.emit('initialize-player-vs-player-fightstats', this.fightStore)
     }
+    @observable isShowClassSelectPopup = false
 
     @action isPlayerCurrent = () => this.player.name === this.currentPlayer.name
 
     @action getTilePlayerSatandsOn = (x, y) => {
         return this.game.matrix[y][x]
     }
-    @action assingToPlayer1 = (num, player1) => {
-        this.fightStats.player1 = player1
-        this.fightStats.rolledDie1 = num
-    }
-    @action assingToPlayer2 = (num, player2) => {
-        this.fightStats.player2 = player2
-        this.fightStats.rolledDie2 = num
-    }
 
-    @action submitPlayer = player => {
-        player === this.fightStats.player1
-            ?
-            this.fightStats.player1_submit = true
-            :
-            this.fightStats.player2_submit = true
-
-        if (this.bothPlayersSubmittedDie())
-            this.game.popupType = "show_win_lose"
+    @action submitPlayer = () => {
+        this.game.fightStore.playerSubmit = true
     }
 
     bothPlayersSubmittedDie = () => this.fightStats.player1_submit && this.fightStats.player2_submit ? true : false
-
-
-    getPlayerStatsByPlayer = name => {
-        // hard coded! 
-        return {
-            strength: 5,
-            craft: 3,
-            gold: 2,
-            life: 7
-        }
-    }
 
     getCoordByPlayerName = name => {
         for (let i = 0; i < this.game.matrix.length; i++)
@@ -99,11 +66,22 @@ export class GameStore {
             this.isToShowFightScreen = true
         })
     }
+
     @action getInitialGame = () => {
         this.socket.on('new-game-board', newGame => {
             this.game = newGame
             this.loading = false
         })
+    }
+
+    @action setPlayerClass = (playerName, className) => {
+        let playerObject = {
+            playerName,
+            clientName: this.player.name,
+            className
+        }
+        console.log(playerObject)
+        this.socket.emit('class-select', playerObject)
     }
 
     @action fight = (chosenPlayer, currentPlayer) => {
@@ -116,22 +94,64 @@ export class GameStore {
             this.clientState.cardDrawn = false
         })
     }
+    
+    @action getUpdatesFightStore = () => {
+        this.socket.on('calculate-win-lose', fightStore => {
+            this.fightStore = fightStore
+        })  
+    }
+    @action calculatedBoth = () => {
+        this.socket.on('calculated-both', fightStore => {
+            this.fightStore = fightStore
+        })  
+    }
 
-    @action initializeFightStats = () => {
-        this.socket.on('initialize-player-vs-player-fightstats', fightStats => {
-            this.fightStats = fightStats
+
+    @action getFightState = () => {
+        this.socket.on('show-fight-screen-selected', fightStore => {
+            this.fightStore = fightStore
+            this.getPlayerAndOpponentStats()
+            this.game.popupType = "start_battle"
         })
     }
+    getPlayerAndOpponentStats = () => {
+        let player = this.fightStore.player
+        let opponent = this.fightStore.opponent
 
-    // @action sendGameState = () => this.socket.emit('update-game-to-server', this.game)
-
-    @action changeToStarted = (chosenPlayer, currentPlayer) => {
-        this.socket.emit('change-game-started-to-started', { chosenPlayer, currentPlayer })
+        this.fightStore.playerStats = this.getPlayerByName(player).stats
+        this.fightStore.opponentStats = this.getPlayerByName(opponent).stats
     }
 
+    getPlayerByName = name => {
+        let result = this.game.players[name]
+        return result
+    }
+
+    @action assignRolledNumberToPlayer = num => {
+        this.fightStore.playerRoll = num
+        this.changePlayerSubmittedState(true)
+        this.socket.emit('update-fightStore-state', this.fightStore)
+    }
+
+    @action assignRolledNumberToOpponent = num => {
+        this.fightStore.opponentRoll = num
+        this.changeOpponentSubmittedState(true)
+        this.socket.emit('update-fightStore-state', this.fightStore)
+    }
+
+    changePlayerSubmittedState = bool => {
+        this.fightStore.playerSubmit = bool
+    }
+
+    changeOpponentSubmittedState = bool => {
+        this.fightStore.opponentSubmit = bool
+    }
+
+    // old
     @action renderFightScreen = () => {
         this.socket.emit('enable-show-fight-screen')
     }
+
     @action assignPlayer = () => {
         this.socket.on('player-data', player => {
             this.player = player

@@ -1,19 +1,49 @@
 const Matrix = require('./matrix')
-
+const Class = require('../server/models/Class')
 const DataDao = require('./utils/dataDao')
 const dataDao = new DataDao()
 class Game extends Matrix {
     constructor(numRows, numColumns) {
         super(numRows, numColumns)
-        this.players = {}
+        this.players = {"Player_1" :
+            {
+                name: "charname",
+                class: "Warrior",
+                stats: {
+                    strength: 4,
+                    craft: 2,
+                    life: 5,
+                    gold: 1,
+                },
+                inventory: [],
+                followers: [],
+                collectedEnemies: []
+            },
+            "Player_2" :
+            {
+                name: "charname",   
+                class: "Warrior",
+                stats: {
+                    strength: 4,
+                    craft: 2,
+                    life: 5,
+                    gold: 1,
+                },
+                inventory: [],
+                followers: [],
+                collectedEnemies: []
+            }
+        }
         this.outerRegionAsArray = []
         this.adventureCards = []
         this.movementDie = 4
         this.isBattleOn = false
         this.arrPlayersOnTile = []
         this.popupType = ""
+        this.arrClasses = []
         this.populateAdventureCards()
         this.setInitialBoard()
+        this.populateClassesArr()
     }
 
     getPlayers() {
@@ -25,36 +55,49 @@ class Game extends Matrix {
     }
 
     setInitialBoard() {
-        this.setPlayers(2)
         this.addPlayerToTile("Player_1", { x: 0, y: 2 })
-        this.addPlayerToTile("Player_2", { x: 4, y: 2 }) // TODO: change x:0, y:5 --> x:6 y:3  // changed for combat troubleshooting
+        this.addPlayerToTile("Player_2", { x: 0, y: 1 }) // TODO: change x:0, y:5 --> x:6 y:3  // changed for combat troubleshooting
         this.changeTileType("Village", { x: 0, y: 0 })
         this.changeTileType("Village", { x: 4, y: 0 })
         this.changeTileType("Village", { x: 0, y: 4 })
         this.changeTileType("Village", { x: 4, y: 4 })
+        this.changeTileType("Woods", { x: 0, y: 3 })
+        this.changeTileType("Woods", { x: 4, y: 3 })
+        this.changeTileType("Woods", { x: 2, y: 0 })
+        this.changeTileType("Guardian", { x: 3, y: 4 })
+        this.changeTileType("Hills", { x: 1, y: 4 })
+        this.changeTileType("Hills", { x: 4, y: 2 })
+
+
         this.fillCenter()
         this.closeAllTiles()
     }
 
-    setPlayers(num) {
-        for (let i = 1; i < num + 1; i ++) {
-            this.players["Player_" + i] = {
-                name: "charname",
-                class: "Warrior",
+
+    setPlayers(clientName, playerName, className) {
+        let selectedClass = this.findSelectedClass(className) 
+
+        this.players[clientName] = {
+                name: playerName,
+                class: className,
+
                 stats: {
-                    strength: 4,
-                    craft: 2,
-                    life: 5,
-                    gold: 1,
-                    alignment: "neutral"
+                    strength: selectedClass.stats.strength,
+                    craft: selectedClass.stats.craft,
+                    life: selectedClass.stats.life,
+                    gold: selectedClass.stats.gold,
                 },
                 inventory: [],
                 followers: [],
                 collectedEnemies: []
             }
         }
+
+    findSelectedClass(className){
+        let selectedClass = this.arrClasses.findIndex(cl => cl.name == className)
+        return this.arrClasses[selectedClass]
     }
-    
+
     closeAllTiles() {
         for (let r = 0; r < this.matrix.length; r++) {
             for (let c = 0; c < this.matrix[r].length; c++) {
@@ -66,7 +109,7 @@ class Game extends Matrix {
     enableFightScreen() {
         this.isToShowFightScreen = true
     }
-    
+
     fillCenter() {
         for (let r = 1; r < this.matrix.length - 1; r++) {
             for (let c = 1; c < this.matrix[r].length - 1; c++) {
@@ -89,6 +132,33 @@ class Game extends Matrix {
         this.matrix[position.y][position.x].players.splice(index, 1)
     }
 
+    // returns {winner: "playerOR_opponent", loser: "playerOR_opponent"}  
+    calculateWinnerAndLoser(fightStore) {
+        let result = {}
+        let playerStrength = fightStore.playerRoll + fightStore.playerStats.strength
+        let opponentStrength = fightStore.opponentRoll + fightStore.opponentStats.strength
+
+        if (playerStrength > opponentStrength)
+            result = {
+                winner: fightStore.player,
+                loser: fightStore.opponent,
+                isTie: false
+            }
+        else if (playerStrength < opponentStrength)
+            result = {
+                winner: fightStore.opponent,
+                loser: fightStore.player,
+                isTie: false
+            }
+        else
+            result = {
+                winner: "",
+                loser: "",
+                isTie: true
+            }
+
+        return result
+    }
     movePlayer(moveData) {  //moveData = {player: "NAME", coords: {x: "NUM", y: "NUM"}}
 
         let oldPosition = this.findPlayerCoordinates(moveData.player)
@@ -116,7 +186,7 @@ class Game extends Matrix {
     checkIfTwoPlayersOnSameTile(moveData) {
         return this.matrix[moveData.coords.y][moveData.coords.x].players.length > 1
     }
-    
+
     changeTileOpenStatus(position) {
         this.matrix[position.y][position.x].canMoveHere = !this.matrix[position.y][position.x].canMoveHere
     }
@@ -124,8 +194,8 @@ class Game extends Matrix {
         this.matrix[position.y][position.x].type = type
     }
 
-    rollDie(dieType) {   
-            let dieRoll = Math.floor(Math.random() * Math.floor(dieType) + 1) // TODO: changed Math.floor(6) -->  Math.floor(6) for combat troubleshooting
+    rollDie(dieType) {
+        let dieRoll = Math.floor(Math.random() * Math.floor(dieType) + 1)
         return dieRoll
     }
 
@@ -133,7 +203,7 @@ class Game extends Matrix {
         let position = this.findPlayerCoordinates(player)
 
         let index
-        this.movementDie = Number(this.rollDie(4))
+        this.movementDie = Number(this.rollDie(1)) // TODO: changed Math.floor(6) -->  Math.floor(6) for combat troubleshooting
 
         for (let pos in this.outerRegionAsArray) {
             if (this.outerRegionAsArray[pos].coords.x === position.x &&
@@ -239,6 +309,11 @@ class Game extends Matrix {
 
         // const enemies = await dataDao.getEnemies()   //removed enemies from deck for easier debugging
         // this.adventureCards.push(...enemies)
+    }
+
+    async populateClassesArr(){
+        const classesFromDB = await dataDao.getClasses()
+        this.arrClasses.push(...classesFromDB)
     }
 
     drawAdventureCard() {
@@ -360,15 +435,17 @@ class Game extends Matrix {
         this.popupType = popupType
     }
 
+
+
 }
 
 module.exports = Game
 
-// let game = new Game(5, 5)
+let game = new Game(5, 5)
 
 // const testing = async function() {
-//    await game.populateAdventureCards()
-//    console.log(await game.drawAdventureCard())
+//     let res = await game.findSelectedClass("Troll")
+//     console.log(res)
+//     console.log(res[0].stats.strength)
 // }
-
 // testing()

@@ -1,7 +1,6 @@
 .tile{
     display: grid;
-    padding-top: 40px;
-
+    height: 16vh;
 }
 
 
@@ -23,6 +22,32 @@
     color: ivory;
 }
 
+.Woods{
+    background: url(https://ak7.picdn.net/shutterstock/videos/29137207/thumb/1.jpg);
+    background-size: cover; 
+    display: grid;
+    align-content: end;
+    justify-content: center;
+    color: ivory;
+}
+
+.Hills{
+    background: url(https://www.boholcocogrove.com/wp-content/uploads/2013/10/Bohol-tours-1038x576.jpg);
+    background-size: cover; 
+    display: grid;
+    align-content: end;
+    justify-content: center;
+    color: ivory;
+}
+
+.Guardian{
+    background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbMlxXO81tQ249AlYzzXbfY_q3gx9mS6yXDqCHKT7s4hiheDKZ8A);
+    background-size: cover; 
+    display: grid;
+    align-content: end;
+    justify-content: center;
+    color: ivory;
+}
 .Center{
     background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeKQ8xSOqciH0jgZYwCOX7KmFzFJbIw0f68O5FSINtmCChlafumA);
     background-size: cover; 
