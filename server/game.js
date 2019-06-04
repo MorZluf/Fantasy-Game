@@ -5,7 +5,8 @@ const dataDao = new DataDao()
 class Game extends Matrix {
     constructor(numRows, numColumns) {
         super(numRows, numColumns)
-        this.players = {"Player_1" :
+        this.players = {
+            "Player_1":
             {
                 name: "charname",
                 class: "Warrior",
@@ -19,9 +20,9 @@ class Game extends Matrix {
                 followers: [],
                 collectedEnemies: []
             },
-            "Player_2" :
+            "Player_2":
             {
-                name: "charname",   
+                name: "charname",
                 class: "Warrior",
                 stats: {
                     strength: 4,
@@ -44,7 +45,13 @@ class Game extends Matrix {
         this.populateAdventureCards()
         this.setInitialBoard()
         this.populateClassesArr()
+        this.villageInventory = [
+            { type: "item", title: "Sword", img: "https://cdn.shopify.com/s/files/1/2419/9027/products/p_720f2831-c891-4ae9-8aed-c81ebcad4565_1024x.png?v=1539401272", text: "Add 1 to your strength", stats: { strength: 1, craft: null, life: null, gold: null }, isStatic: true },
+            { type: "item", title: "Axe", img: "https://vignette.wikia.nocookie.net/elderscrolls/images/4/41/NordicWaraxe.png/revision/latest?cb=20130309120028", text: "Add 1 to your strength", stats: { strength: 1, craft: null, life: null, gold: null }, isStatic: true },
+            { type: "item", title: "Potion", img: "https://www.portailsmm.com/cs/rsc/thumb50809.png_2v_31020.png", text: "Add 1 to your life", stats: { strength: null, craft: null, life: 1, gold: null }, isStatic: true }
+        ]
     }
+
 
     getPlayers() {
         return this.players
@@ -75,25 +82,25 @@ class Game extends Matrix {
 
 
     setPlayers(clientName, playerName, className) {
-        let selectedClass = this.findSelectedClass(className) 
+        let selectedClass = this.findSelectedClass(className)
 
         this.players[clientName] = {
-                name: playerName,
-                class: className,
+            name: playerName,
+            class: className,
 
-                stats: {
-                    strength: selectedClass.stats.strength,
-                    craft: selectedClass.stats.craft,
-                    life: selectedClass.stats.life,
-                    gold: selectedClass.stats.gold,
-                },
-                inventory: [],
-                followers: [],
-                collectedEnemies: []
-            }
+            stats: {
+                strength: selectedClass.stats.strength,
+                craft: selectedClass.stats.craft,
+                life: selectedClass.stats.life,
+                gold: selectedClass.stats.gold,
+            },
+            inventory: [],
+            followers: [],
+            collectedEnemies: []
         }
+    }
 
-    findSelectedClass(className){
+    findSelectedClass(className) {
         let selectedClass = this.arrClasses.findIndex(cl => cl.name == className)
         return this.arrClasses[selectedClass]
     }
@@ -311,7 +318,7 @@ class Game extends Matrix {
         this.adventureCards.push(...enemies)
     }
 
-    async populateClassesArr(){
+    async populateClassesArr() {
         const classesFromDB = await dataDao.getClasses()
         this.arrClasses.push(...classesFromDB)
     }
@@ -433,6 +440,11 @@ class Game extends Matrix {
 
     changePopupType(popupType) {
         this.popupType = popupType
+    }
+
+    subtractGold(itemObject) {
+        let player = this.players[itemObject.player]
+        player.stats.gold -= itemObject.num
     }
 
 

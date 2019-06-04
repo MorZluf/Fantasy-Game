@@ -19,13 +19,15 @@ export class GameStore {
         movementMade: false,
         cardDrawn: false
     }
+    @observable isShowClassSelectPopup = false
+    @observable isShowVillagePopup = false
+    
 
     @action initFightPlayers = (player, opponent) => {
         this.fightStore.player = player
         this.fightStore.opponent = opponent
         this.socket.emit('initialize-player-vs-player-fightstats', this.fightStore)
     }
-    @observable isShowClassSelectPopup = false
 
     @action isPlayerCurrent = () => this.player.name === this.currentPlayer.name
 
@@ -205,6 +207,14 @@ export class GameStore {
             action: "add"
         }
         this.socket.emit('add-remove-card', cardAddObject)        
+    }
+
+    @action subtractGold = (player, num) => {
+        let itemObject = {
+            player,
+            num
+        }
+        this.socket.emit('item-purchase', itemObject)
     }
 
     @action closePopup = () => this.socket.emit('close-popup-to-server')

@@ -73,6 +73,11 @@ io.on("connection", function (socket) {
         io.sockets.in(room).emit('update-game-to-client', game)
     })
 
+    socket.on('item-purchase', function(itemObject){
+        game.subtractGold(itemObject)
+        io.sockets.in(room).emit('update-game-to-client', game)
+    })
+
     socket.on('close-popup-to-server', function () {
         game.resetPopup()
         io.sockets.in(room).emit('update-game-to-client', game)
