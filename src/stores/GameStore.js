@@ -25,6 +25,13 @@ export class GameStore {
         this.fightStore.opponent = opponent
         this.socket.emit('initialize-player-vs-player-fightstats', this.fightStore)
     }
+
+    @action initPlayerVsEnemy = (player, enemyCard ) => {
+        this.fightStore.player = player
+        this.fightStore.opponent = enemyCard.getTileType
+        this.socket.emit('initialize-player-vs-enemy-fightstats', this.fightStore)
+    }
+
     @observable isShowClassSelectPopup = false
 
     @action isPlayerCurrent = () => this.player.name === this.currentPlayer.name
@@ -107,13 +114,12 @@ export class GameStore {
             this.fightStore = fightStore
         })
     }
+
     @action calculatedBoth = () => {
         this.socket.on('calculated-both', fightStore => {
             this.fightStore = fightStore
         })
     }
-
-
     @action getFightState = () => {
         this.socket.on('show-fight-screen-selected', fightStore => {
             this.fightStore = fightStore
@@ -121,6 +127,22 @@ export class GameStore {
             this.game.popupType = "start_battle"
         })
     }
+
+    @action getFightVsEnemyState = () => {
+        this.socket.on('show-fight-vs-enemy-screen-selected', fightStore => {
+            this.fightStore = fightStore
+            this.getPlayerAndEnemyStats()
+            this.game.popupType = "start_battle"
+        })
+    }
+
+    getPlayerAndEnemyStats = () => {
+        let player = this.fightStore.player
+
+        this.fightStore.playerStats = this.getPlayerByName(player).stats
+        this.fightStore.opponentStats = this.drawnCard.stats
+    }
+
     getPlayerAndOpponentStats = () => {
         let player = this.fightStore.player
         let opponent = this.fightStore.opponent
@@ -139,7 +161,7 @@ export class GameStore {
         this.changePlayerSubmittedState(true)
         this.socket.emit('update-fightStore-state', this.fightStore)
     }
-
+    
     @action assignRolledNumberToOpponent = num => {
         this.fightStore.opponentRoll = num
         this.changeOpponentSubmittedState(true)

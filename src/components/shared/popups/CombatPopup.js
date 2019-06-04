@@ -44,13 +44,6 @@ class CombatPopup extends Component {
         this.props.gameStore.initFightPlayers(curPlayer, opponent)
     }
 
-    // vova ToDo : check if needed all this chain reactions
-    fight = () => {
-        let chosenPlayer = this.props.generalStore.chosenPlayer
-        this.props.gameStore.fight(chosenPlayer, this.props.gameStore.currentPlayer.name)
-        this.props.gameStore.initializeFightStats()
-    }
-
     checkIfCurrentPlayerChosing = () => this.props.gameStore.currentPlayer.name === this.props.gameStore.player.name ? true : false
 
     render() {

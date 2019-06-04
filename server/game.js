@@ -138,7 +138,7 @@ class Game extends Matrix {
         this.matrix[position.y][position.x].players.splice(index, 1)
     }
 
-    // returns {winner: "playerOR_opponent", loser: "playerOR_opponent"}  
+    // returns {winner: "playerOR_opponent", loser: "playerOR_opponent", isTie: false}  
     calculateWinnerAndLoser(fightStore) {
         let result = {}
         let playerStrength = fightStore.playerRoll + fightStore.playerStats.strength

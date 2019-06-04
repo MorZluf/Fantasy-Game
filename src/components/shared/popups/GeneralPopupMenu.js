@@ -40,6 +40,7 @@ class GeneralPopupMenu extends Component {
 
     componentDidMount() {
         this.props.gameStore.getFightState()
+        this.props.gameStore.getFightVsEnemyState()
     }
     
     render() {

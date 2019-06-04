@@ -95,7 +95,13 @@ io.on("connection", function (socket) {
 
     // vova ToDo : check if i can send it without fightStore
     socket.on('initialize-player-vs-player-fightstats', function (fightStore) {
+        fightStore.opponentType = "player"
         io.sockets.in(room).emit('show-fight-screen-selected', fightStore)
+    })
+
+    socket.on('initialize-player-vs-enemy-fightstats', function (fightStore) {
+        fightStore.opponentType = "enemy"
+        io.sockets.in(room).emit('show-fight-vs-enemy-screen-selected', fightStore)
     })
 
     socket.on('update-fightStore-state', function (fightStore) {
@@ -112,6 +118,7 @@ io.on("connection", function (socket) {
 
         io.sockets.in(room).emit('calculate-win-lose', fightStore)
     })
+   
 
     socket.on('reset-fight-store', function(){ 
 
