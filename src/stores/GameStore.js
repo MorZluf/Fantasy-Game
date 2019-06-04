@@ -74,6 +74,11 @@ export class GameStore {
         })
     }
 
+    @action getClassDetails = className => {
+        let selectedClass = this.game.arrClasses.findIndex(cl => cl.name == className)
+        return this.game.arrClasses[selectedClass]
+    }
+
     @action setPlayerClass = (playerName, className) => {
         let playerObject = {
             playerName,
@@ -178,9 +183,7 @@ export class GameStore {
     determineTileActions = tile => {
         if (tile.players.length > 0) { this.game.popupType = "combat_popup" }
         else if (tile.type === "Village") { this.game.popupType = "village_options" }
-        else if (tile.type === "Fields") {
-            this.game.popupType = "field_options"
-        }
+        else if (tile.type === "Fields") { this.game.popupType = "field_options" }
         else { this.game.popupType = "" }
         this.socket.emit('change-popup-type', this.game.popupType)
     }

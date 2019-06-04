@@ -12,7 +12,8 @@ const ItemSchema = new Schema({
         life: Number,
         gold: Number
     },
-    isStatic: Boolean
+    isStatic: Boolean,
+    isWeapon: Boolean
 })
 
 const Item = mongoose.model("Item", ItemSchema)

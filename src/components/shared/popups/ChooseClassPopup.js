@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { observer, inject } from 'mobx-react'
 import '../../../style/greetingsmenu.css'
 import ClassPopUp from '../popups/ClassPopup'
-import { BrowserRouter as Route, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 
 @inject("gameStore", "generalStore")
@@ -17,7 +17,7 @@ class ChooseClassPopup extends Component {
     render(){
         return(
             <div>
-                <ClassPopUp key={this.props.key} class={this.props.class} />
+                <ClassPopUp key={this.props.key} charClass={this.props.class} />
                 <button onClick={this.setPlayerDetails}><Link to='/board'>Choose</Link></button>
             </div>
         )
