@@ -74,6 +74,11 @@ export class GameStore {
         })
     }
 
+    @action getClassDetails = className => {
+        let selectedClass = this.game.arrClasses.findIndex(cl => cl.name == className)
+        return this.game.arrClasses[selectedClass]
+    }
+
     @action setPlayerClass = (playerName, className) => {
         let playerObject = {
             playerName,

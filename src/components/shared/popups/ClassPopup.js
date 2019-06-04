@@ -11,7 +11,7 @@ class ClassPopup extends Component {
     
     
     render() {
-        let charClass = this.props.class
+        let charClass = this.props.charClass
         let stats = charClass.stats
         return (
             <div className="class-popup-container">
@@ -20,11 +20,7 @@ class ClassPopup extends Component {
                     <h3>{charClass.name}</h3>
                     <img className="classImg" src={charClass.img} alt="class img" />
                     <h5>Special Abilities:</h5>
-                    <p>{charClass.specialAbilities.map(ability => {
-                        return (
-                            <span className="ability">{ability}</span>
-                        )
-                    })}</p>
+                    <p>{charClass.specialAbilities.map((ability, i) => <span key={i} className="ability">{ability}</span>)}</p>
                     <div className="class-stats">
                         <p> Strength : {stats.strength} </p>
                         <p> Craft : {stats.craft} </p>

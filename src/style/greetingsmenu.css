@@ -45,9 +45,9 @@
     width: 90vw;
     height: 90vh;
     background-color: black;
-    position: relative;
-    top: -60vh;
+    position: absolute;
     left: 5vw;
+    top: 5vh;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 10px;

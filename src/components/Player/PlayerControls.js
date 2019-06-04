@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import PlayerStat from './PlayerStat'
-import ClassPopUp from './ClassPopUp';
+import ClassPopUp from '../shared/popups/ClassPopup';
 import InventoryPopUp from './InventoryPopUp';
 import FollowerPopUp from './FollowerPopUp';
+import { observer, inject } from 'mobx-react';
 
+@inject("gameStore")
+@observer
 class PlayerControls extends Component {
     constructor() {
         super()
@@ -14,27 +17,23 @@ class PlayerControls extends Component {
         }
     }
 
-    showClassPopUp = () => this.setState({ classPopUp: true })
+    toggleClassPopUp = () => this.setState({ classPopUp: !this.state.classPopUp })
 
-    showInventoryPopUp = () => this.setState({ inventoryPopUp: true })
+    toggleInventoryPopUp = () => this.setState({ inventoryPopUp: !this.state.inventoryPopUp })
 
-    showFollowersPopUp = () => this.setState({ followersPopUp: true })
+    toggleFollowersPopUp = () => this.setState({ followersPopUp: !this.state.followersPopUp })
 
-    closeClassPopUp = () => this.setState({ classPopUp: false })
-
-    closeInventoryPopUp = () => this.setState({ inventoryPopUp: false })
-
-    closeFollowersPopUp = () => this.setState({ followersPopUp: false })
+    getClass = () => this.props.gameStore.getClassDetails(this.props.player.class)
 
     render() {
         const player = this.props.player
         return (
             <div className="player-controls">
                 <div className="player-details">
-                    <h5 onClick={this.showClassPopUp}>{player.class}</h5>
-                    <h5 onClick={this.showInventoryPopUp}>Inventory</h5>
-                    <h5 onClick={this.showFollowersPopUp}>Followers</h5>
-                    {this.state.classPopUp ? <ClassPopUp close={this.closeClassPopUp} charClass={player.class}/> : null}
+                    <h5 onClick={this.toggleClassPopUp}>{player.class}</h5>
+                    <h5 onClick={this.toggleInventoryPopUp}>Inventory</h5>
+                    <h5 onClick={this.toggleFollowersPopUp}>Followers</h5>
+                    {this.state.classPopUp ? <ClassPopUp close={this.closeClassPopUp} charClass={this.getClass()}/> : null}
                     {this.state.inventoryPopUp ? <InventoryPopUp close={this.closeInventoryPopUp} inventory={player.inventory}/> : null}
                     {this.state.followersPopUp ? <FollowerPopUp close={this.closeFollowersPopUp} followers={player.followers}/> : null}
                 </div>
