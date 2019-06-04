@@ -39,15 +39,15 @@ class dataDao {
     }
 
     async populate(arrItems, arrFollowers, arrEnemies) {
-        for(let i = 0; i < 5; i ++) {
+        // for(let i = 0; i < 5; i ++) {
             for (let i = 0; i < arrItems.length; i++)
                 await this.saveItemToDB(arrItems[i])
-        }
+        // }
 
-        for(let i = 0; i < 4; i ++) {
+        // for(let i = 0; i < 4; i ++) {
             for (let i = 0; i < arrFollowers.length; i++)
                 await this.saveFollowerToDB(arrFollowers[i])
-        }
+        // }
 
         for (let i = 0; i < arrEnemies.length; i++)
             await this.saveEnemyToDB(arrEnemies[i])
@@ -79,10 +79,10 @@ class dataDao {
             img: argItem.img,
             text: argItem.text,
             stats: argItem.stats,
-            isStatic: argItem.isStatic
+            isStatic: argItem.isStatic,
+            isWeapon: argItem.isWeapon
         })
         itemToSave.save()
-        console.log(`game with ${itemToSave._id} was saved.`)
     }
 
     async saveFollowerToDB(argFollower) {
