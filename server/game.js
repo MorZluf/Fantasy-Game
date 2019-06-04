@@ -307,8 +307,8 @@ class Game extends Matrix {
         const followers = await dataDao.getFollowers()
         this.adventureCards.push(...followers)
 
-        // const enemies = await dataDao.getEnemies()   //removed enemies from deck for easier debugging
-        // this.adventureCards.push(...enemies)
+        const enemies = await dataDao.getEnemies()   //removed enemies from deck for easier debugging
+        this.adventureCards.push(...enemies)
     }
 
     async populateClassesArr(){
