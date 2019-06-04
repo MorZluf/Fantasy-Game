@@ -5,7 +5,7 @@ class FollowerPopUp extends Component {
         const followers = this.props.followers
         return (<div>
             <h4 onClick={this.props.close}>Followers</h4>
-            {followers.map((i, j) => <div key={j}>{i}</div>)}
+            {followers.map((i, j) => <div key={j}>{i.title}</div>)}
         </div>)
     }
 }
