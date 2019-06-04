@@ -209,6 +209,14 @@ export class GameStore {
         this.socket.emit('add-remove-card', cardAddObject)        
     }
 
+    @action subtractGold = (player, num) => {
+        let itemObject = {
+            player,
+            num
+        }
+        this.socket.emit('item-purchase', itemObject)
+    }
+
     @action closePopup = () => this.socket.emit('close-popup-to-server')
 
     @action endTurn = () => {

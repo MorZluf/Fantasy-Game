@@ -9,7 +9,7 @@ class Item extends Component {
     render() {
         let item = this.props.item
         return (
-            <div class="card">
+            <div class="card" >
                 
                 <h4>{item.title}</h4>
                 <img src={item.img} alt="img of item"/>

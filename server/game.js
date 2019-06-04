@@ -48,7 +48,7 @@ class Game extends Matrix {
         this.villageInventory = [
             { type: "item", title: "Sword", img: "https://cdn.shopify.com/s/files/1/2419/9027/products/p_720f2831-c891-4ae9-8aed-c81ebcad4565_1024x.png?v=1539401272", text: "Add 1 to your strength", stats: { strength: 1, craft: null, life: null, gold: null }, isStatic: true },
             { type: "item", title: "Axe", img: "https://vignette.wikia.nocookie.net/elderscrolls/images/4/41/NordicWaraxe.png/revision/latest?cb=20130309120028", text: "Add 1 to your strength", stats: { strength: 1, craft: null, life: null, gold: null }, isStatic: true },
-            { type: "item", title: "Potion", img: "https://www.portailsmm.com/cs/rsc/thumb50809.png_2v_31020.png", text: "Add 1 to your life", stats: { strength: null, craft: null, life: 1, gold: null }, isStatic: false }
+            { type: "item", title: "Potion", img: "https://www.portailsmm.com/cs/rsc/thumb50809.png_2v_31020.png", text: "Add 1 to your life", stats: { strength: null, craft: null, life: 1, gold: null }, isStatic: true }
         ]
     }
 
@@ -440,6 +440,11 @@ class Game extends Matrix {
 
     changePopupType(popupType) {
         this.popupType = popupType
+    }
+
+    subtractGold(itemObject) {
+        let player = this.players[itemObject.player]
+        player.stats.gold -= itemObject.num
     }
 
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { observer, inject } from 'mobx-react'
-import Item from './Item';
+import VillageChooseItem from './VillageChooseItem';
+import '../../../style/card.css'
 
 
 @inject("gameStore")
@@ -18,7 +19,7 @@ class VillagePopup extends Component {
                 <button onClick={this.openVillageInventory}>Buy Stuff</button>
                 <div className="village-purchase">
                     {this.props.gameStore.isShowVillagePopup ? 
-                    this.props.gameStore.game.villageInventory.map((item, i) => <Item key={i} item={item}/>) : 
+                    this.props.gameStore.game.villageInventory.map((item, i) => <VillageChooseItem key={i} item={item}/>) : 
                     null }
                 </div>
             </div>
