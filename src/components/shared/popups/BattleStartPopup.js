@@ -20,7 +20,7 @@ class BattleStartPopup extends Component {
                 ?
                 result = this.renderTie()
                 :
-                result =this.renderWinnerLoser()
+                result = this.renderWinnerLoser()
         }
         return result
     }
@@ -65,6 +65,7 @@ class BattleStartPopup extends Component {
                 <div className="winner">
                     The winner is : {this.props.gameStore.fightStore.winner}
                     {this.checkIfCurrentPlayerIsAWinner() ? this.renderWinnerAndLoserOptions() : null }
+
                 </div>
             </div>
         )
@@ -89,10 +90,15 @@ class BattleStartPopup extends Component {
     renderWinnerAndLoserOptions = () => {
         return (
             <div>
-                <button>get a follower</button>
-                <button>get an item</button>
+                <button onClick={this.endFight}>End fight</button>
             </div>
         )
+    }
+    endFight = () => {
+        const winner = this.props.gameStore.fightStore.winner
+        const loser = this.props.gameStore.fightStore.loser
+        this.props.gameStore.getTranslateLifeFromPlayerToPlayer(winner, loser)
+        this.props.gameStore.resetFightStats()
     }
 
     isCurrentPlayer = () => {
@@ -146,6 +152,7 @@ class BattleStartPopup extends Component {
             <div className="vs">
                 <span>-VS-</span>
                 {this.props.gameStore.fightStore.isToRenderRESULTS ? this.renderResults() : <div>waiting for both fighters..</div>}
+
             </div>
         )
     }

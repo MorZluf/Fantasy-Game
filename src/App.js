@@ -14,6 +14,7 @@ class App extends Component {
   componentDidMount() {
     this.props.gameStore.getGameState()
     this.props.gameStore.getCurrentTurn()
+    this.props.gameStore.resetFightStore()
   }
 
   render() {

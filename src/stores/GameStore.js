@@ -94,16 +94,23 @@ export class GameStore {
             this.clientState.cardDrawn = false
         })
     }
-    
+
+    @action resetFightStore = () => {
+        this.socket.on('reset-fight-store-broadcast' , () => {
+            this.fightStore = {}
+            this.game.popupType = ""
+        })
+    }
+
     @action getUpdatesFightStore = () => {
         this.socket.on('calculate-win-lose', fightStore => {
             this.fightStore = fightStore
-        })  
+        })
     }
     @action calculatedBoth = () => {
         this.socket.on('calculated-both', fightStore => {
             this.fightStore = fightStore
-        })  
+        })
     }
 
 
@@ -201,16 +208,23 @@ export class GameStore {
             card: card,
             action: "add"
         }
-        this.socket.emit('add-remove-card', cardAddObject)        
+        this.socket.emit('add-remove-card', cardAddObject)
     }
 
     @action closePopup = () => this.socket.emit('close-popup-to-server')
 
     @action endTurn = () => {
-            this.socket.emit('end-turn')
-            this.clientState.isCurrentPlayer = false
-            this.clientState.movementRollMade = false
-            this.clientState.movementMade = false
+        this.socket.emit('end-turn')
+        this.clientState.isCurrentPlayer = false
+        this.clientState.movementRollMade = false
+        this.clientState.movementMade = false
+    }
+
+    @action getTranslateLifeFromPlayerToPlayer = () => {
+        this.socket.emit('transfer-life-from-player-to-player', this.fightStore)
+    }
+    @action resetFightStats = () => {
+        this.socket.emit('reset-fight-store')
     }
 
     @action getCurrentTurn = () => {

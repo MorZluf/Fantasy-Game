@@ -85,32 +85,12 @@ io.on("connection", function (socket) {
         io.sockets.in(room).emit('new-turn', newPlayer)
         io.sockets.in(room).emit('update-game-to-client', game)
     })
-  
-    // socket.on('change-game-started-to-started', function (players) {
-    //     let playerStats = {
-    //         player1 : players.chosenPlayer,
-    //         player2 : players.currentPlayer,
-    //         rolledDie1 : -1,
-    //         rolledDie2 : -1,
-    //         isStarted: true
-    //     }
-    //     io.sockets.in(room).emit('update-fight-stats', playerStats)
-    // })
+
+
     socket.on('enable-show-fight-screen', function (){
 
         game.enableFightScreen()
         io.sockets.in(room).emit('show-fight-screen')
-    })
-    // vova ToDo: delete chain methods
-    socket.on('player-vs-player', function (players) {
-        let playerStats = {
-            player1: players.chosenPlayer,
-            player2: players.currentPlayer,
-            rolledDie1: -1,
-            rolledDie2: -1,
-            isStarted: false
-        }
-        io.sockets.in(room).emit('initialize-player-vs-player-fightstats', playerStats)
     })
 
     // vova ToDo : check if i can send it without fightStore
@@ -132,6 +112,17 @@ io.on("connection", function (socket) {
 
         io.sockets.in(room).emit('calculate-win-lose', fightStore)
     })
+
+    socket.on('reset-fight-store', function(){ 
+
+        io.sockets.in(room).emit('reset-fight-store-broadcast')
+    })
+
+    socket.on('transfer-life-from-player-to-player', function(fightStore){
+        game.transferLifeFromPlayerToPlayer(fightStore.winner, fightStore.loser)
+        io.sockets.in(room).emit('update-game-to-client', game)
+    })
+
     socket.on('disconnect', function (socket) {
         handlePlayers.removePlayer(socket, room)
     })
