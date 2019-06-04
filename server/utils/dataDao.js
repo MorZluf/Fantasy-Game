@@ -38,7 +38,7 @@ class dataDao {
         Player.collection.drop()
     }
 
-    async populate(arrItems, arrFollowers, arrEnemies) {
+    async populateAdventureCards(arrItems, arrFollowers, arrEnemies) {
         for(let i = 0; i < 5; i ++) {
             for (let i = 0; i < arrItems.length; i++)
                 await this.saveItemToDB(arrItems[i])
@@ -53,15 +53,20 @@ class dataDao {
             await this.saveEnemyToDB(arrEnemies[i])
 
         // this method being called in api.js
-
         console.log("populated")
     }
+
+    async populateClasses(arrClasses){
+        for (let i = 0; i < arrClasses.length; i++)
+        await this.saveClassToDB(arrClasses[i])
+    }
+
 
     // ----------------------------------------
     // GET methods
     // ----------------------------------------
     async getClasses() { return await Class.find({}) }
-    async getClass(className) { return className === "Warrior" ? this.dummyWarrior : null } // async getClass(className) { return await Class.findOne({name: className})}
+    async getClass() { return className === "Warrior" ? this.dummyWarrior : null } // async getClass(className) { return await Class.findOne({name: className})}
     async getGames() { return await Game.find({}) }
     async getItems() { return await Item.find({}) }
     async getFollowers() { return await Follower.find({}) }
@@ -72,6 +77,17 @@ class dataDao {
     // ----------------------------------------
     // SAVE methods
     // ----------------------------------------
+    async saveClassToDB(argClass) {
+        let classToSave = new Class({
+            name: argClass.name,
+            img: argClass.img,
+            specialAbilities: argClass.specialAbilities,
+            stats: argClass.stats
+        })
+        classToSave.save()
+        console.log(`saved class ${classToSave.name} to the database`)
+    }
+
     async saveItemToDB(argItem) {
         let itemToSave = new Item({
             type: "item",
@@ -127,7 +143,6 @@ class dataDao {
         return arrEnemies
     }
 
-
     async savePlayerToDB(argPlayer) {
         let player = new Player({
             name: argPlayer.name,
@@ -156,11 +171,11 @@ class dataDao {
     }
 }
 
-let test = new dataDao()
+// let test = new dataDao()
 
-const testing = async function () {
-    await test.handleArrEnemies()
-}
-testing()
+// const testing = async function () {
+//     await test.handleArrEnemies()
+// }
+// testing()
 
 module.exports = dataDao

@@ -1,19 +1,49 @@
 const Matrix = require('./matrix')
-
+const Class = require('../server/models/Class')
 const DataDao = require('./utils/dataDao')
 const dataDao = new DataDao()
 class Game extends Matrix {
     constructor(numRows, numColumns) {
         super(numRows, numColumns)
-        this.players = {}
+        this.players = {"Player_1" :
+            {
+                name: "charname",
+                class: "Warrior",
+                stats: {
+                    strength: 4,
+                    craft: 2,
+                    life: 5,
+                    gold: 1,
+                },
+                inventory: [],
+                followers: [],
+                collectedEnemies: []
+            },
+            "Player_2" :
+            {
+                name: "charname",   
+                class: "Warrior",
+                stats: {
+                    strength: 4,
+                    craft: 2,
+                    life: 5,
+                    gold: 1,
+                },
+                inventory: [],
+                followers: [],
+                collectedEnemies: []
+            }
+        }
         this.outerRegionAsArray = []
         this.adventureCards = []
         this.movementDie = 4
         this.isBattleOn = false
         this.arrPlayersOnTile = []
         this.popupType = ""
+        this.arrClasses = []
         this.populateAdventureCards()
         this.setInitialBoard()
+        this.populateClassesArr()
     }
 
     getPlayers() {
@@ -25,34 +55,47 @@ class Game extends Matrix {
     }
 
     setInitialBoard() {
-        this.setPlayers(2)
         this.addPlayerToTile("Player_1", { x: 0, y: 2 })
         this.addPlayerToTile("Player_2", { x: 0, y: 1 }) // TODO: change x:0, y:5 --> x:6 y:3  // changed for combat troubleshooting
         this.changeTileType("Village", { x: 0, y: 0 })
         this.changeTileType("Village", { x: 4, y: 0 })
         this.changeTileType("Village", { x: 0, y: 4 })
         this.changeTileType("Village", { x: 4, y: 4 })
+        this.changeTileType("Woods", { x: 0, y: 3 })
+        this.changeTileType("Woods", { x: 4, y: 3 })
+        this.changeTileType("Woods", { x: 2, y: 0 })
+        this.changeTileType("Guardian", { x: 3, y: 4 })
+        this.changeTileType("Hills", { x: 1, y: 4 })
+        this.changeTileType("Hills", { x: 4, y: 2 })
+
+
         this.fillCenter()
         this.closeAllTiles()
     }
 
-    setPlayers(num) {
-        for (let i = 1; i < num + 1; i++) {
-            this.players["Player_" + i] = {
-                name: "charname",
-                class: "Warrior",
+
+    setPlayers(clientName, playerName, className) {
+        let selectedClass = this.findSelectedClass(className) 
+
+        this.players[clientName] = {
+                name: playerName,
+                class: className,
+
                 stats: {
-                    strength: 4,
-                    craft: 2,
-                    life: 5,
-                    gold: 1,
-                    alignment: "neutral"
+                    strength: selectedClass.stats.strength,
+                    craft: selectedClass.stats.craft,
+                    life: selectedClass.stats.life,
+                    gold: selectedClass.stats.gold,
                 },
                 inventory: [],
                 followers: [],
                 collectedEnemies: []
             }
         }
+
+    findSelectedClass(className){
+        let selectedClass = this.arrClasses.findIndex(cl => cl.name == className)
+        return this.arrClasses[selectedClass]
     }
 
     closeAllTiles() {
@@ -268,6 +311,11 @@ class Game extends Matrix {
         this.adventureCards.push(...enemies)
     }
 
+    async populateClassesArr(){
+        const classesFromDB = await dataDao.getClasses()
+        this.arrClasses.push(...classesFromDB)
+    }
+
     drawAdventureCard() {
         let index = Math.floor(Math.random() * this.adventureCards.length)
         let card = this.adventureCards.splice(index, 1)
@@ -303,15 +351,17 @@ class Game extends Matrix {
         this.popupType = popupType
     }
 
+
+
 }
 
 module.exports = Game
 
-// let game = new Game(5, 5)
+let game = new Game(5, 5)
 
 // const testing = async function() {
-//    await game.populateAdventureCards()
-//    console.log(await game.drawAdventureCard())
+//     let res = await game.findSelectedClass("Troll")
+//     console.log(res)
+//     console.log(res[0].stats.strength)
 // }
-
 // testing()

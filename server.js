@@ -43,6 +43,12 @@ io.on("connection", function (socket) {
     socket.emit('player-data', handlePlayers.addPlayer(socket, room))
     socket.emit('new-game-board', game)
 
+    socket.on('class-select', function(playerObject){
+        game.setPlayers(playerObject.clientName, playerObject.playerName, playerObject.className)
+        console.log(game.players)
+        io.sockets.in(room).emit('update-game-to-client', game)
+    })
+
     socket.on('move-player', function (moveData) {
         game.movePlayer(moveData)
         io.sockets.in(room).emit('update-game-to-client', game)
@@ -79,19 +85,19 @@ io.on("connection", function (socket) {
         io.sockets.in(room).emit('new-turn', newPlayer)
         io.sockets.in(room).emit('update-game-to-client', game)
     })
+  
+    // socket.on('change-game-started-to-started', function (players) {
+    //     let playerStats = {
+    //         player1 : players.chosenPlayer,
+    //         player2 : players.currentPlayer,
+    //         rolledDie1 : -1,
+    //         rolledDie2 : -1,
+    //         isStarted: true
+    //     }
+    //     io.sockets.in(room).emit('update-fight-stats', playerStats)
+    // })
+    socket.on('enable-show-fight-screen', function (){
 
-    socket.on('change-game-started-to-started', function (players) {
-        let playerStats = {
-            player1: players.chosenPlayer,
-            player2: players.currentPlayer,
-            rolledDie1: -1,
-            rolledDie2: -1,
-            isStarted: true
-        }
-        io.sockets.in(room).emit('update-fight-stats', playerStats)
-    })
-
-    socket.on('enable-show-fight-screen', function () {
         game.enableFightScreen()
         io.sockets.in(room).emit('show-fight-screen')
     })

@@ -25,6 +25,7 @@ export class GameStore {
         this.fightStore.opponent = opponent
         this.socket.emit('initialize-player-vs-player-fightstats', this.fightStore)
     }
+    @observable isShowClassSelectPopup = false
 
     @action isPlayerCurrent = () => this.player.name === this.currentPlayer.name
 
@@ -71,6 +72,16 @@ export class GameStore {
             this.game = newGame
             this.loading = false
         })
+    }
+
+    @action setPlayerClass = (playerName, className) => {
+        let playerObject = {
+            playerName,
+            clientName: this.player.name,
+            className
+        }
+        console.log(playerObject)
+        this.socket.emit('class-select', playerObject)
     }
 
     @action fight = (chosenPlayer, currentPlayer) => {
