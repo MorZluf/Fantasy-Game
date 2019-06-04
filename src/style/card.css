@@ -1,0 +1,27 @@
+.card {
+    width: 265px;
+    height: 420px;
+    background-color: rgb(233, 195, 125);
+    border: 5px solid maroon;
+    border-radius: 5%;
+    text-align: center;
+    cursor: pointer;
+    display: grid;
+    justify-content: end;
+
+}
+
+.card > img {
+    width: 265px;
+    height: 200px;
+    border-top: 2px solid maroon;
+    border-bottom: 2px solid maroon;
+    background-color: rgb(73, 72, 72);    
+}
+
+.item-type{
+    text-transform: capitalize;
+    display: block;
+    border-bottom: 1px solid maroon;
+    
+}

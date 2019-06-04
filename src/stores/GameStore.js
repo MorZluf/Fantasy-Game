@@ -19,13 +19,15 @@ export class GameStore {
         movementMade: false,
         cardDrawn: false
     }
+    @observable isShowClassSelectPopup = false
+    @observable isShowVillagePopup = false
+    
 
     @action initFightPlayers = (player, opponent) => {
         this.fightStore.player = player
         this.fightStore.opponent = opponent
         this.socket.emit('initialize-player-vs-player-fightstats', this.fightStore)
     }
-    @observable isShowClassSelectPopup = false
 
     @action isPlayerCurrent = () => this.player.name === this.currentPlayer.name
 
