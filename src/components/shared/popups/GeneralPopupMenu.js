@@ -10,6 +10,7 @@ import HillsPopup from './HillsPopup';
 import GuardianPopup from './GuardianPopup';
 import EnemyFightPopup from './EnemyFightPopup';
 import FightGuardian from './FightGuardian';
+import EndGame from './EndGame';
 
 @inject("gameStore")
 
@@ -53,7 +54,8 @@ class GeneralPopupMenu extends Component {
                 popupToShow = <FightGuardian />;
                 break;
             case "end-game":
-                popupToShow = <div>END GAME LOL </div>
+                console.log("end game...")
+                popupToShow = <EndGame />
                 break;
             case "":
                 popupToShow = null;

@@ -24,7 +24,7 @@ export class GameStore {
 
     @observable isShowClassSelectPopup = false
     // @observable drawnCard = {}
-    
+
 
 
     @action initFightPlayers = (player, opponent) => {
@@ -46,7 +46,7 @@ export class GameStore {
         this.fightStore.opponentType = "guardian"
         this.socket.emit('initialize-player-vs-guardian-fight', this.fightStore)
     }
-    
+
     @observable isShowClassSelectPopup = false
 
 
@@ -118,7 +118,7 @@ export class GameStore {
     @action getGameState = () => {
         this.socket.on('update-game-to-client', newGameState => {
             this.game = newGameState
-            if ( this.game.isEndGame )
+            if (this.game.isEndGame)
                 this.game.popupType = "end-game"
             this.clientState.cardDrawn = false
         })
@@ -150,8 +150,12 @@ export class GameStore {
 
     @action resetFightStore = () => {
         this.socket.on('reset-fight-store-broadcast', () => {
-            this.fightStore = {}
-            this.game.popupType = ""
+            if (this.game.isEndGame) 
+                this.game.popupType = "end-game"
+            else {
+                this.fightStore = {}
+                this.game.popupType = ""
+            }
         })
     }
 
@@ -197,7 +201,7 @@ export class GameStore {
         let player = this.fightStore.player
 
         this.fightStore.playerStats = this.getPlayerByName(player).stats
-        this.fightStore.opponentStats = { strength : 13 }
+        this.fightStore.opponentStats = { strength: 13 }
     }
 
     getPlayerByName = name => {

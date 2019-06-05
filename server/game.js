@@ -43,6 +43,7 @@ class Game extends Matrix {
         this.popupType = ""
         this.arrClasses = []
         this.isEndGame = false
+        this.gameWinner = "dummy-player"
         this.populateAdventureCards()
         this.setInitialBoard()
         this.populateClassesArr()
@@ -64,21 +65,35 @@ class Game extends Matrix {
 
     transferLifeFromPlayerToPlayer(winner, loser) {
         // this.players[loser].stats.life = this.players[loser].stats.life - 1
-        this.players[loser].stats.life = 0
-        this.checkIfToEndGame(loser)
+        this.players[loser].stats.life = 0 // for debug
+        this.checkIfToEndGame(winner,loser)
     }
     
     calculateWinnerAndLoserPlayerVsEnemy(winner, loser){
-        this.players[loser].stats.life = this.players[loser].stats.life - 1
-        this.checkIfToEndGame(loser)
+        // this.players[loser].stats.life = this.players[loser].stats.life - 1
+        this.players[loser].stats.life = 0 // for debug
+        this.checkIfToEndGame(winner,loser)
     }
 
-    checkIfToEndGame(loser){
-        if ( this.players[loser].stats.life == 0)
-            this.endGame()
+    checkIfToEndGame(winner,loser){
+        if ( this.players[loser].stats.life == 0 )
+            this.endGame(winner)
     }
     endGame() {
+        this.assignGameWinner()
         this.isEndGame = true
+    }
+    
+    // ---------------------------
+    // works only cuz we have 2 players. if we have more than 2, wont work
+    // ---------------------------
+    assignGameWinner() {
+        const players = Object.values(this.players)
+        for ( let i = 0 ; i < players.length ; i++) {
+            if ( players[i].stats.life !== 0 )
+                this.gameWinner = players[i]
+        }
+        console.log(this.gameWinner)
     }
     setInitialBoard() {
         this.addPlayerToTile("Player_1", { x: 1, y: 4 }) // TODO ( i changed to fight guardian..) ( vova ) 
