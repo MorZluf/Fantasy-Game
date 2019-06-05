@@ -36,13 +36,13 @@ class GreetingsMenu extends Component {
         return (
              <div className="greetings-menu">
                 <input className="inpt" type="text" placeholder=" Enter your name" onChange={this.handleInput}/>
-                <input className="inpt" list="room-list" name="room" placeholder=" Select room" />
-                {this.getListOfRooms()}
+                {/* <input className="inpt" list="room-list" name="room" placeholder=" Select room" />
+                {this.getListOfRooms()} */}
                 <br/>
+                <button className="btn" onClick={this.showClassSelectPopup}>Enter Game</button>
                 <button className="btn"><Link to="/instructions">Instructions</Link></button>
-                <button className="btn" onClick={this.showClassSelectPopup}>Create New Game</button>
-                <button className="btn">Join New Game</button>
-                <button className="btn">Continue Game</button>
+                {/* <button className="btn">Join New Game</button>
+                <button className="btn">Continue Game</button> */}
                 {this.props.gameStore.isShowClassSelectPopup ? <ClassSelectPopup /> : null}
              </div>
         )

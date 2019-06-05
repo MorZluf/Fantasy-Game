@@ -10,12 +10,12 @@ class BoardControls extends Component {
 
     render() {
         return (<div className="board-controls">
-                <div className="player-name">{this.props.gameStore.player.name}</div>
+                <div className="player-name">{this.props.gameStore.game.players[this.props.gameStore.player.name].name}</div>
                 <div className="board-actions">
                     <RollDie text="roll_a_die" />
-                    <SingleBoardControl text="Pick_card" />
+                    {/* <SingleBoardControl text="Pick_card" />
                     <SingleBoardControl text="Buy" />
-                    <SingleBoardControl text="DoSomething" />
+                    <SingleBoardControl text="DoSomething" /> */}
                 </div>
             </div>)
     }
