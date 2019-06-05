@@ -64,14 +64,12 @@ class Game extends Matrix {
     }
 
     transferLifeFromPlayerToPlayer(winner, loser) {
-        // this.players[loser].stats.life = this.players[loser].stats.life - 1
-        this.players[loser].stats.life = 0 // for debug
+        this.players[loser].stats.life = this.players[loser].stats.life - 1
         this.checkIfToEndGame(winner,loser)
     }
     
     calculateWinnerAndLoserPlayerVsEnemy(winner, loser){
-        // this.players[loser].stats.life = this.players[loser].stats.life - 1
-        this.players[loser].stats.life = 0 // for debug
+        this.players[loser].stats.life = this.players[loser].stats.life - 1
         this.checkIfToEndGame(winner,loser)
     }
 
@@ -79,25 +77,24 @@ class Game extends Matrix {
         if ( this.players[loser].stats.life == 0 )
             this.endGame(winner)
     }
+
     endGame() {
         this.assignGameWinner()
         this.isEndGame = true
     }
-    
+
     // ---------------------------
     // works only cuz we have 2 players. if we have more than 2, wont work
     // ---------------------------
     assignGameWinner() {
         const players = Object.values(this.players)
-        for ( let i = 0 ; i < players.length ; i++) {
+        for ( let i = 0 ; i < players.length ; i++) 
             if ( players[i].stats.life !== 0 )
-                this.gameWinner = players[i]
-        }
-        console.log(this.gameWinner)
+                this.gameWinner = players[i]   
     }
     setInitialBoard() {
-        this.addPlayerToTile("Player_1", { x: 1, y: 4 }) // TODO ( i changed to fight guardian..) ( vova ) 
-        this.addPlayerToTile("Player_2", { x: 2, y: 4 }) // TODO change back to where suppouse to be... =/
+        this.addPlayerToTile("Player_1", { x: 0, y: 2 }) 
+        this.addPlayerToTile("Player_2", { x: 4, y: 2 }) 
         this.changeTileType("Village", { x: 0, y: 0 })
         this.changeTileType("Village", { x: 4, y: 0 })
         this.changeTileType("Village", { x: 0, y: 4 })
