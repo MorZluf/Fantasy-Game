@@ -17,7 +17,8 @@ export class GameStore {
         currentTileType: "",
         movementRollMade: false,
         movementMade: false,
-        cardDrawn: false
+        cardDrawn: false,
+        purchaseAlerts: []
     }
     @observable isShowClassSelectPopup = false
     @observable isShowVillagePopup = false
@@ -279,6 +280,12 @@ export class GameStore {
             num
         }
         this.socket.emit('item-purchase', itemObject)
+    }
+
+    @action alertCardGain = () => {
+        this.socket.on('alert-gained-card', card => {
+            this.clientState.purchaseAlerts.push(card)
+        })
     }
 
     @action closePopup = () => this.socket.emit('close-popup-to-server')
