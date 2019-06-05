@@ -20,8 +20,9 @@ export class GameStore {
         cardDrawn: false,
         purchaseAlerts: []
     }
-    @observable isShowClassSelectPopup = false
     @observable isShowVillagePopup = false
+    @observable isShowClassSelectPopup = false
+    // @observable drawnCard = {}
     
 
     @action initFightPlayers = (player, opponent) => {
