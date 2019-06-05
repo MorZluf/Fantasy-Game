@@ -53,6 +53,8 @@ class CombatPopup extends Component {
 
     checkIfCurrentPlayerChosing = () => this.props.gameStore.currentPlayer.name === this.props.gameStore.player.name ? true : false
 
+    goToTile = () => this.props.gameStore.determineTileActions(this.props.gameStore.clientState.currentTile, true)
+
     render() {
 
         return (
@@ -67,6 +69,7 @@ class CombatPopup extends Component {
                             <input list="player-list" name="player" onChange={this.props.generalStore.handleChosePlayer} placeholder="Select player to battle" />
                             {this.getListOfPlayers()}
                             <button onClick={this.initFightStats}>FIGHT!</button>
+                            <button onClick={this.goToTile}>Go to {this.props.gameStore.clientState.currentTile.type} instead</button>
                         </div>
                         :
                         null
