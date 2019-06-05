@@ -34,9 +34,11 @@ class FightGuardian extends Component {
             </div>
         )
     }
+
     isCurrentPlayer = () => {
         return this.props.gameStore.player.name === this.props.gameStore.fightStore.player ? true : false
     }
+    
     renderVS = () => {
         return (
             <div className="vs">
