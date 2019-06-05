@@ -16,7 +16,7 @@ class ChooseClassPopup extends Component {
     
     render(){
         return(
-            <div>
+            <div className="choose-class-btn-container">
                 <ClassPopUp key={this.props.key} charClass={this.props.class} />
                 <button onClick={this.setPlayerDetails}><Link to='/board'>Choose</Link></button>
             </div>

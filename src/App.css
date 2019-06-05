@@ -20,3 +20,17 @@
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
+
+button{
+  background-color: ivory;
+    width: 15vw;
+    display: grid;
+    justify-self: center;
+    border-radius: 15px;
+    font-weight: bold;
+    margin-bottom: 3vh;
+    font-size: 24px;
+    color: rgb(122, 20, 20);
+    box-shadow: 3px 5px rgb(173, 151, 22);
+    
+}

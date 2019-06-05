@@ -18,7 +18,7 @@ class VillageChooseItem extends Component {
 
     render() {
         return (
-            <div>
+            <div className="village-choose-btn-container">
                 <Item key={this.props.i} item={this.props.item} />
                 <button onClick={this.purchaseItem}>Choose</button>
             </div>
