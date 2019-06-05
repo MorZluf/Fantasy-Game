@@ -130,6 +130,9 @@ io.on("connection", function (socket) {
     socket.on('initialize-player-vs-enemy-fight', function (fightStore) {
         io.sockets.in(room).emit('show-player-vs-enemy', fightStore)
     })
+    socket.on('initialize-player-vs-guardian-fight', function (fightStore) {
+        io.sockets.in(room).emit('show-player-vs-guardian', fightStore)
+    })
 
     socket.on('update-fightStore-state', function (fightStore) {
 

@@ -21,7 +21,7 @@ export class GameStore {
     }
     @observable isShowClassSelectPopup = false
     @observable isShowVillagePopup = false
-    
+
 
     @action initFightPlayers = (player, opponent) => {
         this.fightStore.player = player
@@ -30,14 +30,18 @@ export class GameStore {
     }
 
     @action initPlayerEnemyFight = (player, enemyCard) => {
-        console.log("2")
-        this.fightStore.player = player 
+        this.fightStore.player = player
         this.fightStore.opponent = enemyCard.title
         this.fightStore.opponentType = "enemy"
-        this.socket.emit('initialize-player-vs-enemy-fight',this.fightStore)
+        this.socket.emit('initialize-player-vs-enemy-fight', this.fightStore)
     }
 
-    
+    @action initPlayerGuardianFight = () => {
+        this.fightStore.player = this.currentPlayer.name
+        this.fightStore.opponent = "De Guardian"
+        this.fightStore.opponentType = "guardian"
+        this.socket.emit('initialize-player-vs-guardian-fight', this.fightStore)
+    }
     @observable isShowClassSelectPopup = false
 
 
@@ -132,7 +136,7 @@ export class GameStore {
     @action calculateWinnerLosePlayerVsEnemy = () => {
         this.socket.emit('calculate-winner-loser-player-vs-enemy', this.fightStore)
     }
-    
+
     @action resetFightStats = () => {
         this.socket.emit('reset-fight-store')
     }
@@ -161,6 +165,14 @@ export class GameStore {
         })
     }
 
+    @action getFightPlayerGuardianState = () => {
+        this.socket.on('show-player-vs-guardian', fightStore => {
+            this.fightStore = fightStore
+            this.getPlayerAndGuardianStats()
+            this.game.popupType = "fight_guardian"
+        })
+    }
+
     getPlayerAndOpponentStats = () => {
         let player = this.fightStore.player
         let opponent = this.fightStore.opponent
@@ -174,6 +186,12 @@ export class GameStore {
 
         this.fightStore.playerStats = this.getPlayerByName(player).stats
         this.fightStore.opponentStats = this.drawnCard.stats
+    }
+    getPlayerAndGuardianStats = () => {
+        let player = this.fightStore.player
+
+        this.fightStore.playerStats = this.getPlayerByName(player).stats
+        this.fightStore.opponentStats = { strength : 13 }
     }
 
     getPlayerByName = name => {

@@ -11,10 +11,7 @@ class FieldPopup extends Component {
     discardCard = () => this.props.gameStore.closePopup()
 
     toCombat = () => {
-        // populate, make fight, reset.
-        console.log("1")
         this.props.gameStore.initPlayerEnemyFight(this.props.gameStore.currentPlayer.name, this.props.gameStore.drawnCard)
-        // this.props.gameStore.game.popupType = "fight_enemy"
     }
 
     takeCard = () => {

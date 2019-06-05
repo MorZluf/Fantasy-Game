@@ -71,8 +71,8 @@ class Game extends Matrix {
     }
 
     setInitialBoard() {
-        this.addPlayerToTile("Player_1", { x: 0, y: 2 })
-        this.addPlayerToTile("Player_2", { x: 0, y: 1 }) // TODO: change x:0, y:5 --> x:6 y:3  // changed for combat troubleshooting
+        this.addPlayerToTile("Player_1", { x: 1, y: 4 }) // TODO ( i changed to fight guardian..) ( vova ) 
+        this.addPlayerToTile("Player_2", { x: 2, y: 4 }) // TODO change back to where suppouse to be... =/
         this.changeTileType("Village", { x: 0, y: 0 })
         this.changeTileType("Village", { x: 4, y: 0 })
         this.changeTileType("Village", { x: 0, y: 4 })
