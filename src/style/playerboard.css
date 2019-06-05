@@ -3,6 +3,8 @@
     grid-template-rows: 1fr 5fr;
     background-color: lightyellow;
     justify-items: center;
+    height: 20%;
+    width: 100%;
 }
 
 .current-player {

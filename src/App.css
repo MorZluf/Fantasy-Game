@@ -1,36 +1,43 @@
 .App {
+  height: 100%;
+  width: 100%;
+  /* display: grid;
+  grid-template-rows: 1fr 11fr; */
+}
+
+.background {
+  background-image: url(https://cdnb.artstation.com/p/assets/images/images/000/905/045/large/jason-scheier-3-scheier-snowruins2.jpg?1435800432);
+  background-size: cover;
   height: 100vh;
   width: 100vw;
-  display: grid;
-  grid-template-rows: 1fr 11fr;
+  opacity: 0.2;
+  position: absolute;
+  top: 0;
+  left:0;
+  z-index: -2;
 }
 
 .game-screen {
   /* height: 100%;
   width: 100%; */
-  display: grid;
-  grid-template-rows: 2fr 9fr;
-  grid-template-areas:
-  "m"
-  "b";
+  display: grid;;
 }
 
 .main-controls {
-  grid-area: m;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
 }
 
 button{
   background-color: ivory;
-    width: 15vw;
-    display: grid;
-    justify-self: center;
-    border-radius: 15px;
-    font-weight: bold;
-    margin-bottom: 3vh;
-    font-size: 24px;
-    color: rgb(122, 20, 20);
-    box-shadow: 3px 5px rgb(173, 151, 22);
-    
+  width: 15vw;
+  display: grid;
+  justify-self: center;
+  border-radius: 15px;
+  font-weight: bold;
+  margin-bottom: 3vh;
+  font-size: 24px;
+  color: rgb(122, 20, 20);
+  /* box-shadow: 3px 5px rgb(173, 151, 22); */
+  cursor: pointer;
 }

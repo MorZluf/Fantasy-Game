@@ -20,9 +20,7 @@ class ClassSelectPopup extends Component {
                 {this.props.gameStore.game.arrClasses.map((c, i) =><ChooseClassPopup key={i} class={c}/>)}
                 
                 
-                <button className="btn" 
-                onClick={this.hideClassSelectPopup}>
-                    <Link to="/">Back</Link></button>                
+                <Link to="/"><button onClick={this.hideClassSelectPopup}>Back</button></Link>               
             </div>
         )
     }
