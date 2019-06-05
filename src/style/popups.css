@@ -36,3 +36,12 @@
     grid-template-columns: repeat(3, 1fr);
     
   }
+
+  .end-game{
+    height: 40vh;
+    width: 80vw;
+    background-color: maroon;
+    position: absolute;
+    top: 20vh;
+    left: 10vw;
+  }
