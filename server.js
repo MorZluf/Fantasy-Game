@@ -53,6 +53,11 @@ io.on("connection", function (socket) {
         game.transferLifeFromPlayerToPlayer(fightStore.winner, fightStore.loser)
         io.sockets.in(room).emit('update-game-to-client', game)
     })
+    socket.on('calculate-winner-loser-player-vs-enemy', function (fightStore) {
+        if ( fightStore.player === fightStore.loser )
+            game.calculateWinnerAndLoserPlayerVsEnemy(fightStore.winner, fightStore.loser)
+        io.sockets.in(room).emit('update-game-to-client', game)
+    })
 
     socket.on('reset-fight-store', function () {
         io.sockets.in(room).emit('reset-fight-store-broadcast')
@@ -125,6 +130,10 @@ io.on("connection", function (socket) {
     // vova ToDo : check if i can send it without fightStore
     socket.on('initialize-player-vs-player-fightstats', function (fightStore) {
         io.sockets.in(room).emit('show-fight-screen-selected', fightStore)
+    })
+
+    socket.on('initialize-player-vs-enemy-fight', function (fightStore) {
+        io.sockets.in(room).emit('show-player-vs-enemy', fightStore)
     })
 
     socket.on('update-fightStore-state', function (fightStore) {

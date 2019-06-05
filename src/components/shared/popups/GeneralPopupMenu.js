@@ -5,6 +5,8 @@ import VillagePopup from './VillagePopup';
 import FieldPopup from './FieldPopup';
 import BattleStartPopup from './BattleStartPopup';
 import WinLostPopup from './WinLostPopup';
+import EnemyFightPopup from './EnemyFightPopup';
+
 @inject("gameStore")
 
 @observer
@@ -31,6 +33,9 @@ class GeneralPopupMenu extends Component {
             case "field_options":
                 popupToShow = <FieldPopup />;
                 break;
+            case "fight_enemy":
+                popupToShow = <EnemyFightPopup />;
+                break;
             case "":
                 popupToShow = null;
                 break;
@@ -40,8 +45,9 @@ class GeneralPopupMenu extends Component {
 
     componentDidMount() {
         this.props.gameStore.getFightState()
+        this.props.gameStore.getFightPlayerEnemyState() 
     }
-    
+
     render() {
         console.log("ToDo: " + ["in game.js line 93", " in game.js line 19"])
         return (

@@ -25,6 +25,16 @@ export class GameStore {
         this.fightStore.opponent = opponent
         this.socket.emit('initialize-player-vs-player-fightstats', this.fightStore)
     }
+
+    @action initPlayerEnemyFight = (player, enemyCard) => {
+        console.log("2")
+        this.fightStore.player = player 
+        this.fightStore.opponent = enemyCard.title
+        this.fightStore.opponentType = "enemy"
+        this.socket.emit('initialize-player-vs-enemy-fight',this.fightStore)
+    }
+
+    
     @observable isShowClassSelectPopup = false
 
     @action isPlayerCurrent = () => this.player.name === this.currentPlayer.name
@@ -110,7 +120,10 @@ export class GameStore {
     @action getTranslateLifeFromPlayerToPlayer = () => {
         this.socket.emit('transfer-life-from-player-to-player', this.fightStore)
     }
-
+    @action calculateWinnerLosePlayerVsEnemy = () => {
+        this.socket.emit('calculate-winner-loser-player-vs-enemy', this.fightStore)
+    }
+    
     @action resetFightStats = () => {
         this.socket.emit('reset-fight-store')
     }
@@ -130,6 +143,15 @@ export class GameStore {
             this.game.popupType = "start_battle"
         })
     }
+
+    @action getFightPlayerEnemyState = () => {
+        this.socket.on('show-player-vs-enemy', fightStore => {
+            this.fightStore = fightStore
+            this.getPlayerAndEnemyStats()
+            this.game.popupType = "fight_enemy"
+        })
+    }
+
     getPlayerAndOpponentStats = () => {
         let player = this.fightStore.player
         let opponent = this.fightStore.opponent
@@ -138,9 +160,25 @@ export class GameStore {
         this.fightStore.opponentStats = this.getPlayerByName(opponent).stats
     }
 
+    getPlayerAndEnemyStats = () => {
+        let player = this.fightStore.player
+
+        this.fightStore.playerStats = this.getPlayerByName(player).stats
+        this.fightStore.opponentStats = this.drawnCard.stats
+    }
+
     getPlayerByName = name => {
         let result = this.game.players[name]
         return result
+    }
+
+    @action assignRolledNumberToPlayerAndEnemy = (playerRandom, enemyRandom) => {
+        this.fightStore.playerRoll = playerRandom
+        this.changePlayerSubmittedState(true)
+        this.fightStore.opponentRoll = enemyRandom
+        this.fightStore.opponentSubmit = true
+
+        this.socket.emit('update-fightStore-state', this.fightStore)
     }
 
     @action assignRolledNumberToPlayer = num => {

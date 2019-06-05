@@ -11,11 +11,11 @@ import OpponentDie from './OpponentDie';
 class BattleStartPopup extends Component {
 
     componentDidUpdate() {
-            this.props.gameStore.calculatedBoth()
+        this.props.gameStore.calculatedBoth()
     }
 
     componentDidMount() {
-            this.props.gameStore.getUpdatesFightStore()
+        this.props.gameStore.getUpdatesFightStore()
     }
 
     renderResults = () => {
