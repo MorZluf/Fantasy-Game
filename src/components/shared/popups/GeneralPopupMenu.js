@@ -10,6 +10,7 @@ import HillsPopup from './HillsPopup';
 import GuardianPopup from './GuardianPopup';
 import EnemyFightPopup from './EnemyFightPopup';
 import FightGuardian from './FightGuardian';
+import EndGame from './EndGame';
 
 @inject("gameStore")
 
@@ -52,6 +53,10 @@ class GeneralPopupMenu extends Component {
             case "fight_guardian":
                 popupToShow = <FightGuardian />;
                 break;
+            case "end-game":
+                console.log("end game...")
+                popupToShow = <EndGame />
+                break;
             case "":
                 popupToShow = null;
                 break;
@@ -61,8 +66,8 @@ class GeneralPopupMenu extends Component {
 
     componentDidMount() {
         this.props.gameStore.getFightState()
-        this.props.gameStore.getFightPlayerEnemyState() 
-        this.props.gameStore.getFightPlayerGuardianState() 
+        this.props.gameStore.getFightPlayerEnemyState()
+        this.props.gameStore.getFightPlayerGuardianState()
     }
 
     render() {

@@ -52,6 +52,7 @@ io.on("connection", function (socket) {
         game.transferLifeFromPlayerToPlayer(fightStore.winner, fightStore.loser)
         io.sockets.in(room).emit('update-game-to-client', game)
     })
+    
     socket.on('calculate-winner-loser-player-vs-enemy', function (fightStore) {
         if ( fightStore.player === fightStore.loser )
             game.calculateWinnerAndLoserPlayerVsEnemy(fightStore.winner, fightStore.loser)
