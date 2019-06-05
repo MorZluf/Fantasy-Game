@@ -11,10 +11,13 @@ class Item extends Component {
         return (
             <div className="card" >
                 
-                <h4>{item.title}</h4>
-                <img src={item.img} alt="img of item"/>
+                <p><b>{item.title}</b></p>
+                <div className="img-container">
+
+                <img src={item.img} alt="img of item" className="card-img"/>
+                </div>
                 <span class="item-type">{item.type}</span>
-                <br></br>
+                <hr></hr>
                 <p>{item.text}</p>
                 <p>Price : 1 Gold</p>
             </div>
