@@ -241,7 +241,7 @@ class Game extends Matrix {
         let position = this.findPlayerCoordinates(player)
 
         let index
-        this.movementDie = Number(this.rollDie(1)) // TODO: changed Math.floor(6) -->  Math.floor(6) for combat troubleshooting
+        this.movementDie = Number(this.rollDie(4)) // TODO: changed Math.floor(6) -->  Math.floor(6) for combat troubleshooting
 
         for (let pos in this.outerRegionAsArray) {
             if (this.outerRegionAsArray[pos].coords.x === position.x &&
