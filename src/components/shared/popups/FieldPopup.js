@@ -27,7 +27,9 @@ class FieldPopup extends Component {
     render() {
         return (
             <div className="field-popup">
+
                 <h4>Field</h4>
+
                 {this.props.gameStore.clientState.cardDrawn ? 
                     <div>
                         <AdventureCard details={this.props.gameStore.drawnCard} />

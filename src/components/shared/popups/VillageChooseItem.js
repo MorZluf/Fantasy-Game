@@ -10,11 +10,10 @@ import '../../../style/card.css'
 class VillageChooseItem extends Component {
 
     purchaseItem = () => {
-        if (this.props.gameStore.game.players[this.props.gameStore.currentPlayer.name].stats.gold > 0) {
+        if (this.props.gameStore.game.players[this.props.gameStore.currentPlayer.name].stats.gold) {
             this.props.gameStore.addCardToPlayer(this.props.gameStore.currentPlayer.name, this.props.item)
             this.props.gameStore.subtractGold(this.props.gameStore.currentPlayer.name, 1)
         }
-        else return
     }
 
     render() {

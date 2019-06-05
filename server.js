@@ -85,6 +85,7 @@ io.on("connection", function (socket) {
 
     socket.on('add-remove-card', function (modifyCardObject) {
         game.addRemovePlayerCard(modifyCardObject)
+        socket.to(room).emit('alert-gained-card', modifyCardObject.card)
         io.sockets.in(room).emit('update-game-to-client', game)
     })
 
