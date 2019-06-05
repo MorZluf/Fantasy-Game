@@ -46,9 +46,9 @@ class Game extends Matrix {
         this.setInitialBoard()
         this.populateClassesArr()
         this.villageInventory = [
-            { type: "item", title: "Sword", img: "https://cdn.shopify.com/s/files/1/2419/9027/products/p_720f2831-c891-4ae9-8aed-c81ebcad4565_1024x.png?v=1539401272", text: "Add 1 to your strength", stats: { strength: 1, craft: null, life: null, gold: null }, isStatic: true },
-            { type: "item", title: "Axe", img: "https://vignette.wikia.nocookie.net/elderscrolls/images/4/41/NordicWaraxe.png/revision/latest?cb=20130309120028", text: "Add 1 to your strength", stats: { strength: 1, craft: null, life: null, gold: null }, isStatic: true },
-            { type: "item", title: "Potion", img: "https://www.portailsmm.com/cs/rsc/thumb50809.png_2v_31020.png", text: "Add 1 to your life", stats: { strength: null, craft: null, life: 1, gold: null }, isStatic: true }
+            { type: "item", title: "Sword", img: "https://cdn.shopify.com/s/files/1/2419/9027/products/p_720f2831-c891-4ae9-8aed-c81ebcad4565_1024x.png?v=1539401272", text: "Add 1 to your strength", stats: { strength: 1, craft: null, life: null, gold: null }, isStatic: true, isWeapon: true },
+            { type: "item", title: "Axe", img: "https://vignette.wikia.nocookie.net/elderscrolls/images/4/41/NordicWaraxe.png/revision/latest?cb=20130309120028", text: "Add 1 to your strength", stats: { strength: 1, craft: null, life: null, gold: null }, isStatic: true, isWeapon: true },
+            { type: "item", title: "Potion", img: "https://www.portailsmm.com/cs/rsc/thumb50809.png_2v_31020.png", text: "Add 1 to your life", stats: { strength: null, craft: null, life: 1, gold: null }, isStatic: true, isWeapon: false }
         ]
     }
 
@@ -83,7 +83,7 @@ class Game extends Matrix {
         this.changeTileType("Guardian", { x: 3, y: 4 })
         this.changeTileType("Hills", { x: 1, y: 4 })
         this.changeTileType("Hills", { x: 4, y: 2 })
-
+        this.changeTileType("Hills", { x: 0, y: 1 })
 
         this.fillCenter()
         this.closeAllTiles()
@@ -255,6 +255,18 @@ class Game extends Matrix {
         let options = this.getPossibleMovement(player.name)
         this.changeTileOpenStatus(options.option1.coords)
         this.changeTileOpenStatus(options.option2.coords)
+        if (this.players[player.name].class === "Elf") {
+            for (let r = 0; r < this.matrix.length; r++) {
+                for (let c = 0; c < this.matrix[r].length; c++) {
+                    if (this.matrix[r][c].type === "Woods") {
+                        this.matrix[r][c].canMoveHere = true
+                    }
+                }
+            }
+            // this.changeTileOpenStatus({ x: 0, y: 3 })
+            // this.changeTileOpenStatus({ x: 4, y: 3 })
+            // this.changeTileOpenStatus({ x: 2, y: 0 })
+        }
     }
 
     getOuterRegionAsArray() {

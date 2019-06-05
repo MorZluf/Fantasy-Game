@@ -4,17 +4,15 @@ import AdventureCard from './../AdventureCard';
 
 @inject("gameStore")
 @observer
-class FieldPopup extends Component {
+class WoodsPopup extends Component {
 
     drawCard = () => this.props.gameStore.drawAdventureCard()
 
     discardCard = () => this.props.gameStore.closePopup()
 
     toCombat = () => {
-        // populate, make fight, reset.
-        console.log("1")
-        this.props.gameStore.initPlayerEnemyFight(this.props.gameStore.currentPlayer.name, this.props.gameStore.drawnCard)
-        // this.props.gameStore.game.popupType = "fight_enemy"
+        // this.props.gameStore.closePopup()
+        this.props.gameStore.game.popupType = "start_battle"
     }
 
     takeCard = () => {
@@ -29,8 +27,8 @@ class FieldPopup extends Component {
 
     render() {
         return (
-            <div className="field-popup">
-                <h4>Field</h4>
+            <div className="woods-popup">
+                <h4>Woods</h4>
                 {this.props.gameStore.clientState.cardDrawn ? 
                     <div>
                         <AdventureCard details={this.props.gameStore.drawnCard} />
@@ -51,4 +49,4 @@ class FieldPopup extends Component {
     }
 }
 
-export default FieldPopup
+export default WoodsPopup

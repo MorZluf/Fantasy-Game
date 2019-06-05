@@ -5,6 +5,9 @@ import VillagePopup from './VillagePopup';
 import FieldPopup from './FieldPopup';
 import BattleStartPopup from './BattleStartPopup';
 import WinLostPopup from './WinLostPopup';
+import WoodsPopup from './WoodsPopup';
+import HillsPopup from './HillsPopup';
+import GuardianPopup from './GuardianPopup';
 import EnemyFightPopup from './EnemyFightPopup';
 
 @inject("gameStore")
@@ -33,6 +36,14 @@ class GeneralPopupMenu extends Component {
             case "field_options":
                 popupToShow = <FieldPopup />;
                 break;
+            case "woods_options":
+                popupToShow = <WoodsPopup />;
+                break;
+            case "hills_options":
+                popupToShow = <HillsPopup />;
+                break;
+            case "guardian_options":
+                popupToShow = <GuardianPopup />;
             case "fight_enemy":
                 popupToShow = <EnemyFightPopup />;
                 break;
