@@ -42,6 +42,7 @@ class Game extends Matrix {
         this.arrPlayersOnTile = []
         this.popupType = ""
         this.arrClasses = []
+        this.isEndGame = false
         this.populateAdventureCards()
         this.setInitialBoard()
         this.populateClassesArr()
@@ -62,14 +63,22 @@ class Game extends Matrix {
     }
 
     transferLifeFromPlayerToPlayer(winner, loser) {
-        // this.players[winner].stats.life = this.players[winner].stats.life + 1
         this.players[loser].stats.life = this.players[loser].stats.life - 1
+        this.checkIfToEndGame()
     }
     
     calculateWinnerAndLoserPlayerVsEnemy(winner, loser){
         this.players[loser].stats.life = this.players[loser].stats.life - 1
+        this.checkIfToEndGame()
     }
-
+    
+    checkIfToEndGame(){
+        if ( this.players[loser].stats.life == 0)
+            this.endGame()
+    }
+    endGame() {
+        this.isEndGame = true
+    }
     setInitialBoard() {
         this.addPlayerToTile("Player_1", { x: 1, y: 4 }) // TODO ( i changed to fight guardian..) ( vova ) 
         this.addPlayerToTile("Player_2", { x: 2, y: 4 }) // TODO change back to where suppouse to be... =/
