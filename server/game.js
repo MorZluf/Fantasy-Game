@@ -467,18 +467,7 @@ class Game extends Matrix {
         let player = this.players[itemObject.player]
         player.stats.gold -= itemObject.num
     }
-
-
-
 }
 
 module.exports = Game
 
-let game = new Game(5, 5)
-
-// const testing = async function() {
-//     let res = await game.findSelectedClass("Troll")
-//     console.log(res)
-//     console.log(res[0].stats.strength)
-// }
-// testing()

@@ -1,25 +1,36 @@
 .card {
     width: 265px;
-    height: 420px;
+    height: 450px;
     background-color: rgb(233, 195, 125);
     border: 5px solid maroon;
     border-radius: 5%;
     text-align: center;
-    
-
+    overflow: hidden;
 }
 
-.card > img {
+.img-container{
     width: 265px;
     height: 200px;
-    border-top: 2px solid maroon;
-    border-bottom: 2px solid maroon;
-    background-color: rgb(73, 72, 72);    
+    overflow: hidden;
+}
+
+.enemy-img {
+    width: 500px;
+    height: 520px;
+    margin: -70px 0px 0px -110px;        
+}
+
+.card-img{
+    width: 100%;
+    height: 100%;
 }
 
 .item-type{
     text-transform: capitalize;
     display: block;
-    border-bottom: 1px solid maroon;
-    
 }
+
+.dont-display{
+    display: none;
+}
+

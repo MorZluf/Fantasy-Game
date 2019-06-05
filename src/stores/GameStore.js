@@ -17,10 +17,11 @@ export class GameStore {
         currentTileType: "",
         movementRollMade: false,
         movementMade: false,
-        cardDrawn: false
+        cardDrawn: false,
     }
-    @observable isShowClassSelectPopup = false
     @observable isShowVillagePopup = false
+    @observable isShowClassSelectPopup = false
+    // @observable drawnCard = {}
     
 
     @action initFightPlayers = (player, opponent) => {
