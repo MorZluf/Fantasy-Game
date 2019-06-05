@@ -63,16 +63,17 @@ class Game extends Matrix {
     }
 
     transferLifeFromPlayerToPlayer(winner, loser) {
-        this.players[loser].stats.life = this.players[loser].stats.life - 1
-        this.checkIfToEndGame()
+        // this.players[loser].stats.life = this.players[loser].stats.life - 1
+        this.players[loser].stats.life = 0
+        this.checkIfToEndGame(loser)
     }
     
     calculateWinnerAndLoserPlayerVsEnemy(winner, loser){
         this.players[loser].stats.life = this.players[loser].stats.life - 1
-        this.checkIfToEndGame()
+        this.checkIfToEndGame(loser)
     }
-    
-    checkIfToEndGame(){
+
+    checkIfToEndGame(loser){
         if ( this.players[loser].stats.life == 0)
             this.endGame()
     }

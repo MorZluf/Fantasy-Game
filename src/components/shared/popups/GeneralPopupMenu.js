@@ -52,6 +52,9 @@ class GeneralPopupMenu extends Component {
             case "fight_guardian":
                 popupToShow = <FightGuardian />;
                 break;
+            case "end-game":
+                popupToShow = <div>END GAME LOL </div>
+                break;
             case "":
                 popupToShow = null;
                 break;
@@ -61,8 +64,8 @@ class GeneralPopupMenu extends Component {
 
     componentDidMount() {
         this.props.gameStore.getFightState()
-        this.props.gameStore.getFightPlayerEnemyState() 
-        this.props.gameStore.getFightPlayerGuardianState() 
+        this.props.gameStore.getFightPlayerEnemyState()
+        this.props.gameStore.getFightPlayerGuardianState()
     }
 
     render() {

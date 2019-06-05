@@ -104,7 +104,6 @@ export class GameStore {
             clientName: this.player.name,
             className
         }
-        console.log(playerObject)
         this.socket.emit('class-select', playerObject)
     }
 
@@ -115,6 +114,8 @@ export class GameStore {
     @action getGameState = () => {
         this.socket.on('update-game-to-client', newGameState => {
             this.game = newGameState
+            if ( this.game.isEndGame )
+                this.game.popupType = "end-game"
             this.clientState.cardDrawn = false
         })
     }
