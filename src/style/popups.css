@@ -34,8 +34,23 @@
   .village-purchase{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    
+    justify-items: center;
   }
+  
+  .village-choose-btn > button{
+    width: 10vw;
+  }
+
+  .village-choose-btn-container{
+    display: grid;
+    justify-items: center;
+  }
+
+  .choose-class-btn-container{
+    display: grid;
+    justify-items: center;
+  }
+
 
   .end-game{
     height: 40vh;
