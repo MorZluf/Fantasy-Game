@@ -19,6 +19,9 @@ export class GameStore {
         movementMade: false,
         cardDrawn: false
     }
+    @observable isShowClassSelectPopup = false
+    @observable isShowVillagePopup = false
+    
 
     @action initFightPlayers = (player, opponent) => {
         this.fightStore.player = player
@@ -36,6 +39,7 @@ export class GameStore {
 
     
     @observable isShowClassSelectPopup = false
+
 
     @action isPlayerCurrent = () => this.player.name === this.currentPlayer.name
 
@@ -82,6 +86,11 @@ export class GameStore {
             this.game = newGame
             this.loading = false
         })
+    }
+
+    @action getClassDetails = className => {
+        let selectedClass = this.game.arrClasses.findIndex(cl => cl.name == className)
+        return this.game.arrClasses[selectedClass]
     }
 
     @action setPlayerClass = (playerName, className) => {
@@ -237,9 +246,7 @@ export class GameStore {
     determineTileActions = tile => {
         if (tile.players.length > 0) { this.game.popupType = "combat_popup" }
         else if (tile.type === "Village") { this.game.popupType = "village_options" }
-        else if (tile.type === "Fields") {
-            this.game.popupType = "field_options"
-        }
+        else if (tile.type === "Fields") { this.game.popupType = "field_options" }
         else { this.game.popupType = "" }
         this.socket.emit('change-popup-type', this.game.popupType)
     }
@@ -261,6 +268,14 @@ export class GameStore {
             action: "add"
         }
         this.socket.emit('add-remove-card', cardAddObject)
+    }
+
+    @action subtractGold = (player, num) => {
+        let itemObject = {
+            player,
+            num
+        }
+        this.socket.emit('item-purchase', itemObject)
     }
 
     @action closePopup = () => this.socket.emit('close-popup-to-server')

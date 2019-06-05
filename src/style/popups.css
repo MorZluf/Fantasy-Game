@@ -30,3 +30,9 @@
     grid-area: vs;
     display: grid; 
   }
+
+  .village-purchase{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    
+  }

@@ -45,7 +45,13 @@ class Game extends Matrix {
         this.populateAdventureCards()
         this.setInitialBoard()
         this.populateClassesArr()
+        this.villageInventory = [
+            { type: "item", title: "Sword", img: "https://cdn.shopify.com/s/files/1/2419/9027/products/p_720f2831-c891-4ae9-8aed-c81ebcad4565_1024x.png?v=1539401272", text: "Add 1 to your strength", stats: { strength: 1, craft: null, life: null, gold: null }, isStatic: true },
+            { type: "item", title: "Axe", img: "https://vignette.wikia.nocookie.net/elderscrolls/images/4/41/NordicWaraxe.png/revision/latest?cb=20130309120028", text: "Add 1 to your strength", stats: { strength: 1, craft: null, life: null, gold: null }, isStatic: true },
+            { type: "item", title: "Potion", img: "https://www.portailsmm.com/cs/rsc/thumb50809.png_2v_31020.png", text: "Add 1 to your life", stats: { strength: null, craft: null, life: 1, gold: null }, isStatic: true }
+        ]
     }
+
 
     getPlayers() {
         return this.players
@@ -317,7 +323,7 @@ class Game extends Matrix {
         const followers = await dataDao.getFollowers()
         this.adventureCards.push(...followers)
 
-        const enemies = await dataDao.getEnemies()
+        const enemies = await dataDao.getEnemies()   //removed enemies from deck for easier debugging
         this.adventureCards.push(...enemies)
     }
 
@@ -336,12 +342,96 @@ class Game extends Matrix {
     }
 
     addRemovePlayerCard(modifyCardObject) {
+        let player = this.players[modifyCardObject.player]
         if (modifyCardObject.action === "add") {
-            this.players[modifyCardObject.player][modifyCardObject.card.type === "item" ? "inventory" : "followers"].push(modifyCardObject.card)
+            this.addToPlayerStatsFromCard(player, modifyCardObject.card)
+            player[modifyCardObject.card.type === "item" ? "inventory" : "followers"].push(modifyCardObject.card)
         }
         else {
-            this.players[modifyCardObject.player][modifyCardObject.card.type === "item" ? "inventory" : "followers"].splice(modifyCardObject.index, 1)
+            player[modifyCardObject.card.type === "item" ? "inventory" : "followers"].splice(modifyCardObject.index, 1)  //requires modifyCardObject to be sent with index of the item to be removed
+            this.reducePlayerStatsFromLostCard(modifyCardObject.player, modifyCardObject.card)
         }
+    }
+
+    addToPlayerStatsFromCard(player, card) {
+        if (card.type === "follower") { this.addStats(player, card) }
+        else if (card.isStatic) { 
+            card.isWeapon ? this.addWeaponStats(player, card) : this.addStats(player, card) }
+        else { return }
+    }
+
+    addStats(player, card) {
+        let stats = Object.keys(card.stats)
+        for (let stat of stats) {
+            if (card.stats[stat]) { player.stats[stat] += card.stats[stat] }
+        }
+    }
+
+    reduceStats(player, card) {
+        let stats = Object.keys(card.stats)
+        for (let stat of stats) {
+            if (card.stats[stats]) { 
+                player.stats[stat] -= card.stats[stats]
+                if (player.stats[stat] < 0) { player.stats[stat] = 0 }
+            }
+        }
+    }
+
+    addWeaponStats(player, card) {
+        // if (player.class === "Warrior") { return this.addWeaponStatsToWarrior(player, card) }
+        if (this.countPlayerWeapons(player) < 1) { this.addStats(player, card) }
+        else if (this.isBiggerWeapon(card, this.findBiggestWeapon(player))) {
+            this.replaceWeaponStats(card, player)
+        }
+        else { return }
+    }
+
+    reducePlayerStatsFromLostCard(player, card) {
+        if (card.type === "follower") { this.reduceStats(player, card) }
+        else if (card.isStatic) { 
+            card.isWeapon ? this.removeWeaponStats(player, card) : this.reduceStats(player, card) }
+        else { return }
+    }
+
+    removeWeaponStats(player, card) {
+        // if (player.class === "Warrior") { return this.removeWeaponStatsFromWarrior(player, card) }
+        if (this.countPlayerWeapons(player) < 2) { this.reduceStats(player, card) }
+        else if (card.stats.strength >= this.findBiggestWeapon(player).stats.strength) {
+            this.reduceWeaponStats(card, player)
+        }
+        else { return }
+    }
+
+    countPlayerWeapons(player) {
+        let weapons = 0
+        for (let item of player.inventory) {
+            if (item.isWeapon) { weapons ++ }
+        }
+        return weapons
+    }
+
+    findBiggestWeapon(player) {
+        if (this.countPlayerWeapons(player) < 1) { return null}
+        let weapon = null
+        for (let item of player.inventory) {
+            if (!item.isWeapon) { continue }
+            if (!weapon) { weapon = item }
+            else if (item.stats.strength >= weapon.stats.strength) { weapon = item }
+            else { continue }
+        }
+        return weapon
+    }
+
+    isBiggerWeapon(card, weapon) { return card.stats.strength > weapon.stats.strength }
+
+    replaceWeaponStats(card, player) {
+        player.stats.strength -= this.findBiggestWeapon(player).stats.strength
+        player.stats.strength += card.stats.strength
+    }
+
+    reduceWeaponStats(card, player) {
+        player.stats.strength -= card.stats.strength
+        player.stats.strength += this.findBiggestWeapon(player).stats.strength
     }
 
     combat(player, attribute, oponent) {
@@ -352,13 +442,18 @@ class Game extends Matrix {
         else if (playerScore < oponentScore) { return "oponent wins" }
     }
 
-    changePlayerAttribute(player, attribute, value) {
-        let attribute = attribute
-        player.stats.attribute = value
-    }
+    // changePlayerAttribute(player, attribute, value) {
+    //     let attribute = attribute
+    //     player.stats.attribute = value
+    // }
 
     changePopupType(popupType) {
         this.popupType = popupType
+    }
+
+    subtractGold(itemObject) {
+        let player = this.players[itemObject.player]
+        player.stats.gold -= itemObject.num
     }
 
 
