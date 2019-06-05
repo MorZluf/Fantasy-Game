@@ -5,12 +5,12 @@ const DataDao = require("../utils/dataDao")
 const dataDao = new DataDao()  
 
 let arrItems = [
-    {type: "item", title: "Bag Of Gold", img: "http://www.thegoldqueen.com/wp-content/uploads/2011/03/bag-with-dollars-money-on-pile-of-golden-coins-vector.jpg", text:"Add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
-    {type: "item", title: "Bag Of Gold", img: "http://www.thegoldqueen.com/wp-content/uploads/2011/03/bag-with-dollars-money-on-pile-of-golden-coins-vector.jpg", text:"Add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
-    {type: "item", title: "Bag Of Gold", img: "http://www.thegoldqueen.com/wp-content/uploads/2011/03/bag-with-dollars-money-on-pile-of-golden-coins-vector.jpg", text:"Add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
-    {type: "item", title: "Bag Of Gold", img: "http://www.thegoldqueen.com/wp-content/uploads/2011/03/bag-with-dollars-money-on-pile-of-golden-coins-vector.jpg", text:"Add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
-    {type: "item", title: "Bag Of Gold", img: "http://www.thegoldqueen.com/wp-content/uploads/2011/03/bag-with-dollars-money-on-pile-of-golden-coins-vector.jpg", text:"Add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
-    {type: "item", title: "Bag Of Gold", img: "http://www.thegoldqueen.com/wp-content/uploads/2011/03/bag-with-dollars-money-on-pile-of-golden-coins-vector.jpg", text:"Add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
+    {type: "item", title: "Bag Of Gold", img: "https://thumbs.gfycat.com/DimwittedGrayFawn-max-1mb.gif", text:"Add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
+    {type: "item", title: "Bag Of Gold", img: "https://thumbs.gfycat.com/DimwittedGrayFawn-max-1mb.gif", text:"Add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
+    {type: "item", title: "Bag Of Gold", img: "https://thumbs.gfycat.com/DimwittedGrayFawn-max-1mb.gif", text:"Add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
+    {type: "item", title: "Bag Of Gold", img: "https://thumbs.gfycat.com/DimwittedGrayFawn-max-1mb.gif", text:"Add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
+    {type: "item", title: "Bag Of Gold", img: "https://thumbs.gfycat.com/DimwittedGrayFawn-max-1mb.gif", text:"Add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
+    {type: "item", title: "Bag Of Gold", img: "https://thumbs.gfycat.com/DimwittedGrayFawn-max-1mb.gif", text:"Add 1 to your gold", stats:{ strength: null, craft: null, life: null, gold: 1 }, isStatic: true},
     {type: "item", title: "Solomon's Crown", img: "http://www.kingsolomonslv.com/wp-content/uploads/2018/08/Solomon.png", text: "Add 2 to your strength", stats:{ strength: 2, craft: null, life: null, gold: null}, isStatic: true},
     {type: "item", title: "Belt Of Strength", img: "https://sostalisman-retailer.co.uk/wp-content/uploads/ST02-1100-2017.png", text: "Add 2 to your strength", stats:{ strength: 2, craft: null, life: null, gold: null}, isStatic: true},
     {type: "item", title: "Talisman", img: "https://i.imgur.com/N6FzL6p.gif", text: "Only if you have a Talisman you may attack the guardian", stats:{ strength: null, craft: null, life: null, gold: null}, isStatic: true},
