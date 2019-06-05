@@ -10,13 +10,13 @@ class BoardControls extends Component {
 
     render() {
         return (<div className="board-controls">
-                <div className="player-name">{this.props.gameStore.game.players[this.props.gameStore.player.name].name}</div>
-                <div className="board-actions">
-                    <RollDie text="roll_a_die" />
-                    {/* <SingleBoardControl text="Pick_card" />
-                    <SingleBoardControl text="Buy" />
-                    <SingleBoardControl text="DoSomething" /> */}
-                </div>
+                    <div className="player-name" 
+                        style={{textAlign: this.props.gameStore.player.name === "Player_1" ? "left" : "right"}}>
+                        {this.props.gameStore.game.players[this.props.gameStore.player.name].name}
+                    </div>
+                    <div className="board-actions">
+                        <RollDie />
+                    </div>
             </div>)
     }
 }

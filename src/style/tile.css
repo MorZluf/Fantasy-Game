@@ -1,6 +1,7 @@
 .tile{
     display: grid;
     height: 16vh;
+    background-color: aqua;
 }
 
 
@@ -50,10 +51,10 @@
 }
 .Center{
     /* background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeKQ8xSOqciH0jgZYwCOX7KmFzFJbIw0f68O5FSINtmCChlafumA); */
-    background-color: ivory;
+    background-color: none;
     background-size: cover; 
     display: grid;
     align-content: end;
     justify-content: center;
-    color: ivory;
+    visibility: hidden;
 }

@@ -32,6 +32,7 @@ class App extends Component {
             
 
           </div>}
+          <div className="background"></div>
         </div>
       </Router>
     )

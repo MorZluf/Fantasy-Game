@@ -5,7 +5,10 @@ import { observer, inject } from 'mobx-react'
 @observer
 class RollDie extends Component {
 
-    rollDie = () => this.props.gameStore.rollDie()
+    rollDie = () => {
+        console.log("here")
+        this.props.gameStore.rollDie()
+    }
 
     allowRoll = () => this.props.gameStore.clientState.isCurrentPlayer && !this.props.gameStore.clientState.movementRollMade
 

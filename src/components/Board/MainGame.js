@@ -15,14 +15,14 @@ class MainGame extends Component {
             <div>
                 <GeneralPopupMenu />
 
-                <hr></hr>
                 <div className="game-screen">
                     <div className="main-controls">
                         <Player client={"Player_1"} player={this.props.gameStore.game.players["Player_1"]} />
-                        <BoardControls />
+                        <div></div>
                         <Player client={"Player_2"} player={this.props.gameStore.game.players["Player_2"]} />
                     </div>
                     <Board />
+                    <BoardControls />
                 </div>
             </div>
         )
