@@ -7,7 +7,7 @@ import PlayerDie from './PlayerDie';
 @inject("gameStore", "generalStore")
 
 @observer
-class EnemyFightPopup extends Component {
+class FightGuardian extends Component {
 
     componentDidUpdate() {
         this.props.gameStore.calculatedBoth()
@@ -20,7 +20,7 @@ class EnemyFightPopup extends Component {
     msgToOtherPlayers = () => {
         return (
             <div>
-                {this.props.gameStore.fightStore.player} is fighting...
+                {this.props.gameStore.fightStore.player} is fighting the guardian!
             </div>
         )
     }
@@ -34,9 +34,11 @@ class EnemyFightPopup extends Component {
             </div>
         )
     }
+
     isCurrentPlayer = () => {
         return this.props.gameStore.player.name === this.props.gameStore.fightStore.player ? true : false
     }
+    
     renderVS = () => {
         return (
             <div className="vs">
@@ -49,9 +51,7 @@ class EnemyFightPopup extends Component {
 
     renderTie = () => {
         return (<div>
-            <div>
-                <button onClick={this.endFight}>End fight</button>
-            </div>
+            its a tie...
         </div>)
     }
 
@@ -73,11 +73,11 @@ class EnemyFightPopup extends Component {
     endFight = () => {
         const winner = this.props.gameStore.fightStore.winner
         const loser = this.props.gameStore.fightStore.loser
-        this.props.gameStore.calculateWinnerLosePlayerVsEnemy(winner, loser)
+        this.props.gameStore.calculateWinnerLosePlayerVsEnemy(winner,loser)
         // this.props.gameStore.getTranslateLifeFromPlayerToPlayer(winner, loser)
         this.props.gameStore.resetFightStats()
     }
-
+    
     renderWinnerLoser = () => {
 
         return (
@@ -93,16 +93,16 @@ class EnemyFightPopup extends Component {
         )
     }
 
-    renderEnemyStats = () => {
+    renderBossStats = () => {
         return (
             <div className="battle-player2-menu">
                 <div className="player-combat-stats" >
-                    {this.renderOpponentStats()}
+                    {this.renderGuardianStats()}
                 </div >
             </div >
         )
     }
-    renderOpponentStats = () => {
+    renderGuardianStats = () => {
         let opponentStats = this.props.gameStore.fightStore.opponentStats
 
         return (
@@ -133,7 +133,7 @@ class EnemyFightPopup extends Component {
                 <div className="start-battle">
                     {this.renderPlayerMenu()}
                     {this.renderVS()}
-                    {this.renderEnemyStats()}
+                    {this.renderBossStats()}
                 </div >
                 :
                 this.msgToOtherPlayers()
@@ -141,4 +141,4 @@ class EnemyFightPopup extends Component {
     }
 }
 
-export default EnemyFightPopup;
+export default FightGuardian;

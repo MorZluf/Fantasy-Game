@@ -11,8 +11,7 @@ class WoodsPopup extends Component {
     discardCard = () => this.props.gameStore.closePopup()
 
     toCombat = () => {
-        // this.props.gameStore.closePopup()
-        this.props.gameStore.game.popupType = "start_battle"
+        this.props.gameStore.initPlayerEnemyFight(this.props.gameStore.currentPlayer.name, this.props.gameStore.drawnCard)
     }
 
     takeCard = () => {

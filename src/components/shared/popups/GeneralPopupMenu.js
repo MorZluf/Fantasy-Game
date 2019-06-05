@@ -9,6 +9,7 @@ import WoodsPopup from './WoodsPopup';
 import HillsPopup from './HillsPopup';
 import GuardianPopup from './GuardianPopup';
 import EnemyFightPopup from './EnemyFightPopup';
+import FightGuardian from './FightGuardian';
 
 @inject("gameStore")
 
@@ -44,8 +45,12 @@ class GeneralPopupMenu extends Component {
                 break;
             case "guardian_options":
                 popupToShow = <GuardianPopup />;
+                break;
             case "fight_enemy":
                 popupToShow = <EnemyFightPopup />;
+                break;
+            case "fight_guardian":
+                popupToShow = <FightGuardian />;
                 break;
             case "":
                 popupToShow = null;
@@ -57,6 +62,7 @@ class GeneralPopupMenu extends Component {
     componentDidMount() {
         this.props.gameStore.getFightState()
         this.props.gameStore.getFightPlayerEnemyState() 
+        this.props.gameStore.getFightPlayerGuardianState() 
     }
 
     render() {

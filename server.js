@@ -106,30 +106,20 @@ io.on("connection", function (socket) {
     })
 
     socket.on('enable-show-fight-screen', function (){
-
-
         game.enableFightScreen()
         io.sockets.in(room).emit('show-fight-screen')
     })
-    // vova ToDo: delete chain methods
-    socket.on('player-vs-player', function (players) {
-        let playerStats = {
-            player1: players.chosenPlayer,
-            player2: players.currentPlayer,
-            rolledDie1: -1,
-            rolledDie2: -1,
-            isStarted: false
-        }
-        io.sockets.in(room).emit('initialize-player-vs-player-fightstats', playerStats)
-    })
 
-    // vova ToDo : check if i can send it without fightStore
     socket.on('initialize-player-vs-player-fightstats', function (fightStore) {
         io.sockets.in(room).emit('show-fight-screen-selected', fightStore)
     })
 
     socket.on('initialize-player-vs-enemy-fight', function (fightStore) {
         io.sockets.in(room).emit('show-player-vs-enemy', fightStore)
+    })
+
+    socket.on('initialize-player-vs-guardian-fight', function (fightStore) {
+        io.sockets.in(room).emit('show-player-vs-guardian', fightStore)
     })
 
     socket.on('update-fightStore-state', function (fightStore) {
