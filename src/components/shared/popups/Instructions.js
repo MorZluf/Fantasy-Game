@@ -8,7 +8,7 @@ class Instructions extends Component {
         return (
             <div className="instructions-container">
                 <h1>This is definitely not Talisman !</h1>
-                <button className="btn"><Link to="/">Back</Link></button>
+                <Link to="/"><button className="btn">Back</button></Link>
             </div>
         )
     }

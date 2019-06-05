@@ -2,12 +2,15 @@
     height: 100vh;
     width: 100vw;
     display: grid;
-    background-color: rgb(122, 20, 20) ;
+    background-color: rgb(122, 20, 20);
+    padding-top: 15vh;
+    padding-bottom: 15vh;
+    box-sizing: border-box;
 }
 
-.btn{
+.btn {
     background-color: ivory;
-    width: 15vw;
+    width: 30vw;
     display: grid;
     justify-self: center;
     border-radius: 15px;
@@ -24,9 +27,10 @@
 }
 
 .inpt{
-    width: 40vw;
+    width: 30vw;
     height: 3vh;
     font-size: 20px;
+    align-self: center;
     justify-self: center;
     border: 5px solid rgb(122, 20, 20);
     border-bottom: 2px solid ivory;
