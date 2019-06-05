@@ -29,6 +29,18 @@ export class GameStore {
         this.socket.emit('initialize-player-vs-player-fightstats', this.fightStore)
     }
 
+    @action initPlayerEnemyFight = (player, enemyCard) => {
+        console.log("2")
+        this.fightStore.player = player 
+        this.fightStore.opponent = enemyCard.title
+        this.fightStore.opponentType = "enemy"
+        this.socket.emit('initialize-player-vs-enemy-fight',this.fightStore)
+    }
+
+    
+    @observable isShowClassSelectPopup = false
+
+
     @action isPlayerCurrent = () => this.player.name === this.currentPlayer.name
 
     @action getTilePlayerSatandsOn = (x, y) => {
@@ -101,18 +113,37 @@ export class GameStore {
             this.clientState.cardDrawn = false
         })
     }
-    
+
     @action getUpdatesFightStore = () => {
         this.socket.on('calculate-win-lose', fightStore => {
             this.fightStore = fightStore
-        })  
+        })
     }
+
     @action calculatedBoth = () => {
         this.socket.on('calculated-both', fightStore => {
             this.fightStore = fightStore
-        })  
+        })
     }
 
+    @action getTranslateLifeFromPlayerToPlayer = () => {
+        this.socket.emit('transfer-life-from-player-to-player', this.fightStore)
+    }
+    @action calculateWinnerLosePlayerVsEnemy = () => {
+        this.socket.emit('calculate-winner-loser-player-vs-enemy', this.fightStore)
+    }
+    
+    @action resetFightStats = () => {
+        this.socket.emit('reset-fight-store')
+    }
+
+
+    @action resetFightStore = () => {
+        this.socket.on('reset-fight-store-broadcast', () => {
+            this.fightStore = {}
+            this.game.popupType = ""
+        })
+    }
 
     @action getFightState = () => {
         this.socket.on('show-fight-screen-selected', fightStore => {
@@ -121,6 +152,15 @@ export class GameStore {
             this.game.popupType = "start_battle"
         })
     }
+
+    @action getFightPlayerEnemyState = () => {
+        this.socket.on('show-player-vs-enemy', fightStore => {
+            this.fightStore = fightStore
+            this.getPlayerAndEnemyStats()
+            this.game.popupType = "fight_enemy"
+        })
+    }
+
     getPlayerAndOpponentStats = () => {
         let player = this.fightStore.player
         let opponent = this.fightStore.opponent
@@ -129,9 +169,25 @@ export class GameStore {
         this.fightStore.opponentStats = this.getPlayerByName(opponent).stats
     }
 
+    getPlayerAndEnemyStats = () => {
+        let player = this.fightStore.player
+
+        this.fightStore.playerStats = this.getPlayerByName(player).stats
+        this.fightStore.opponentStats = this.drawnCard.stats
+    }
+
     getPlayerByName = name => {
         let result = this.game.players[name]
         return result
+    }
+
+    @action assignRolledNumberToPlayerAndEnemy = (playerRandom, enemyRandom) => {
+        this.fightStore.playerRoll = playerRandom
+        this.changePlayerSubmittedState(true)
+        this.fightStore.opponentRoll = enemyRandom
+        this.fightStore.opponentSubmit = true
+
+        this.socket.emit('update-fightStore-state', this.fightStore)
     }
 
     @action assignRolledNumberToPlayer = num => {
@@ -169,7 +225,12 @@ export class GameStore {
     @action renderPopup = argPopupType => {
         this.game.popupType = argPopupType
     }
+    addDefeatedEnemyToPlayer = () => {
+        let player = this.fightStore.player
+        let opponent = this.fightStore.opponent
 
+        this.game.players[player].collectedEnemies.push(opponent)
+    }
     @action movePlayer = key => {
         const tile = this.getTile(this.getTileCoords(key))
         if (this.player.name !== this.currentPlayer.name) { return }
@@ -206,7 +267,7 @@ export class GameStore {
             card: card,
             action: "add"
         }
-        this.socket.emit('add-remove-card', cardAddObject)        
+        this.socket.emit('add-remove-card', cardAddObject)
     }
 
     @action subtractGold = (player, num) => {
@@ -220,10 +281,10 @@ export class GameStore {
     @action closePopup = () => this.socket.emit('close-popup-to-server')
 
     @action endTurn = () => {
-            this.socket.emit('end-turn')
-            this.clientState.isCurrentPlayer = false
-            this.clientState.movementRollMade = false
-            this.clientState.movementMade = false
+        this.socket.emit('end-turn')
+        this.clientState.isCurrentPlayer = false
+        this.clientState.movementRollMade = false
+        this.clientState.movementMade = false
     }
 
     @action getCurrentTurn = () => {

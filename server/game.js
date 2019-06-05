@@ -61,6 +61,15 @@ class Game extends Matrix {
         this.popupType = ""
     }
 
+    transferLifeFromPlayerToPlayer(winner, loser) {
+        // this.players[winner].stats.life = this.players[winner].stats.life + 1
+        this.players[loser].stats.life = this.players[loser].stats.life - 1
+    }
+    
+    calculateWinnerAndLoserPlayerVsEnemy(winner, loser){
+        this.players[loser].stats.life = this.players[loser].stats.life - 1
+    }
+
     setInitialBoard() {
         this.addPlayerToTile("Player_1", { x: 0, y: 2 })
         this.addPlayerToTile("Player_2", { x: 0, y: 1 }) // TODO: change x:0, y:5 --> x:6 y:3  // changed for combat troubleshooting
