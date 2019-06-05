@@ -328,6 +328,7 @@ export class GameStore {
     @action getCurrentTurn = () => {
         this.socket.on('new-turn', newPlayer => {
             this.game.popupType = ""
+            this.clientState.purchaseAlerts = []
             this.clientState.currentTile = {}
             this.currentPlayer = newPlayer
             this.setCurrentPlayerStatus()
