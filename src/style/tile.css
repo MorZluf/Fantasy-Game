@@ -49,7 +49,8 @@
     color: ivory;
 }
 .Center{
-    background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeKQ8xSOqciH0jgZYwCOX7KmFzFJbIw0f68O5FSINtmCChlafumA);
+    /* background: url(https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeKQ8xSOqciH0jgZYwCOX7KmFzFJbIw0f68O5FSINtmCChlafumA); */
+    background-color: ivory;
     background-size: cover; 
     display: grid;
     align-content: end;

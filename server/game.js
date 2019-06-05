@@ -241,21 +241,24 @@ class Game extends Matrix {
             let rest = this.movementDie - index
             return {
                 option1: this.outerRegionAsArray[parseInt(index + this.movementDie)],
-                option2: this.outerRegionAsArray[this.outerRegionAsArray.length - rest]
+                option2: this.outerRegionAsArray[this.outerRegionAsArray.length - rest],
+                original: position
             }
         }
         else if (index + this.movementDie > (this.outerRegionAsArray.length - 1)) {
             let rest = this.movementDie - (this.outerRegionAsArray.length - index)
             return {
                 option1: this.outerRegionAsArray[rest],
-                option2: this.outerRegionAsArray[index - this.movementDie]
+                option2: this.outerRegionAsArray[index - this.movementDie],
+                original: position
             }
         }
         else {
 
             return {
                 option1: this.outerRegionAsArray[index + this.movementDie],
-                option2: this.outerRegionAsArray[index - this.movementDie]
+                option2: this.outerRegionAsArray[index - this.movementDie],
+                original: position
             }
         }
     }
@@ -264,10 +267,11 @@ class Game extends Matrix {
         let options = this.getPossibleMovement(player.name)
         this.changeTileOpenStatus(options.option1.coords)
         this.changeTileOpenStatus(options.option2.coords)
-        if (this.players[player.name].class === "Elf") {
+        let currentTile = this.matrix[options.original.y][options.original.x]
+        if (this.players[player.name].class === "Elf" && currentTile.type === "Woods") {
             for (let r = 0; r < this.matrix.length; r++) {
                 for (let c = 0; c < this.matrix[r].length; c++) {
-                    if (this.matrix[r][c].type === "Woods") {
+                    if (this.matrix[r][c].type === "Woods" && !(r === options.original.y && c === options.original.x)) {
                         this.matrix[r][c].canMoveHere = true
                     }
                 }
