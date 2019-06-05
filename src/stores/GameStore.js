@@ -42,6 +42,7 @@ export class GameStore {
         this.fightStore.opponentType = "guardian"
         this.socket.emit('initialize-player-vs-guardian-fight', this.fightStore)
     }
+    
     @observable isShowClassSelectPopup = false
 
 

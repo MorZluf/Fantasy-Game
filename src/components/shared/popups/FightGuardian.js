@@ -91,16 +91,16 @@ class FightGuardian extends Component {
         )
     }
 
-    renderEnemyStats = () => {
+    renderBossStats = () => {
         return (
             <div className="battle-player2-menu">
                 <div className="player-combat-stats" >
-                    {this.renderOpponentStats()}
+                    {this.renderGuardianStats()}
                 </div >
             </div >
         )
     }
-    renderOpponentStats = () => {
+    renderGuardianStats = () => {
         let opponentStats = this.props.gameStore.fightStore.opponentStats
 
         return (
@@ -129,10 +129,9 @@ class FightGuardian extends Component {
 
             this.props.gameStore.player.name === this.props.gameStore.fightStore.player ?
                 <div className="start-battle">
-                    {/* {this.renderPlayerMenu()}
+                    {this.renderPlayerMenu()}
                     {this.renderVS()}
-                    {this.renderEnemyStats()} */}
-                    i'm fighting the guardian lol
+                    {this.renderBossStats()}
                 </div >
                 :
                 this.msgToOtherPlayers()

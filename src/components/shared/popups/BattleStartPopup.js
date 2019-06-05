@@ -50,6 +50,9 @@ class BattleStartPopup extends Component {
     renderTie = () => {
         return (<div>
             its a tie...
+            <div>
+                <button onClick={this.endFight}>End fight</button>
+            </div>
         </div>)
     }
 

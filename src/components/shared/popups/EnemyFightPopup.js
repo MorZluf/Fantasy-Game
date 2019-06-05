@@ -49,7 +49,9 @@ class EnemyFightPopup extends Component {
 
     renderTie = () => {
         return (<div>
-            its a tie...
+            <div>
+                <button onClick={this.endFight}>End fight</button>
+            </div>
         </div>)
     }
 
@@ -71,11 +73,11 @@ class EnemyFightPopup extends Component {
     endFight = () => {
         const winner = this.props.gameStore.fightStore.winner
         const loser = this.props.gameStore.fightStore.loser
-        this.props.gameStore.calculateWinnerLosePlayerVsEnemy(winner,loser)
+        this.props.gameStore.calculateWinnerLosePlayerVsEnemy(winner, loser)
         // this.props.gameStore.getTranslateLifeFromPlayerToPlayer(winner, loser)
         this.props.gameStore.resetFightStats()
     }
-    
+
     renderWinnerLoser = () => {
 
         return (
