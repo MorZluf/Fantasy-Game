@@ -14,7 +14,7 @@ export class GameStore {
     @observable fightStore
     @observable clientState = {
         isCurrentPlayer: true,
-        currentTileType: "",
+        currentTile: {},
         movementRollMade: false,
         movementMade: false,
         cardDrawn: false,
@@ -261,18 +261,19 @@ export class GameStore {
     }
     @action movePlayer = key => {
         const tile = this.getTile(this.getTileCoords(key))
+        this.clientState.currentTile = tile
         if (this.player.name !== this.currentPlayer.name) { return }
         else if (!this.clientState.movementRollMade) { return }
         else if (!tile.canMoveHere) { return }
         else {
             this.socket.emit('move-player', { player: this.currentPlayer.name, coords: this.getTileCoords(key) })
             this.clientState.movementMade = true
-            this.determineTileActions(tile)
+            this.determineTileActions(tile, false)
         }
     }
 
-    determineTileActions = tile => {
-        if (tile.players.length > 0) { this.game.popupType = "combat_popup" }
+    @action determineTileActions = (tile, noCombat) => {
+        if (tile.players.length > 0 && !noCombat) { this.game.popupType = "combat_popup" }
         else if (tile.type === "Village") { this.game.popupType = "village_options" }
         else if (tile.type === "Fields") { this.game.popupType = "field_options" }
         else if (tile.type === "Woods") { this.game.popupType = "woods_options" }
@@ -327,6 +328,7 @@ export class GameStore {
     @action getCurrentTurn = () => {
         this.socket.on('new-turn', newPlayer => {
             this.game.popupType = ""
+            this.clientState.currentTile = {}
             this.currentPlayer = newPlayer
             this.setCurrentPlayerStatus()
         })
