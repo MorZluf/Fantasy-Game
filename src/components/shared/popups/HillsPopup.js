@@ -4,7 +4,7 @@ import AdventureCard from './../AdventureCard';
 
 @inject("gameStore")
 @observer
-class FieldPopup extends Component {
+class HillsPopup extends Component {
 
     drawCard = () => this.props.gameStore.drawAdventureCard()
 
@@ -27,8 +27,8 @@ class FieldPopup extends Component {
 
     render() {
         return (
-            <div className="field-popup">
-                <h4>Field</h4>
+            <div className="hills-popup">
+                <h4>Hills</h4>
                 {this.props.gameStore.clientState.cardDrawn ? 
                     <div>
                         <AdventureCard details={this.props.gameStore.drawnCard} />
@@ -49,4 +49,4 @@ class FieldPopup extends Component {
     }
 }
 
-export default FieldPopup
+export default HillsPopup

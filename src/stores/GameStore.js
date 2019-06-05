@@ -186,6 +186,9 @@ export class GameStore {
         if (tile.players.length > 0) { this.game.popupType = "combat_popup" }
         else if (tile.type === "Village") { this.game.popupType = "village_options" }
         else if (tile.type === "Fields") { this.game.popupType = "field_options" }
+        else if (tile.type === "Woods") { this.game.popupType = "woods_options" }
+        else if (tile.type === "Hills") { this.game.popupType = "hills_options" }
+        else if (tile.type === "Guardian") { this.game.popupType = "guardian_options" }
         else { this.game.popupType = "" }
         this.socket.emit('change-popup-type', this.game.popupType)
     }
