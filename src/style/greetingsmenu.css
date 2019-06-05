@@ -46,15 +46,18 @@
 
 
 .select-class-container{
-    width: 90vw;
+    width: 70vw;
     height: 90vh;
     background-color: black;
-    position: absolute;
+    position: fixed;
     left: 5vw;
-    top: 5vh;
+    top: 3vh;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-gap: 10px;
+    padding-left: 10vw;
+    padding-right: 10vw;
+    padding-top: 2vw;
+    /* grid-gap: 10px; */
     justify-items: center;
     align-items: center;
     text-align: center;
@@ -63,11 +66,21 @@
 .class-popup-container{
     color: black;
     font-size: 15px;
+    /* height: 90%;
+    width: 90%; */
 } 
 
+.select-class-container > a > button {
+    width: 300px;
+}
+
+.choose-class-btn-container > button {
+    width: 300px;
+}
+
 .classImg{
-    width: 110px;
-    height: 160px;
+    width: 135px;
+    height: 180px;
 }
 
 .class-stats{
@@ -77,14 +90,15 @@
 
 .ability{
     display: block;
+    text-align: left;
+    margin: 8px;
 }
 
 .class-card{
     background-color: rgb(247, 211, 144);
     border: 5px double green;
     cursor: pointer;
-    height: 70%;
-    width: 80%;
-    margin-left: 25px;
-    
+    height: 520px;
+    width: 300px;
+    margin-bottom: 1vh;
 }
