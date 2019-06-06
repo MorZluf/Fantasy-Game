@@ -7,6 +7,17 @@ import { observer, inject } from 'mobx-react';
 @inject("gameStore")
 @observer
 class BoardControls extends Component {
+    
+    checkCurrentPlayer = () => this.props.client === this.props.gameStore.currentPlayer.name
+
+    endTurn = () => this.props.gameStore.endTurn()
+
+    canEndTurn = () => {
+        console.log("here")
+        return this.checkCurrentPlayer() && 
+        this.props.gameStore.clientState.isCurrentPlayer &&
+        this.props.gameStore.clientState.movementMade
+    }
 
     render() {
         return (<div className="board-controls">
@@ -17,6 +28,10 @@ class BoardControls extends Component {
                     <div className="board-actions">
                         <RollDie />
                     </div>
+                    <button onClick={this.endTurn} style={{
+                            visibility: this.canEndTurn() ? "visible" : "hidden",
+                            textAlign: this.props.gameStore.player.name === "Player_1" ? "left" : "right"
+                        }}>End turn</button>
             </div>)
     }
 }

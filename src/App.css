@@ -20,12 +20,14 @@
 .game-screen {
   /* height: 100%;
   width: 100%; */
-  display: grid;;
+  display: grid;
+  z-index: -1;
 }
 
 .main-controls {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  height: 20%;
 }
 
 button{

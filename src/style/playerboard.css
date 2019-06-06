@@ -5,15 +5,34 @@
     justify-items: center;
     height: 20%;
     width: 100%;
+    z-index: 1;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+    "pn pc"
+    "pd pd"
 }
 
 .current-player {
     border: 5px solid gold;
 }
 
+.player-board-name {
+    grid-area: pn;
+    font-size: 16px;
+    font-weight: bold;
+    color: #153568;
+}
+
 .player-controls {
+    grid-area: pc;
     display: grid;
-    grid-template-columns: repeat(5, 1fr)
+    grid-template-columns: repeat(4, 1fr)
+}
+
+.player-details {
+    grid-area: pd;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr)
 }
 
 .player-stat{
