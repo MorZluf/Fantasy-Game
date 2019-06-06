@@ -2,14 +2,19 @@
     display: grid;
     grid-template-rows: 1fr 5fr;
     background-color: lightyellow;
-    justify-items: center;
-    height: 20%;
+    /* justify-items: center; */
+    align-items: center;
+    height: 50%;
     width: 100%;
     z-index: 1;
     grid-template-columns: 1fr 1fr;
     grid-template-areas:
     "pn pc"
-    "pd pd"
+    "pd pd";
+    padding: 5px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+    background-color: rgba(71, 76, 82, 0.993)
 }
 
 .current-player {
@@ -32,7 +37,8 @@
 .player-details {
     grid-area: pd;
     display: grid;
-    grid-template-columns: repeat(3, 1fr)
+    grid-template-columns: repeat(3, 1fr);
+    color: darkgreen;
 }
 
 .player-stat{

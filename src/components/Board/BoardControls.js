@@ -8,14 +8,10 @@ import { observer, inject } from 'mobx-react';
 @observer
 class BoardControls extends Component {
     
-    checkCurrentPlayer = () => this.props.client === this.props.gameStore.currentPlayer.name
-
     endTurn = () => this.props.gameStore.endTurn()
 
     canEndTurn = () => {
-        console.log("here")
-        return this.checkCurrentPlayer() && 
-        this.props.gameStore.clientState.isCurrentPlayer &&
+        return this.props.gameStore.clientState.isCurrentPlayer &&
         this.props.gameStore.clientState.movementMade
     }
 

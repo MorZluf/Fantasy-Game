@@ -29,11 +29,11 @@ class Player extends Component {
 
     checkCurrentPlayer = () => this.props.client === this.props.gameStore.currentPlayer.name
 
-    endTurn = () => this.props.gameStore.endTurn()
+    // endTurn = () => this.props.gameStore.endTurn()
 
-    canEndTurn = () => this.checkCurrentPlayer() && 
-        this.props.gameStore.clientState.isCurrentPlayer &&
-        this.props.gameStore.clientState.movementMade
+    // canEndTurn = () => this.checkCurrentPlayer() && 
+    //     this.props.gameStore.clientState.isCurrentPlayer &&
+    //     this.props.gameStore.clientState.movementMade
 
     render() {
         const player = this.props.player
@@ -50,7 +50,7 @@ class Player extends Component {
                         {this.state.inventoryPopUp ? <InventoryPopUp close={this.closeInventoryPopUp} inventory={player.inventory}/> : null}
                         {this.state.followersPopUp ? <FollowerPopUp close={this.closeFollowersPopUp} followers={player.followers}/> : null}
                 </div>
-                <button onClick={this.endTurn} style={{visibility: this.canEndTurn() ? "visible" : "hidden"}}>End turn</button>
+                {/* <button onClick={this.endTurn} style={{visibility: this.canEndTurn() ? "visible" : "hidden"}}>End turn</button> */}
              </div>
         )
     }
