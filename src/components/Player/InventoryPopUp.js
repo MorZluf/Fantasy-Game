@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 class InventoryPopUp extends Component {
     render(){
         const inventory = this.props.inventory
-        return (<div>
+        return (<div className="inventory">
             <h4>Inventory:</h4>
             {inventory.map((i, j) => <div key={j}>{i.title}</div>)}
         </div>)

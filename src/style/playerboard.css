@@ -88,3 +88,7 @@
 .player-details > h5 {
     cursor: pointer;
 }
+
+.follower-collection, .inventory {
+    color: rgba(71, 76, 82, 0.993);
+}
