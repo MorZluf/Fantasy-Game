@@ -3,7 +3,7 @@
     height: 92%;
     position: absolute;
     /* top: 102%; */
-    margin-top: 5%;
+    margin-top: 3%;
     left: 50%;
     margin-left: -50%;
     z-index: 0;
@@ -16,7 +16,7 @@
     margin-top: 8vh;
     margin-left: 12vw;
     margin-right: 12vw;
-    margin-bottom: 4vh;
+    /* margin-bottom: 4vh; */
 }
 
 .valid-move {
