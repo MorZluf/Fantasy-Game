@@ -9,7 +9,7 @@ const unirest = require('unirest')     // Data Access Object - the actual DOer.
 const constants = require('../../Config')
 const APIKey = constants.API_KEY
 
-
+const enemies = require('./enemies.json')
 
 class dataDao {
     constructor() {
@@ -138,8 +138,9 @@ class dataDao {
     }
 
     async handleArrEnemies() {
-        let data = await this.getEnemiesFromApi()
-        let arrEnemies = data.body.filter(enemy => enemy.flavor)
+        // let data = await this.getEnemiesFromApi()
+        // let arrEnemies = data.body.filter(enemy => enemy.flavor)
+        let arrEnemies = enemies.filter(enemy => enemy.flavor)
         return arrEnemies
     }
 

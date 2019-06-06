@@ -1,0 +1,961 @@
+[
+    {
+        "cardId": "BRM_004",
+        "dbfId": "2286",
+        "name": "Twilight Whelp",
+        "cardSet": "Blackrock Mountain",
+        "type": "Minion",
+        "rarity": "Common",
+        "cost": 1,
+        "attack": 2,
+        "health": 1,
+        "text": "<b>Battlecry:</b> If you're holding a Dragon, gain +2 Health.",
+        "flavor": "The twilight whelps are basically magic-vampires. Despite this, they are not a reference to any popular series of novels.",
+        "artist": "Sam Nielson",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Priest",
+        "howToGet": "Unlocked in Blackrock Spire, in the Blackrock Mountain adventure.",
+        "howToGetGold": "Crafting unlocked in Blackrock Spire, in the Blackrock Mountain adventure.",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/BRM_004.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/BRM_004_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "NEW1_023",
+        "dbfId": "609",
+        "name": "Faerie Dragon",
+        "cardSet": "Classic",
+        "type": "Minion",
+        "rarity": "Common",
+        "cost": 2,
+        "attack": 3,
+        "health": 2,
+        "text": "Can't be targeted by spells or Hero Powers.",
+        "flavor": "Adorable.  Immune to Magic.  Doesn't pee on the rug.  The perfect pet!",
+        "artist": "Samwise",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/NEW1_023.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/NEW1_023_premium.gif",
+        "locale": "enUS"
+    },
+    {
+        "cardId": "GIL_683",
+        "dbfId": "47607",
+        "name": "Marsh Drake",
+        "cardSet": "The Witchwood",
+        "type": "Minion",
+        "rarity": "Common",
+        "cost": 3,
+        "attack": 5,
+        "health": 4,
+        "text": "<b>Battlecry:</b> Summon a 2/1 <b>Poisonous</b> Drakeslayer for your opponent.",
+        "flavor": "She would have gotten away with it, if it weren't for that meddling Drakeslayer.",
+        "artist": "Wayne Wu",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/GIL_683.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/GIL_683_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            },
+            {
+                "name": "Poisonous"
+            }
+        ]
+    },
+    {
+        "cardId": "BRM_020",
+        "dbfId": "2306",
+        "name": "Dragonkin Sorcerer",
+        "cardSet": "Blackrock Mountain",
+        "type": "Minion",
+        "rarity": "Common",
+        "cost": 4,
+        "attack": 3,
+        "health": 5,
+        "text": "Whenever <b>you</b> target this minion with a spell, gain +1/+1.",
+        "flavor": "Dragonkin Sorcerers be all \"I'm a wizard\" and everyone else be all \"daaaaang\".",
+        "artist": "Edouard Guiton & Stuido HIVE",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "howToGet": "Unlocked in Hidden Laboratory, in the Blackrock Mountain adventure.",
+        "howToGetGold": "Crafting unlocked in Hidden Laboratory, in the Blackrock Mountain adventure.",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/BRM_020.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/BRM_020_premium.gif",
+        "locale": "enUS"
+    },
+    {
+        "cardId": "LOOT_410",
+        "dbfId": "45899",
+        "name": "Duskbreaker",
+        "cardSet": "Kobolds & Catacombs",
+        "type": "Minion",
+        "rarity": "Rare",
+        "cost": 4,
+        "attack": 3,
+        "health": 3,
+        "text": "<b>Battlecry:</b> If you're holding\\na Dragon, deal 3 damage to all other minions.",
+        "flavor": "Waking up at the break of dusk is just not as impressive.",
+        "artist": "Alex Horley Orlandelli",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Priest",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/LOOT_410.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/LOOT_410_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "LOOT_118",
+        "dbfId": "43465",
+        "name": "Ebon Dragonsmith",
+        "cardSet": "Kobolds & Catacombs",
+        "type": "Minion",
+        "rarity": "Rare",
+        "cost": 4,
+        "attack": 3,
+        "health": 4,
+        "text": "<b>Battlecry:</b> Reduce the Cost of a random weapon in your hand by (2).",
+        "flavor": "Having a furnace-mouth is really handy for a blacksmith.",
+        "artist": "Nicola Saviori",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/LOOT_118.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/LOOT_118_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "LOOT_144",
+        "dbfId": "43507",
+        "name": "Hoarding Dragon",
+        "cardSet": "Kobolds & Catacombs",
+        "type": "Minion",
+        "rarity": "Common",
+        "cost": 4,
+        "attack": 5,
+        "health": 6,
+        "text": "<b>Deathrattle:</b> Give your opponent two Coins.",
+        "flavor": "Keeps his two cents to himself.",
+        "artist": "Hideaki Takamura",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/LOOT_144.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/LOOT_144_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Deathrattle"
+            }
+        ]
+    },
+    {
+        "cardId": "BRM_026",
+        "dbfId": "2283",
+        "name": "Hungry Dragon",
+        "cardSet": "Blackrock Mountain",
+        "type": "Minion",
+        "rarity": "Common",
+        "cost": 4,
+        "attack": 5,
+        "health": 6,
+        "text": "<b>Battlecry:</b> Summon a random 1-Cost minion for_your opponent.",
+        "flavor": "Hungry Hungry Dragon is NOT a fun game.",
+        "artist": "John Polidora",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "howToGet": "Unlocked in Blackwing Lair, in the Blackrock Mountain adventure.",
+        "howToGetGold": "Crafting unlocked in Blackwing Lair, in the Blackrock Mountain adventure.",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/BRM_026.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/BRM_026_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "OG_320",
+        "dbfId": "38957",
+        "name": "Midnight Drake",
+        "cardSet": "Whispers of the Old Gods",
+        "type": "Minion",
+        "rarity": "Rare",
+        "cost": 4,
+        "attack": 1,
+        "health": 4,
+        "text": "<b>Battlecry:</b> Gain +1 Attack for each other card\\nin your hand.",
+        "flavor": "Still fearsome in the daytime.",
+        "artist": "Todd Lockwood",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/OG_320.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/OG_320_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "EX1_043",
+        "dbfId": "1037",
+        "name": "Twilight Drake",
+        "cardSet": "Classic",
+        "type": "Minion",
+        "faction": "Neutral",
+        "rarity": "Rare",
+        "cost": 4,
+        "attack": 4,
+        "health": 1,
+        "text": "<b>Battlecry:</b> Gain +1 Health for each card in your hand.",
+        "flavor": "Twilight drakes feed on Mystical Energy.  And Tacos.",
+        "artist": "Jaemin Kim",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/EX1_043.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/EX1_043_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "AT_017",
+        "dbfId": "2569",
+        "name": "Twilight Guardian",
+        "cardSet": "The Grand Tournament",
+        "type": "Minion",
+        "rarity": "Epic",
+        "cost": 4,
+        "attack": 2,
+        "health": 6,
+        "text": "<b>Battlecry:</b> If you're holding a Dragon, gain +1 Attack and <b>Taunt</b>.",
+        "flavor": "A result of magical experiments carried out by the Black Dragonflight, it's not his fault that he's a vicious killer.",
+        "artist": "Slawomir Maniak",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/AT_017.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/AT_017_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Taunt"
+            },
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "EX1_284",
+        "dbfId": "825",
+        "name": "Azure Drake",
+        "cardSet": "Hall of Fame",
+        "type": "Minion",
+        "faction": "Neutral",
+        "rarity": "Rare",
+        "cost": 5,
+        "attack": 4,
+        "health": 4,
+        "text": "<b>Spell Damage +1</b>\\n<b>Battlecry:</b> Draw a card.",
+        "flavor": "They initially planned to be the Beryl or Cerulean drakes, but those felt a tad too pretentious.",
+        "artist": "Ben Zhang",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/EX1_284.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/EX1_284_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Spell Damage"
+            },
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "GIL_905",
+        "dbfId": "48902",
+        "name": "Carrion Drake",
+        "cardSet": "The Witchwood",
+        "type": "Minion",
+        "rarity": "Rare",
+        "cost": 5,
+        "attack": 3,
+        "health": 7,
+        "text": "<b>Battlecry:</b> If a minion died this turn, gain <b>Poisonous</b>.",
+        "flavor": "Fits easily into overhead luggage bins.",
+        "artist": "Steve Prescott",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Hunter",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/GIL_905.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/GIL_905_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            },
+            {
+                "name": "Poisonous"
+            }
+        ]
+    },
+    {
+        "cardId": "ICC_029",
+        "dbfId": "42442",
+        "name": "Cobalt Scalebane",
+        "cardSet": "Knights of the Frozen Throne",
+        "type": "Minion",
+        "rarity": "Common",
+        "cost": 5,
+        "attack": 5,
+        "health": 5,
+        "text": "At the end of your turn, give another random friendly minion +3 Attack.",
+        "flavor": "You get a sword! And you get a sword! Everybody gets a sword!",
+        "artist": "Jim Nelson",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/ICC_029.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/ICC_029_premium.gif",
+        "locale": "enUS"
+    },
+    {
+        "cardId": "BRM_018",
+        "dbfId": "2299",
+        "name": "Dragon Consort",
+        "cardSet": "Blackrock Mountain",
+        "type": "Minion",
+        "rarity": "Rare",
+        "cost": 5,
+        "attack": 5,
+        "health": 5,
+        "text": "<b>Battlecry:</b> The next Dragon you play costs (2) less.",
+        "flavor": "Everybody wants someone to snuggle with. Even giant armored scaly draconic beasts of destruction.",
+        "artist": "Raymond Swanland",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Paladin",
+        "howToGet": "Unlocked in Blackrock Spire, in the Blackrock Mountain adventure.",
+        "howToGetGold": "Crafting unlocked in Blackrock Spire, in the Blackrock Mountain adventure.",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/BRM_018.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/BRM_018_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "CFM_605",
+        "dbfId": "40378",
+        "name": "Drakonid Operative",
+        "cardSet": "Mean Streets of Gadgetzan",
+        "type": "Minion",
+        "rarity": "Rare",
+        "cost": 5,
+        "attack": 5,
+        "health": 6,
+        "text": "[x]<b>Battlecry:</b> If you're holding a\\nDragon, <b>Discover</b> a card in\\n_your opponent's deck.",
+        "flavor": "His job is to spy on the Goons and the Jade Lotus, but he's OBVIOUSLY a dragon so it's pretty hard work.",
+        "artist": "Zoltan Boros",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Priest",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/CFM_605.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/CFM_605_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Discover"
+            },
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "ICC_027",
+        "dbfId": "42439",
+        "name": "Bone Drake",
+        "cardSet": "Knights of the Frozen Throne",
+        "type": "Minion",
+        "rarity": "Rare",
+        "cost": 6,
+        "attack": 6,
+        "health": 5,
+        "text": "<b>Deathrattle:</b> Add a random Dragon to your hand.",
+        "flavor": "The bone drake brings all the dragons to the yard. He would teach you, but you have no cards.",
+        "artist": "Peter Stapleton",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/ICC_027.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/ICC_027_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Deathrattle"
+            }
+        ]
+    },
+    {
+        "cardId": "KAR_033",
+        "dbfId": "39210",
+        "name": "Book Wyrm",
+        "cardSet": "One Night in Karazhan",
+        "type": "Minion",
+        "rarity": "Rare",
+        "cost": 6,
+        "attack": 3,
+        "health": 6,
+        "text": "<b>Battlecry:</b> If you're holding a Dragon, destroy an enemy minion with 3 or less Attack.",
+        "flavor": "His favorites are classic tragedies like \"The Hobbit\" and \"Grendel\".",
+        "artist": "Dave Allsop",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "howToGet": "Unlocked in the Spire, in One Night in Karazhan.",
+        "howToGetGold": "Crafting unlocked in the Spire, in One Night in Karazhan.",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/KAR_033.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/KAR_033_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "AT_008",
+        "dbfId": "2544",
+        "name": "Coldarra Drake",
+        "cardSet": "The Grand Tournament",
+        "type": "Minion",
+        "rarity": "Epic",
+        "cost": 6,
+        "attack": 6,
+        "health": 6,
+        "text": "You can use your Hero Power any number of times.",
+        "flavor": "The Grand Tournament has a \"No dragons allowed\" policy, but it's rarely enforced.",
+        "artist": "Christopher Moeller",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Mage",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/AT_008.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/AT_008_premium.gif",
+        "locale": "enUS"
+    },
+    {
+        "cardId": "BRM_024",
+        "dbfId": "2257",
+        "name": "Drakonid Crusher",
+        "cardSet": "Blackrock Mountain",
+        "type": "Minion",
+        "rarity": "Common",
+        "cost": 6,
+        "attack": 6,
+        "health": 6,
+        "text": "<b>Battlecry:</b> If your opponent has 15 or less Health, gain +3/+3.",
+        "flavor": "Drakonids were created to have all the bad parts of a dragon in the form of a humanoid. But, like, why?",
+        "artist": "Slawomir Maniak",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "howToGet": "Unlocked in Hidden Laboratory, in the Blackrock Mountain adventure.",
+        "howToGetGold": "Crafting unlocked in Hidden Laboratory, in the Blackrock Mountain adventure.",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/BRM_024.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/BRM_024_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "OG_271",
+        "dbfId": "38832",
+        "name": "Scaled Nightmare",
+        "cardSet": "Whispers of the Old Gods",
+        "type": "Minion",
+        "rarity": "Epic",
+        "cost": 6,
+        "attack": 2,
+        "health": 8,
+        "text": "At the start of your turn, double this minion's Attack.",
+        "flavor": "I like it because it scales.",
+        "artist": "Luke Mancini",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/OG_271.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/OG_271_premium.gif",
+        "locale": "enUS"
+    },
+    {
+        "cardId": "BRM_025",
+        "dbfId": "2258",
+        "name": "Volcanic Drake",
+        "cardSet": "Blackrock Mountain",
+        "type": "Minion",
+        "rarity": "Common",
+        "cost": 6,
+        "attack": 6,
+        "health": 4,
+        "text": "Costs (1) less for each minion that died this turn.",
+        "flavor": "Volcanic Drakes breathe lava instead of fire. The antacid vendor at Thorium Point does a brisk business with them.",
+        "artist": "Lucas Graciano",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "howToGet": "Unlocked in Hidden Laboratory, in the Blackrock Mountain adventure.",
+        "howToGetGold": "Crafting unlocked in Hidden Laboratory, in the Blackrock Mountain adventure.",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/BRM_025.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/BRM_025_premium.gif",
+        "locale": "enUS"
+    },
+    {
+        "cardId": "AT_123",
+        "dbfId": "2682",
+        "name": "Chillmaw",
+        "cardSet": "The Grand Tournament",
+        "type": "Minion",
+        "rarity": "Legendary",
+        "cost": 7,
+        "attack": 6,
+        "health": 6,
+        "text": "[x]<b>Taunt</b>\\n<b>Deathrattle:</b> If you're holding\\na Dragon, deal 3 damage\\nto all minions.",
+        "flavor": "Chillmaw keeps trying to ruin the Grand Tournament, and she would've done it too, if it weren't for those dang kids!",
+        "artist": "Raymond Swanland",
+        "collectible": true,
+        "elite": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/AT_123.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/AT_123_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Deathrattle"
+            },
+            {
+                "name": "Taunt"
+            }
+        ]
+    },
+    {
+        "cardId": "GIL_190",
+        "dbfId": "46862",
+        "name": "Nightscale Matriarch",
+        "cardSet": "The Witchwood",
+        "type": "Minion",
+        "rarity": "Rare",
+        "cost": 7,
+        "attack": 4,
+        "health": 9,
+        "text": "Whenever a friendly minion is healed, summon a 3/3_Whelp.",
+        "flavor": "Everywhelp, get in here!",
+        "artist": "Slawomir Maniak",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Priest",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/GIL_190.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/GIL_190_premium.gif",
+        "locale": "enUS"
+    },
+    {
+        "cardId": "LOOT_538",
+        "dbfId": "46544",
+        "name": "Temporus",
+        "cardSet": "Kobolds & Catacombs",
+        "type": "Minion",
+        "rarity": "Legendary",
+        "cost": 7,
+        "attack": 6,
+        "health": 6,
+        "text": "<b>Battlecry:</b> Your opponent takes two turns. Then you take two turns.",
+        "flavor": "Follows adventurers, seeking the ultimate time magic: the ability to reload.",
+        "artist": "Daren Bader",
+        "collectible": true,
+        "elite": true,
+        "race": "Dragon",
+        "playerClass": "Priest",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/LOOT_538.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/LOOT_538_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "BRM_031",
+        "dbfId": "2280",
+        "name": "Chromaggus",
+        "cardSet": "Blackrock Mountain",
+        "type": "Minion",
+        "rarity": "Legendary",
+        "cost": 8,
+        "attack": 6,
+        "health": 8,
+        "text": "Whenever you draw a card, put another copy into your hand.",
+        "flavor": "Left head and right head can never agree about what to eat for dinner, so they always end up just eating ramen again.",
+        "artist": "Todd Lockwood",
+        "collectible": true,
+        "elite": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "howToGet": "Unlocked in Blackwing Lair, in the Blackrock Mountain adventure.",
+        "howToGetGold": "Crafting unlocked in Blackwing Lair, in the Blackrock Mountain adventure.",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/BRM_031.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/BRM_031_premium.gif",
+        "locale": "enUS"
+    },
+    {
+        "cardId": "UNG_848",
+        "dbfId": "41929",
+        "name": "Primordial Drake",
+        "cardSet": "Journey to Un'Goro",
+        "type": "Minion",
+        "rarity": "Epic",
+        "cost": 8,
+        "attack": 4,
+        "health": 8,
+        "text": "[x]<b>Taunt</b>\\n<b>Battlecry:</b> Deal 2 damage\\nto all other minions.",
+        "flavor": "Before he became a rap artist.",
+        "artist": "Mike Sass",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/UNG_848.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/UNG_848_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            },
+            {
+                "name": "Taunt"
+            }
+        ]
+    },
+    {
+        "cardId": "ICC_838",
+        "dbfId": "43506",
+        "name": "Sindragosa",
+        "cardSet": "Knights of the Frozen Throne",
+        "type": "Minion",
+        "rarity": "Legendary",
+        "cost": 8,
+        "attack": 8,
+        "health": 8,
+        "text": "<b>Battlecry:</b> Summon two 0/1 Frozen Champions.",
+        "flavor": "\"I recognize your effort but I think your magic still has room for improvement.\" - Sindragosa after taking a class on giving constructive feedback.",
+        "artist": "Alex Horley Orlandelli",
+        "collectible": true,
+        "elite": true,
+        "race": "Dragon",
+        "playerClass": "Mage",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/ICC_838.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/ICC_838_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "EX1_561",
+        "dbfId": "581",
+        "name": "Alexstrasza",
+        "cardSet": "Classic",
+        "type": "Minion",
+        "faction": "Neutral",
+        "rarity": "Legendary",
+        "cost": 9,
+        "attack": 8,
+        "health": 8,
+        "text": "<b>Battlecry:</b> Set a hero's remaining Health to 15.",
+        "flavor": "Alexstrasza the Life-Binder brings life and hope to everyone.  Except Deathwing.  And Malygos.  And Nekros.",
+        "artist": "Raymond Swanland",
+        "collectible": true,
+        "elite": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/EX1_561.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/EX1_561_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "EX1_563",
+        "dbfId": "436",
+        "name": "Malygos",
+        "cardSet": "Classic",
+        "type": "Minion",
+        "faction": "Neutral",
+        "rarity": "Legendary",
+        "cost": 9,
+        "attack": 4,
+        "health": 12,
+        "text": "<b>Spell Damage +5</b>",
+        "flavor": "Malygos hates it when mortals use magic.  He gets so mad!",
+        "artist": "Michael Komarck",
+        "collectible": true,
+        "elite": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/EX1_563.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/EX1_563_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Spell Damage"
+            }
+        ]
+    },
+    {
+        "cardId": "BRM_030",
+        "dbfId": "2261",
+        "name": "Nefarian",
+        "cardSet": "Blackrock Mountain",
+        "type": "Minion",
+        "rarity": "Legendary",
+        "cost": 9,
+        "attack": 8,
+        "health": 8,
+        "text": "<b>Battlecry:</b> Add 2 random spells to your hand <i>(from your opponent's class)</i>.",
+        "flavor": "They call him \"Blackwing\" because he's a black dragon...... and he's got wings.",
+        "artist": "Ruan Jia",
+        "collectible": true,
+        "elite": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "howToGet": "Unlocked in Hidden Laboratory, in the Blackrock Mountain adventure.",
+        "howToGetGold": "Crafting unlocked in Hidden Laboratory, in the Blackrock Mountain adventure.",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/BRM_030.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/BRM_030_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "EX1_560",
+        "dbfId": "411",
+        "name": "Nozdormu",
+        "cardSet": "Classic",
+        "type": "Minion",
+        "faction": "Neutral",
+        "rarity": "Legendary",
+        "cost": 9,
+        "attack": 8,
+        "health": 8,
+        "text": "Players only have 15 seconds to take their_turns.",
+        "flavor": "Time to write some flavor text.",
+        "artist": "James Ryman",
+        "collectible": true,
+        "elite": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/EX1_560.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/EX1_560_premium.gif",
+        "locale": "enUS"
+    },
+    {
+        "cardId": "EX1_562",
+        "dbfId": "363",
+        "name": "Onyxia",
+        "cardSet": "Classic",
+        "type": "Minion",
+        "faction": "Neutral",
+        "rarity": "Legendary",
+        "cost": 9,
+        "attack": 8,
+        "health": 8,
+        "text": "<b>Battlecry:</b> Summon 1/1 Whelps until your side of the battlefield is full.",
+        "flavor": "Onyxia long manipulated the Stormwind Court by disguising herself as Lady Katrana Prestor.   You would have thought that the giant wings and scales would have been a giveaway.",
+        "artist": "Dany Orizio",
+        "collectible": true,
+        "elite": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/EX1_562.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/EX1_562_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "LOOT_137",
+        "dbfId": "43494",
+        "name": "Sleepy Dragon",
+        "cardSet": "Kobolds & Catacombs",
+        "type": "Minion",
+        "rarity": "Common",
+        "cost": 9,
+        "attack": 4,
+        "health": 12,
+        "text": "<b>Taunt</b>",
+        "flavor": "Local villagers call her \"Naps Under the Mountain.\"",
+        "artist": "Sean McNally",
+        "collectible": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/LOOT_137.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/LOOT_137_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Taunt"
+            }
+        ]
+    },
+    {
+        "cardId": "EX1_572",
+        "dbfId": "1186",
+        "name": "Ysera",
+        "cardSet": "Classic",
+        "type": "Minion",
+        "faction": "Neutral",
+        "rarity": "Legendary",
+        "cost": 9,
+        "attack": 4,
+        "health": 12,
+        "text": "At the end of your turn, add_a Dream Card to_your hand.",
+        "flavor": "Ysera rules the Emerald Dream.  Which is some kind of green-mirror-version of the real world, or something?",
+        "artist": "Gabor Szikszai",
+        "collectible": true,
+        "elite": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/EX1_572.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/EX1_572_premium.gif",
+        "locale": "enUS"
+    },
+    {
+        "cardId": "NEW1_030",
+        "dbfId": "834",
+        "name": "Deathwing",
+        "cardSet": "Classic",
+        "type": "Minion",
+        "rarity": "Legendary",
+        "cost": 10,
+        "attack": 12,
+        "health": 12,
+        "text": "<b>Battlecry:</b> Destroy all other minions and discard your_hand.",
+        "flavor": "Once a noble dragon known as Neltharion, Deathwing lost his mind and shattered Azeroth before finally being defeated.  Daddy issues?",
+        "artist": "Bernie Kang",
+        "collectible": true,
+        "elite": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/NEW1_030.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/NEW1_030_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    },
+    {
+        "cardId": "OG_317",
+        "dbfId": "38943",
+        "name": "Deathwing, Dragonlord",
+        "cardSet": "Whispers of the Old Gods",
+        "type": "Minion",
+        "rarity": "Legendary",
+        "cost": 10,
+        "attack": 12,
+        "health": 12,
+        "text": "<b>Deathrattle:</b> Put all Dragons from your hand into the battlefield.",
+        "flavor": "To his credit, Deathwing really took to heart the feedback he was receiving that he needed to be \"more of a team player\".",
+        "artist": "Alex Horley Orlandelli",
+        "collectible": true,
+        "elite": true,
+        "race": "Dragon",
+        "playerClass": "Neutral",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/OG_317.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/OG_317_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Deathrattle"
+            }
+        ]
+    },
+    {
+        "cardId": "GIL_128",
+        "dbfId": "46678",
+        "name": "Emeriss",
+        "cardSet": "The Witchwood",
+        "type": "Minion",
+        "rarity": "Legendary",
+        "cost": 10,
+        "attack": 8,
+        "health": 8,
+        "text": "<b>Battlecry:</b> Double the Attack and Health of all minions in_your hand.",
+        "flavor": "Taste your world's corruption! It tastes like chicken.",
+        "artist": "James Ryman",
+        "collectible": true,
+        "elite": true,
+        "race": "Dragon",
+        "playerClass": "Hunter",
+        "img": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/GIL_128.png",
+        "imgGold": "http://media.services.zam.com/v1/media/byName/hs/cards/enus/animated/GIL_128_premium.gif",
+        "locale": "enUS",
+        "mechanics": [
+            {
+                "name": "Battlecry"
+            }
+        ]
+    }
+]
