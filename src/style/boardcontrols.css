@@ -3,9 +3,9 @@
     grid-template-rows: 1fr 3fr 1fr;
     position: absolute;
     width: 50vw;
-    height: 28vh;
+    height: 36vh;
     /* top: 80%; */
-    margin-top: 28%;
+    margin-top: 20%;
     left: 50%;
     margin-left: -25%;
 }
