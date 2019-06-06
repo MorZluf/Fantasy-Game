@@ -18,14 +18,17 @@
 }
 
 .game-screen {
-  /* height: 100%;
-  width: 100%; */
-  display: grid;;
+  height: 10vh;
+  width: 100%;
+  display: grid;
+  z-index: -1;
 }
 
 .main-controls {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  height: 20%;
+  /* background-color: rgba(53, 57, 61, 0.993) */
 }
 
 button{

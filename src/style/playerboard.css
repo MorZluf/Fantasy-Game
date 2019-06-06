@@ -2,27 +2,60 @@
     display: grid;
     grid-template-rows: 1fr 5fr;
     background-color: lightyellow;
-    justify-items: center;
-    height: 20%;
+    /* justify-items: center; */
+    align-items: center;
+    height: 50%;
     width: 100%;
+    z-index: 1;
+    grid-template-columns: 1fr 2fr;
+    grid-template-areas:
+    "pn pc"
+    "pd pd";
+    padding: 5px;
+    padding-bottom: 20px;
+    box-sizing: border-box;
+    background-color: rgba(71, 76, 82, 0.993);
+    color: ivory;
 }
 
 .current-player {
     border: 5px solid gold;
 }
 
-.player-controls {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr)
+.player-board-name {
+    grid-area: pn;
+    font-size: 16px;
+    font-weight: bold;
+    /* color: #153568; */
 }
+
+.player-controls {
+    grid-area: pc;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr)
+}
+
+.player-details {
+    grid-area: pd;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    /* color: darkgreen; */
+}
+
+/* .stat-unit {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    text-align: center;
+    align-content: center;
+} */
 
 .player-stat{
     margin: 5px;
-    width: 20px;
-    height: 20px;
+    width: 10px;
+    height: 10px;
     border-radius: 50%;
     align-content: center;
-    padding:10px;
+    padding: 10px;
     text-align: center;
     -moz-box-shadow: 0 0 5px 5px #888;
     -webkit-box-shadow: 0 0 5px 5px#888;
