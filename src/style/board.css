@@ -2,8 +2,8 @@
     width: 100%;
     height: 92%;
     position: absolute;
-    top: 102%;
-    margin-top: -46%;
+    /* top: 102%; */
+    margin-top: 5%;
     left: 50%;
     margin-left: -50%;
     z-index: 0;

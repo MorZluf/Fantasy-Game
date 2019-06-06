@@ -1,9 +1,11 @@
 .general-popup-container{
-    background: pink;
+    background: lightgrey;
+    display: grid;
+    justify-items: center;
 }
 
 .start-battle { 
-    background: pink;
+    background: lightgrey;
     display: grid;
     grid-template-areas:
     "p1 vs p2";
