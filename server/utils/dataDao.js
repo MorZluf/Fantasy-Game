@@ -8,7 +8,6 @@ const Item = require("../models/Item")
 const unirest = require('unirest')     // Data Access Object - the actual DOer.
 const constants = require('../../Config')
 const APIKey = constants.API_KEY
-
 const enemies = require('./enemies.json')
 
 class dataDao {
